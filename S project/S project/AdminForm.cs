@@ -75,9 +75,6 @@ namespace S_project
         {
             // i have a button click to update now, but I want to update my list whenever a rule is sent. So When that is Done i will adjust this.
             // create a method or a list from the student form.
-
-
-            //I messed some things with the Tab Layouts. Something in the properties // Robert
             Button removeRuleButton = new Button();
             Label rule = new Label();
             Label ruleNumber = new Label();
@@ -85,14 +82,14 @@ namespace S_project
             removeRuleButton.Size = new Size(98, 33);
             removeRuleButton.Text = "Remove";
 
-            int newRow = pnlHouseRules.RowCount + 1;
-            ruleNumber.Text = pnlHouseRules.RowCount.ToString();
+            int newRow = houseRulesPane.RowCount + 1;
+            ruleNumber.Text = houseRulesPane.RowCount.ToString();
             removeRuleButton.Click += new EventHandler((s, ea) => { ruleNumber.Hide(); rule.Hide(); removeRuleButton.Hide(); });
-            pnlHouseRules.RowCount = newRow;
-            pnlHouseRules.Controls.Add(ruleNumber, 0, newRow);
-            pnlHouseRules.Controls.Add(rule, 1, newRow);
-            pnlHouseRules.Controls.Add(removeRuleButton, 2, newRow);
-            pnlHouseRules.Update();
+            houseRulesPane.RowCount = newRow;
+            houseRulesPane.Controls.Add(ruleNumber, 0, newRow);
+            houseRulesPane.Controls.Add(rule, 1, newRow);
+            houseRulesPane.Controls.Add(removeRuleButton, 2, newRow);
+            houseRulesPane.Update();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -104,15 +101,14 @@ namespace S_project
             removeRuleButton.Size = new Size(98, 33);
             removeRuleButton.Text = "Remove";
 
-            int newRow = pnlMandatoryRules.RowCount + 1;
-            ruleNumber.Text = pnlMandatoryRules.RowCount.ToString();
+            int newRow = mandatoryRulesPane.RowCount + 1;
+            ruleNumber.Text = mandatoryRulesPane.RowCount.ToString();
             removeRuleButton.Click += new EventHandler((s, ea) => { ruleNumber.Hide(); rule.Hide(); removeRuleButton.Hide(); });
-            pnlMandatoryRules.RowCount = newRow;
-            pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow);
-            pnlMandatoryRules.Controls.Add(rule, 1, newRow);
-            pnlMandatoryRules.Controls.Add(removeRuleButton, 2, newRow);
-            pnlMandatoryRules.Update();
+            mandatoryRulesPane.RowCount = newRow;
+            mandatoryRulesPane.Controls.Add(ruleNumber, 0, newRow);
+            mandatoryRulesPane.Controls.Add(rule, 1, newRow);
+            mandatoryRulesPane.Controls.Add(removeRuleButton, 2, newRow);
+            mandatoryRulesPane.Update();
         }
-
     }
 }

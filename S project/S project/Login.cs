@@ -32,6 +32,7 @@ namespace S_project
             //Dummy data
             if (readOnce == false)
             {
+                mandatoryRules.Add(new MandatoryRule("No smoking"));
               
                 studentsList.Add(new Student("Mike", "Myers", 1, "student11", "deeznuts", 1));
                 studentsList.Add(new Student("Bob", "Marley", 2, "student12", "deeznuts", 1));

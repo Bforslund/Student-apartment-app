@@ -36,11 +36,11 @@
             this.lblSchedule = new System.Windows.Forms.Label();
             this.pnlSchedule = new System.Windows.Forms.Panel();
             this.Rules = new System.Windows.Forms.TabPage();
+            this.lbxSeparator = new System.Windows.Forms.ListBox();
             this.pnlHouseRules = new System.Windows.Forms.Panel();
             this.lbxHouseRules = new System.Windows.Forms.ListBox();
             this.pnlMandatoryRules = new System.Windows.Forms.Panel();
             this.lbxMandatoryRules = new System.Windows.Forms.ListBox();
-            this.lbxSeparator = new System.Windows.Forms.ListBox();
             this.btnComplain = new System.Windows.Forms.Button();
             this.btnProposeRule = new System.Windows.Forms.Button();
             this.pnlBackHouseRules = new System.Windows.Forms.Panel();
@@ -69,7 +69,7 @@
             this.tabCtrlStudent.Location = new System.Drawing.Point(12, 43);
             this.tabCtrlStudent.Name = "tabCtrlStudent";
             this.tabCtrlStudent.SelectedIndex = 0;
-            this.tabCtrlStudent.Size = new System.Drawing.Size(783, 448);
+            this.tabCtrlStudent.Size = new System.Drawing.Size(958, 498);
             this.tabCtrlStudent.TabIndex = 0;
             // 
             // Schedule
@@ -83,7 +83,7 @@
             this.Schedule.Location = new System.Drawing.Point(4, 25);
             this.Schedule.Name = "Schedule";
             this.Schedule.Padding = new System.Windows.Forms.Padding(3);
-            this.Schedule.Size = new System.Drawing.Size(775, 419);
+            this.Schedule.Size = new System.Drawing.Size(950, 469);
             this.Schedule.TabIndex = 0;
             this.Schedule.Text = "Schedule";
             // 
@@ -95,13 +95,13 @@
             this.pnlBackSchedule.Controls.Add(this.lblSchedule);
             this.pnlBackSchedule.Location = new System.Drawing.Point(-2, 1);
             this.pnlBackSchedule.Name = "pnlBackSchedule";
-            this.pnlBackSchedule.Size = new System.Drawing.Size(779, 47);
+            this.pnlBackSchedule.Size = new System.Drawing.Size(955, 47);
             this.pnlBackSchedule.TabIndex = 10;
             // 
             // lblSchedule
             // 
             this.lblSchedule.AutoSize = true;
-            this.lblSchedule.Location = new System.Drawing.Point(343, 16);
+            this.lblSchedule.Location = new System.Drawing.Point(433, 17);
             this.lblSchedule.Name = "lblSchedule";
             this.lblSchedule.Size = new System.Drawing.Size(83, 19);
             this.lblSchedule.TabIndex = 5;
@@ -114,16 +114,16 @@
             this.pnlSchedule.BackColor = System.Drawing.Color.Transparent;
             this.pnlSchedule.Location = new System.Drawing.Point(6, 54);
             this.pnlSchedule.Name = "pnlSchedule";
-            this.pnlSchedule.Size = new System.Drawing.Size(761, 357);
+            this.pnlSchedule.Size = new System.Drawing.Size(936, 407);
             this.pnlSchedule.TabIndex = 9;
             // 
             // Rules
             // 
             this.Rules.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
             this.Rules.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Rules.Controls.Add(this.lbxSeparator);
             this.Rules.Controls.Add(this.pnlHouseRules);
             this.Rules.Controls.Add(this.pnlMandatoryRules);
-            this.Rules.Controls.Add(this.lbxSeparator);
             this.Rules.Controls.Add(this.btnComplain);
             this.Rules.Controls.Add(this.btnProposeRule);
             this.Rules.Controls.Add(this.pnlBackHouseRules);
@@ -133,26 +133,36 @@
             this.Rules.Location = new System.Drawing.Point(4, 25);
             this.Rules.Name = "Rules";
             this.Rules.Padding = new System.Windows.Forms.Padding(3);
-            this.Rules.Size = new System.Drawing.Size(775, 419);
+            this.Rules.Size = new System.Drawing.Size(950, 469);
             this.Rules.TabIndex = 1;
             this.Rules.Text = "Rules";
+            // 
+            // lbxSeparator
+            // 
+            this.lbxSeparator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(118)))), ((int)(((byte)(194)))));
+            this.lbxSeparator.FormattingEnabled = true;
+            this.lbxSeparator.ItemHeight = 19;
+            this.lbxSeparator.Location = new System.Drawing.Point(401, -2);
+            this.lbxSeparator.Name = "lbxSeparator";
+            this.lbxSeparator.Size = new System.Drawing.Size(10, 479);
+            this.lbxSeparator.TabIndex = 3;
             // 
             // pnlHouseRules
             // 
             this.pnlHouseRules.AutoScroll = true;
             this.pnlHouseRules.Controls.Add(this.lbxHouseRules);
-            this.pnlHouseRules.Location = new System.Drawing.Point(322, 53);
+            this.pnlHouseRules.Location = new System.Drawing.Point(417, 53);
             this.pnlHouseRules.Name = "pnlHouseRules";
-            this.pnlHouseRules.Size = new System.Drawing.Size(445, 311);
+            this.pnlHouseRules.Size = new System.Drawing.Size(525, 363);
             this.pnlHouseRules.TabIndex = 7;
             // 
             // lbxHouseRules
             // 
             this.lbxHouseRules.FormattingEnabled = true;
             this.lbxHouseRules.ItemHeight = 19;
-            this.lbxHouseRules.Location = new System.Drawing.Point(17, 35);
+            this.lbxHouseRules.Location = new System.Drawing.Point(16, 17);
             this.lbxHouseRules.Name = "lbxHouseRules";
-            this.lbxHouseRules.Size = new System.Drawing.Size(406, 80);
+            this.lbxHouseRules.Size = new System.Drawing.Size(486, 327);
             this.lbxHouseRules.TabIndex = 0;
             // 
             // pnlMandatoryRules
@@ -161,34 +171,24 @@
             this.pnlMandatoryRules.Controls.Add(this.lbxMandatoryRules);
             this.pnlMandatoryRules.Location = new System.Drawing.Point(6, 53);
             this.pnlMandatoryRules.Name = "pnlMandatoryRules";
-            this.pnlMandatoryRules.Size = new System.Drawing.Size(294, 311);
+            this.pnlMandatoryRules.Size = new System.Drawing.Size(389, 363);
             this.pnlMandatoryRules.TabIndex = 6;
             // 
             // lbxMandatoryRules
             // 
             this.lbxMandatoryRules.FormattingEnabled = true;
             this.lbxMandatoryRules.ItemHeight = 19;
-            this.lbxMandatoryRules.Location = new System.Drawing.Point(15, 35);
+            this.lbxMandatoryRules.Location = new System.Drawing.Point(12, 17);
             this.lbxMandatoryRules.Name = "lbxMandatoryRules";
-            this.lbxMandatoryRules.Size = new System.Drawing.Size(255, 137);
+            this.lbxMandatoryRules.Size = new System.Drawing.Size(359, 327);
             this.lbxMandatoryRules.TabIndex = 1;
-            // 
-            // lbxSeparator
-            // 
-            this.lbxSeparator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(118)))), ((int)(((byte)(194)))));
-            this.lbxSeparator.FormattingEnabled = true;
-            this.lbxSeparator.ItemHeight = 19;
-            this.lbxSeparator.Location = new System.Drawing.Point(306, -3);
-            this.lbxSeparator.Name = "lbxSeparator";
-            this.lbxSeparator.Size = new System.Drawing.Size(10, 422);
-            this.lbxSeparator.TabIndex = 3;
             // 
             // btnComplain
             // 
             this.btnComplain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
-            this.btnComplain.Location = new System.Drawing.Point(-5, 370);
+            this.btnComplain.Location = new System.Drawing.Point(-3, 422);
             this.btnComplain.Name = "btnComplain";
-            this.btnComplain.Size = new System.Drawing.Size(321, 50);
+            this.btnComplain.Size = new System.Drawing.Size(414, 50);
             this.btnComplain.TabIndex = 5;
             this.btnComplain.Text = "File Complaint";
             this.btnComplain.UseVisualStyleBackColor = false;
@@ -197,9 +197,9 @@
             // btnProposeRule
             // 
             this.btnProposeRule.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
-            this.btnProposeRule.Location = new System.Drawing.Point(306, 370);
+            this.btnProposeRule.Location = new System.Drawing.Point(401, 422);
             this.btnProposeRule.Name = "btnProposeRule";
-            this.btnProposeRule.Size = new System.Drawing.Size(469, 50);
+            this.btnProposeRule.Size = new System.Drawing.Size(552, 50);
             this.btnProposeRule.TabIndex = 4;
             this.btnProposeRule.Text = "Propose New Rule";
             this.btnProposeRule.UseVisualStyleBackColor = false;
@@ -211,15 +211,15 @@
             this.pnlBackHouseRules.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlBackHouseRules.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
             this.pnlBackHouseRules.Controls.Add(this.lblHouseRules);
-            this.pnlBackHouseRules.Location = new System.Drawing.Point(313, 0);
+            this.pnlBackHouseRules.Location = new System.Drawing.Point(401, 0);
             this.pnlBackHouseRules.Name = "pnlBackHouseRules";
-            this.pnlBackHouseRules.Size = new System.Drawing.Size(464, 47);
+            this.pnlBackHouseRules.Size = new System.Drawing.Size(552, 47);
             this.pnlBackHouseRules.TabIndex = 2;
             // 
             // lblHouseRules
             // 
             this.lblHouseRules.AutoSize = true;
-            this.lblHouseRules.Location = new System.Drawing.Point(173, 16);
+            this.lblHouseRules.Location = new System.Drawing.Point(224, 16);
             this.lblHouseRules.Name = "lblHouseRules";
             this.lblHouseRules.Size = new System.Drawing.Size(107, 19);
             this.lblHouseRules.TabIndex = 6;
@@ -233,13 +233,13 @@
             this.pnlBackMandatoryRules.Controls.Add(this.lblMandatoryRules);
             this.pnlBackMandatoryRules.Location = new System.Drawing.Point(-4, 0);
             this.pnlBackMandatoryRules.Name = "pnlBackMandatoryRules";
-            this.pnlBackMandatoryRules.Size = new System.Drawing.Size(314, 47);
+            this.pnlBackMandatoryRules.Size = new System.Drawing.Size(415, 47);
             this.pnlBackMandatoryRules.TabIndex = 1;
             // 
             // lblMandatoryRules
             // 
             this.lblMandatoryRules.AutoSize = true;
-            this.lblMandatoryRules.Location = new System.Drawing.Point(86, 16);
+            this.lblMandatoryRules.Location = new System.Drawing.Point(133, 16);
             this.lblMandatoryRules.Name = "lblMandatoryRules";
             this.lblMandatoryRules.Size = new System.Drawing.Size(144, 19);
             this.lblMandatoryRules.TabIndex = 5;
@@ -252,7 +252,7 @@
             this.pctbxBack.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pctbxBack.ErrorImage")));
             this.pctbxBack.Image = ((System.Drawing.Image)(resources.GetObject("pctbxBack.Image")));
             this.pctbxBack.InitialImage = ((System.Drawing.Image)(resources.GetObject("pctbxBack.InitialImage")));
-            this.pctbxBack.Location = new System.Drawing.Point(759, 16);
+            this.pctbxBack.Location = new System.Drawing.Point(934, 16);
             this.pctbxBack.Name = "pctbxBack";
             this.pctbxBack.Size = new System.Drawing.Size(36, 32);
             this.pctbxBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -288,7 +288,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.ClientSize = new System.Drawing.Size(807, 503);
+            this.ClientSize = new System.Drawing.Size(982, 553);
             this.Controls.Add(this.lblHello);
             this.Controls.Add(this.pctbxBack);
             this.Controls.Add(this.tabCtrlStudent);

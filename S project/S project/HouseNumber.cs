@@ -11,7 +11,7 @@ namespace S_project
     {
         protected int houseNumber;
 
-        public abstract int GetHouseNumber(); // is this not java? get set is c# ??// bea 
+        public abstract int GetHouseNumber(); 
 
         public abstract void SetHouseNumber(int houseNumber);
     }

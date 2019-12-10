@@ -130,11 +130,42 @@ namespace Server
         }
 
         //Doesn't work yet
-        private void CheckExistedFiles()
+        private void CheckExistedFiles(int houseNumber)
         {
-            if (!File.Exists(@"data\students.json"))
+            if (!Directory.Exists(@$"data\house-{houseNumber}"))
+                Directory.CreateDirectory(@$"data\house-{houseNumber}");
+            if (!File.Exists(@$"data\house-{houseNumber}\house-rules.json"))
             {
-                Console.WriteLine("NO");
+                HouseRules houseRules = new HouseRules
+                {
+                    HouseNumber = houseNumber,
+                    AllRules = new List<HouseRule>()
+                };
+
+                File.WriteAllText(@$"data\house-{houseNumber}\house-rules.json", 
+                    JsonConvert.SerializeObject(houseRules, Formatting.Indented));
+            }
+            if (!File.Exists(@$"data\house-{houseNumber}\mandatory-rules.json"))
+            {
+                MandatoryRules houseRules = new MandatoryRules
+                {
+                    HouseNumber = houseNumber,
+                    AllRules = new List<MandatoryRule>()
+                };
+
+                File.WriteAllText(@$"data\house-{houseNumber}\mandatory-rules.json",
+                    JsonConvert.SerializeObject(houseRules, Formatting.Indented));
+            }
+            if (!File.Exists(@$"data\house-{houseNumber}\students.json"))
+            {
+                Users houseRules = new Users
+                {
+                    TotalStudentNumber = 0,
+                    AllUsers = new List<ServerUser>()
+                };
+
+                File.WriteAllText(@$"data\house-{houseNumber}\students.json",
+                    JsonConvert.SerializeObject(houseRules, Formatting.Indented));
             }
         }
 
@@ -151,13 +182,18 @@ namespace Server
                     }
                 case PackageType.GET_HOUSE_RULES:
                     {
+                        CheckExistedFiles(Convert.ToInt32(package.Message));
+
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.HOUSE_RULES,
-                        File.ReadAllText(@$"data\house-{package.Message}\house-rules.json"))));
+                            File.ReadAllText(@$"data\house-{package.Message}\house-rules.json"))));
                         break;
                     }
                 case PackageType.UPDATE_HOUSE_RULES:
                     {
                         HouseRules houseRules = JsonConvert.DeserializeObject<HouseRules>(package.Message);
+
+                        CheckExistedFiles(Convert.ToInt32(houseRules.HouseNumber));
+
                         File.WriteAllText(@$"data\house-{houseRules.HouseNumber}\house-rules.json", package.Message);
 
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
@@ -165,6 +201,8 @@ namespace Server
                     }
                 case PackageType.GET_MANDATORY_RULES:
                     {
+                        CheckExistedFiles(Convert.ToInt32(package.Message));
+
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MANDATORY_RULES,
                             File.ReadAllText(@$"data\house-{package.Message}\mandatory-rules.json"))));
                         break;
@@ -172,6 +210,9 @@ namespace Server
                 case PackageType.UPDATE_MANDATORY_RULES:
                     {
                         MandatoryRules mandatoryRules = JsonConvert.DeserializeObject<MandatoryRules>(package.Message);
+
+                        CheckExistedFiles(Convert.ToInt32(mandatoryRules.HouseNumber));
+
                         File.WriteAllText(@$"data\house-{mandatoryRules.HouseNumber}\mandatory-rules.json", package.Message);
 
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
@@ -183,6 +224,8 @@ namespace Server
         //Checks if login and password are correct
         private bool CheckUserInfo(TcpClient client, UserCheck userCheck)
         {
+            CheckExistedFiles(Convert.ToInt32(userCheck.HouseNumber));
+
             Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data\house-{userCheck.HouseNumber}\students.json"));
 
             foreach (var user in users.AllUsers)

@@ -53,6 +53,7 @@ namespace S_project
             if (u == null)
             {
                 MessageBox.Show("Invalid Data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                bSignIn.Enabled = true;
                 return;
             }
 

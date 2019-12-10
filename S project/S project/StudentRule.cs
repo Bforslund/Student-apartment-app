@@ -10,6 +10,8 @@ namespace S_project
     public class StudentRule : Rule
     {
         private int repeating;
+        private List<string> studentsAgree = new List<string>();
+        private List<string> studentsDisagree = new List<string>();
 
         public StudentRule(string name, int repeating, int houseNumber)
         {
@@ -40,6 +42,14 @@ namespace S_project
         public override void SetHouseNumber(int houseNumber)
         {
             this.houseNumber = houseNumber;
+        }
+        public void AddToAgree(string name)
+        {
+            studentsAgree.Add(name);
+        }
+        public void AddToDisagree(string name)
+        {
+            studentsDisagree.Add(name);
         }
     }
 }

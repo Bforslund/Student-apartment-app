@@ -66,7 +66,6 @@ namespace S_project
             if(AddRuleStudent.ruleName != "")
             {
                 Login.studentRules.Add(new StudentRule(AddRuleStudent.ruleName, AddRuleStudent.repeatRule, student.GetHouseNumber()));
-                lbxHouseRules.Items.Add(Login.studentRules[Login.studentRules.Count - 1].GetName() + " every " + Login.studentRules[Login.studentRules.Count - 1].GetRepeating() + " days");
                 AddRuleStudent.ruleName = "";
                 AddRuleStudent.repeatRule = 0;
             }
@@ -101,20 +100,6 @@ namespace S_project
         //Update the rules lists every second
         private void TimerRules_Tick(object sender, EventArgs e)
         {
-            lbxHouseRules.Items.Clear();
-            for (int i = 0; i < Login.studentRules.Count; i++)
-            {
-                if (Login.studentRules[i].GetHouseNumber() == student.GetHouseNumber())
-                {
-                    lbxHouseRules.Items.Add(Login.studentRules[i].GetName() + " every " + Login.studentRules[i].GetRepeating() + " days");
-                }
-            }
-
-            lbxMandatoryRules.Items.Clear();
-            for (int i = 0; i < Login.mandatoryRules.Count; i++)
-            {
-                lbxMandatoryRules.Items.Add(Login.mandatoryRules[i].GetName());
-            }
         }
     }
 }

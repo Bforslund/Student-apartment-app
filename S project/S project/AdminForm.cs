@@ -12,20 +12,21 @@ namespace S_project
 {
     public partial class AdminForm : Form
     {
-     
+        private ServerConnection _server;
+        private int _houseNumber;
+        
+        public AdminForm(ServerConnection server, int houseNumber)
+        {
+            _houseNumber = houseNumber;
+            _server = server;
 
-        int houseNumber;
-
+            InitializeComponent();
+        }
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
             loginForm.Show();
             this.Hide();
-        }
-        public AdminForm(int houseNumber)
-        {
-            InitializeComponent();
-            this.houseNumber = houseNumber;
         }
 
         private void PctbxBack_Click(object sender, EventArgs e)
@@ -35,37 +36,22 @@ namespace S_project
 
         private void BtnAddRule_Click(object sender, EventArgs e)
         {
-                new AddRuleAdmin(this).Show();
-            
+            new AddRuleAdmin(_server, _houseNumber).Show();
         }
 
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
-            ////If a rule has been added to the textbox in the Rule Form and 
-            ////the Add button has been pressed, get the rule from that textbox
-            //if (AddRuleAdmin.ruleName != "")
-            //{
-            //   // Login.mandatoryRules.Add(new MandatoryRule(AddRuleAdmin.ruleName));
-            //   // lbxMandatoryRules.Items.Add(Login.mandatoryRules[Login.mandatoryRules.Count - 1].GetName());
-            //    AddRuleAdmin.ruleName = "";
-            //}
+            //MandatoryRules rules = _server.GetMandatoryRules(_houseNumber);
 
-            ////If the rule form has been closed, revert ruleForm back to null
-            //if (newRuleAdmin != null)
+            //pnlMandatoryRules.Controls.Clear();
+            //pnlMandatoryRules.RowStyles.Clear();
+
+            //foreach(MandatoryRuleServer rule in rules.AllRules)
             //{
-            //    if(newRuleAdmin.IsDisposed == true)
-            //    {
-            //        newRuleAdmin = null;
-            //    }
+            //    AddMandatoryRule(rule);
             //}
         }
-        //Update the list every second
-        private void TimerRules_Tick(object sender, EventArgs e)
-        {
-            
-            
-        }
-       
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -89,24 +75,34 @@ namespace S_project
             pnlHouseRules.Update();
         }
 
-        public void AddMandatoryRule(MandatoryRule rule)
+        private void AddMandatoryRule(MandatoryRuleServer rule)
         {
-           
-            Button removeRuleButton = new Button();
+           // creating new labels and buttons
+            Button removeRuleButton = new Button(); 
             Label ruleLabel = new Label();
             Label ruleNumber = new Label();
-            ruleLabel.Text = rule.rule;
+            
+            ruleLabel.Text = rule.RuleText;
             removeRuleButton.Size = new Size(98, 33);
             removeRuleButton.Text = "Remove";
+            ruleNumber.Text = rule.ID.ToString();
 
+            AddMandatoryRuleRow(ruleNumber, ruleLabel, removeRuleButton);
+         
+        }
+
+        private void AddMandatoryRuleRow(Label ruleNumber, Label ruleLabel, Button removeRuleButton)
+        {
             int newRow = pnlMandatoryRules.RowCount + 1;
-            ruleNumber.Text = pnlMandatoryRules.RowCount.ToString();
+            // when you click it hides everything.
             removeRuleButton.Click += new EventHandler((s, ea) => { ruleNumber.Hide(); ruleLabel.Hide(); removeRuleButton.Hide(); });
-            pnlMandatoryRules.RowCount = newRow;
-            pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow);
+     
+            pnlMandatoryRules.RowCount = newRow; // creates a new row
+            pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow); // Add the rulenumber label to coloum 0, and on the new row
             pnlMandatoryRules.Controls.Add(ruleLabel, 1, newRow);
             pnlMandatoryRules.Controls.Add(removeRuleButton, 2, newRow);
-            pnlMandatoryRules.Update();
+           
+            pnlMandatoryRules.Update(); // update the screen, method already exists
         }
     }
 }

@@ -14,9 +14,7 @@ namespace S_project
     {
         ServerConnection serverConnection = new ServerConnection();
 
-        //List containing all mandatory rules (can be modified to enter mandatory rules for specific houses only)
-        public static List<MandatoryRule> mandatoryRules = new List<MandatoryRule>();
-
+       
         //List containing all the rules made by students from all houses
         public static List<StudentRule> studentRules = new List<StudentRule>();
 
@@ -61,7 +59,7 @@ namespace S_project
             switch (u.Type)
             {
                 case UserType.EMPLOYEE:
-                    AdminForm adminForm = new AdminForm(u.HouseNumber);
+                    AdminForm adminForm = new AdminForm(serverConnection, u.HouseNumber);
                     adminForm.Show();
                     this.Hide();
                     break;

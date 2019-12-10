@@ -8,7 +8,7 @@ using System.Text;
 
 namespace S_project
 {
-    class ServerConnection
+    public class ServerConnection
     {
         private TcpClient tcp;
 

@@ -52,7 +52,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
-            this.timerRules = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.pctbxBack = new System.Windows.Forms.PictureBox();
             this.lblHello = new System.Windows.Forms.Label();
@@ -354,12 +353,6 @@
             this.timerUpdate.Interval = 500;
             this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
             // 
-            // timerRules
-            // 
-            this.timerRules.Enabled = true;
-            this.timerRules.Interval = 1000;
-            this.timerRules.Tick += new System.EventHandler(this.TimerRules_Tick);
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(491, 35);
@@ -437,7 +430,6 @@
         private System.Windows.Forms.Panel pnlBackMandatoryRules;
         private System.Windows.Forms.Label lblMandatoryRules;
         private System.Windows.Forms.Timer timerUpdate;
-        private System.Windows.Forms.Timer timerRules;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel pnlHouseRules;
         private System.Windows.Forms.Button button1;

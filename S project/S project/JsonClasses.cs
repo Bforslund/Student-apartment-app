@@ -20,7 +20,7 @@ namespace S_project
 
     //Package sent through TCP connection 
     //(Message can be a Serialise JSON or a string)
-    class ServerPackage
+    public class ServerPackage
     {
         public PackageType Type { get; set; }
         public string Message { get; set; }
@@ -33,7 +33,7 @@ namespace S_project
     }
 
     //Used for log in 
-    class UserCheck
+    public class UserCheck
     {
         public string Login { get; set; }
         public string Password { get; set; }
@@ -48,7 +48,7 @@ namespace S_project
     }
 
     //User info sent by the server
-    class UserInfo
+    public class UserInfo
     {
         public UserType Type { get; set; }
         public int ID { get; set; }
@@ -59,7 +59,7 @@ namespace S_project
     }
 
     //Rules set by tenant
-    class HouseRuleServer
+    public class HouseRuleServer
     {
         public int ID { get; set; }
         public string RuleText { get; set; }
@@ -72,22 +72,22 @@ namespace S_project
         public bool ApprovalState { get; set; }
     }
 
-    class HouseRules
+    public class HouseRules
     {
         public int HouseNumber { get; set; }
         public List<HouseRuleServer> AllRules { get; set; }
     }
 
     //Rules set by the company
-    class MandatoryRuleServer
+    public class MandatoryRuleServer 
     {
         public int ID { get; set; }
         public string RuleText { get; set; }
     }
 
-    class MandatoryRules
+    public class MandatoryRules 
     {
         public int HouseNumber { get; set; }
-        public List<MandatoryRuleServer> AllRules { get; set; }
+        public List<MandatoryRuleServer> AllRules { get; set; } 
     }
 }

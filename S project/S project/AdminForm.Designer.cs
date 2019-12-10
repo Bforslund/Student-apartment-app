@@ -41,6 +41,8 @@
             this.pnlBackMandatoryRules = new System.Windows.Forms.Panel();
             this.lblMandatoryRules = new System.Windows.Forms.Label();
             this.pnlHouseRules = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.Complaints = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnRemoveSelected = new System.Windows.Forms.Button();
@@ -53,10 +55,7 @@
             this.timerRules = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.pctbxBack = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.lblHello = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.tabCtrlAdmin.SuspendLayout();
             this.Rules.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -227,6 +226,26 @@
             this.pnlHouseRules.Size = new System.Drawing.Size(477, 385);
             this.pnlHouseRules.TabIndex = 0;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(476, 72);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(3, 385);
+            this.panel1.TabIndex = 7;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(476, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(3, 72);
+            this.panel3.TabIndex = 8;
+            // 
             // Complaints
             // 
             this.Complaints.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
@@ -366,16 +385,6 @@
             this.pctbxBack.TabStop = false;
             this.pctbxBack.Click += new System.EventHandler(this.PctbxBack_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(383, 35);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(102, 31);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Mandatory";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // lblHello
             // 
             this.lblHello.AutoSize = true;
@@ -387,33 +396,12 @@
             this.lblHello.TabIndex = 9;
             this.lblHello.Text = "Hello, Admin";
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(476, 72);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(3, 385);
-            this.panel1.TabIndex = 7;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(476, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(3, 72);
-            this.panel3.TabIndex = 8;
-            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
             this.ClientSize = new System.Drawing.Size(982, 553);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblHello);
             this.Controls.Add(this.pctbxBack);
@@ -455,7 +443,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pctbxBack;
         private System.Windows.Forms.Button btnAddRule;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lblHello;
         private System.Windows.Forms.TableLayoutPanel pnlMandatoryRules;
         private System.Windows.Forms.Button btnRemoveSelected;

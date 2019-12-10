@@ -3,21 +3,6 @@ using System.Collections.Generic;
 
 namespace Server
 {
-    //Types of packages 
-    public enum PackageType
-    {
-        USER_CHECK, INVALID_DATA, USER_INFO,
-        GET_HOUSE_RULES, HOUSE_RULES, UPDATE_HOUSE_RULES,
-        GET_MANDATORY_RULES, MANDATORY_RULES, UPDATE_MANDATORY_RULES,
-        RECEIVED
-    }
-
-    //Types of user 
-    public enum UserType
-    {
-        TENANT, EMPLOYEE
-    }
-
     //Package sent through TCP connection 
     //(Message can be a Serialise JSON/an empty string/)
     class ServerPackage

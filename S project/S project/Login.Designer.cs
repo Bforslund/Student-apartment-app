@@ -28,91 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbxHouseNumber = new System.Windows.Forms.ComboBox();
-            this.tbxUsername = new System.Windows.Forms.TextBox();
-            this.tbxPassword = new System.Windows.Forms.TextBox();
-            this.btnLogIn = new System.Windows.Forms.Button();
+            this.cbHouseNumber = new System.Windows.Forms.ComboBox();
+            this.tbLogin = new System.Windows.Forms.TextBox();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.bSignIn = new System.Windows.Forms.Button();
             this.lblHouseNumber = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
+            this.bShowPass = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // cbxHouseNumber
+            // cbHouseNumber
             // 
-            this.cbxHouseNumber.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
-            this.cbxHouseNumber.FormattingEnabled = true;
-            this.cbxHouseNumber.Items.AddRange(new object[] {
+            this.cbHouseNumber.BackColor = System.Drawing.Color.White;
+            this.cbHouseNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbHouseNumber.FormattingEnabled = true;
+            this.cbHouseNumber.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4",
             "5",
             "6"});
-            this.cbxHouseNumber.Location = new System.Drawing.Point(233, 105);
-            this.cbxHouseNumber.Name = "cbxHouseNumber";
-            this.cbxHouseNumber.Size = new System.Drawing.Size(134, 24);
-            this.cbxHouseNumber.TabIndex = 0;
+            this.cbHouseNumber.Location = new System.Drawing.Point(214, 105);
+            this.cbHouseNumber.Name = "cbHouseNumber";
+            this.cbHouseNumber.Size = new System.Drawing.Size(167, 28);
+            this.cbHouseNumber.TabIndex = 0;
             // 
-            // tbxUsername
+            // tbLogin
             // 
-            this.tbxUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
-            this.tbxUsername.Location = new System.Drawing.Point(233, 164);
-            this.tbxUsername.Name = "tbxUsername";
-            this.tbxUsername.Size = new System.Drawing.Size(134, 22);
-            this.tbxUsername.TabIndex = 1;
+            this.tbLogin.BackColor = System.Drawing.Color.White;
+            this.tbLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbLogin.Location = new System.Drawing.Point(214, 180);
+            this.tbLogin.Name = "tbLogin";
+            this.tbLogin.Size = new System.Drawing.Size(167, 28);
+            this.tbLogin.TabIndex = 1;
             // 
-            // tbxPassword
+            // tbPassword
             // 
-            this.tbxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
-            this.tbxPassword.Location = new System.Drawing.Point(233, 230);
-            this.tbxPassword.Name = "tbxPassword";
-            this.tbxPassword.Size = new System.Drawing.Size(134, 22);
-            this.tbxPassword.TabIndex = 2;
+            this.tbPassword.BackColor = System.Drawing.Color.White;
+            this.tbPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbPassword.Location = new System.Drawing.Point(214, 254);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(131, 28);
+            this.tbPassword.TabIndex = 2;
             // 
-            // btnLogIn
+            // bSignIn
             // 
-            this.btnLogIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
-            this.btnLogIn.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.btnLogIn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.btnLogIn.Location = new System.Drawing.Point(255, 290);
-            this.btnLogIn.Name = "btnLogIn";
-            this.btnLogIn.Size = new System.Drawing.Size(90, 50);
-            this.btnLogIn.TabIndex = 3;
-            this.btnLogIn.Text = "Log in";
-            this.btnLogIn.UseVisualStyleBackColor = false;
-            this.btnLogIn.Click += new System.EventHandler(this.BtnLogIn_Click);
+            this.bSignIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
+            this.bSignIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bSignIn.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.bSignIn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.bSignIn.Location = new System.Drawing.Point(255, 300);
+            this.bSignIn.Name = "bSignIn";
+            this.bSignIn.Size = new System.Drawing.Size(90, 50);
+            this.bSignIn.TabIndex = 3;
+            this.bSignIn.Text = "Log in";
+            this.bSignIn.UseVisualStyleBackColor = false;
+            this.bSignIn.Click += new System.EventHandler(this.SignIn_Click);
             // 
             // lblHouseNumber
             // 
             this.lblHouseNumber.AutoSize = true;
-            this.lblHouseNumber.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHouseNumber.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblHouseNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.lblHouseNumber.Location = new System.Drawing.Point(229, 83);
+            this.lblHouseNumber.Location = new System.Drawing.Point(210, 78);
             this.lblHouseNumber.Name = "lblHouseNumber";
-            this.lblHouseNumber.Size = new System.Drawing.Size(138, 19);
+            this.lblHouseNumber.Size = new System.Drawing.Size(171, 24);
             this.lblHouseNumber.TabIndex = 4;
             this.lblHouseNumber.Text = "House number:";
             // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
-            this.lblUsername.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.lblUsername.Location = new System.Drawing.Point(229, 142);
+            this.lblUsername.Location = new System.Drawing.Point(210, 153);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(101, 19);
+            this.lblUsername.Size = new System.Drawing.Size(123, 24);
             this.lblUsername.TabIndex = 7;
             this.lblUsername.Text = "Username:";
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassword.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.lblPassword.Location = new System.Drawing.Point(229, 208);
+            this.lblPassword.Location = new System.Drawing.Point(215, 227);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(97, 19);
+            this.lblPassword.Size = new System.Drawing.Size(118, 24);
             this.lblPassword.TabIndex = 9;
             this.lblPassword.Text = "Password:";
             // 
@@ -127,20 +132,35 @@
             this.lblWelcome.TabIndex = 10;
             this.lblWelcome.Text = "Welcome to StudentHousing";
             // 
+            // bShowPass
+            // 
+            this.bShowPass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.bShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bShowPass.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bShowPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.bShowPass.Location = new System.Drawing.Point(351, 254);
+            this.bShowPass.Name = "bShowPass";
+            this.bShowPass.Size = new System.Drawing.Size(30, 28);
+            this.bShowPass.TabIndex = 11;
+            this.bShowPass.UseVisualStyleBackColor = false;
+            this.bShowPass.MouseDown += new System.Windows.Forms.MouseEventHandler(this.bShowPass_MouseDown);
+            this.bShowPass.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bShowPass_MouseUp);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
             this.ClientSize = new System.Drawing.Size(582, 373);
+            this.Controls.Add(this.bShowPass);
             this.Controls.Add(this.lblWelcome);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lblHouseNumber);
-            this.Controls.Add(this.btnLogIn);
-            this.Controls.Add(this.tbxPassword);
-            this.Controls.Add(this.tbxUsername);
-            this.Controls.Add(this.cbxHouseNumber);
+            this.Controls.Add(this.bSignIn);
+            this.Controls.Add(this.tbPassword);
+            this.Controls.Add(this.tbLogin);
+            this.Controls.Add(this.cbHouseNumber);
             this.Name = "Login";
             this.Text = "Login";
             this.ResumeLayout(false);
@@ -150,13 +170,14 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox cbxHouseNumber;
-        private System.Windows.Forms.TextBox tbxUsername;
-        private System.Windows.Forms.TextBox tbxPassword;
-        private System.Windows.Forms.Button btnLogIn;
+        private System.Windows.Forms.ComboBox cbHouseNumber;
+        private System.Windows.Forms.TextBox tbLogin;
+        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.Button bSignIn;
         private System.Windows.Forms.Label lblHouseNumber;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblWelcome;
+        private System.Windows.Forms.Button bShowPass;
     }
 }

@@ -12,9 +12,12 @@ namespace S_project
 {
     public partial class AddRuleAdmin : Form
     {
-        public static string ruleName = "";
-        public AddRuleAdmin()
+       
+        private AdminForm admina;
+
+        public AddRuleAdmin(AdminForm admin)
         {
+            admina = admin;
             InitializeComponent();
         }
 
@@ -23,8 +26,10 @@ namespace S_project
             if(tbxRuleName.Text != "")
             {
                 //Get the text from the textbox for the StudentForm
-                ruleName = tbxRuleName.Text;
+               MandatoryRule Rule1 = new MandatoryRule();
+                Rule1.rule = tbxRuleName.Text;
                 tbxRuleName.Clear();
+                admina.AddMandatoryRule(Rule1);
                 Dispose();
             }
             else

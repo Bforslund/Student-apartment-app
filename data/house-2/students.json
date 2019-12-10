@@ -1,0 +1,23 @@
+{
+  "TotalStudentNumber": 1,
+  "AllUsers": [
+    {
+      "Type": 1,
+	  "ID": 0,
+      "Login": "admin",
+      "Password": "admin",
+      "Name": "admin",
+      "HouseNumber": 0,
+	  "Room": -1
+    },
+	{
+	  "Type": 0,
+	  "ID": 1,
+      "Login": "Bob1234",
+      "Password": "1234",
+      "Name": "Bob",
+      "HouseNumber": 0,
+	  "Room": 1
+    }
+  ]
+}

@@ -112,6 +112,7 @@
             // 
             this.btnAddRule.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
             this.btnAddRule.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddRule.Location = new System.Drawing.Point(0, 0);
             this.btnAddRule.Margin = new System.Windows.Forms.Padding(0);
             this.btnAddRule.Name = "btnAddRule";
@@ -279,6 +280,7 @@
             // 
             this.btnRemoveSelected.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
             this.btnRemoveSelected.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRemoveSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoveSelected.Location = new System.Drawing.Point(0, 0);
             this.btnRemoveSelected.Margin = new System.Windows.Forms.Padding(0);
             this.btnRemoveSelected.Name = "btnRemoveSelected";
@@ -291,6 +293,7 @@
             // 
             this.btnRemoveAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
             this.btnRemoveAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRemoveAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoveAll.Location = new System.Drawing.Point(474, 0);
             this.btnRemoveAll.Margin = new System.Windows.Forms.Padding(0);
             this.btnRemoveAll.Name = "btnRemoveAll";

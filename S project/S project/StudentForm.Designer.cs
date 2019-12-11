@@ -50,8 +50,9 @@
             this.pnlMandatoryRules = new System.Windows.Forms.TableLayoutPanel();
             this.pnlBackHouseRules = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnAddRule = new System.Windows.Forms.Button();
+            this.btnProposeRule = new System.Windows.Forms.Button();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnComplain = new System.Windows.Forms.Button();
             this.Rules = new System.Windows.Forms.TabPage();
             this.tabCtrlAdmin = new System.Windows.Forms.TabControl();
             this.Notifications = new System.Windows.Forms.TabPage();
@@ -126,6 +127,7 @@
             this.pctbxBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctbxBack.TabIndex = 12;
             this.pctbxBack.TabStop = false;
+            this.pctbxBack.Click += new System.EventHandler(this.PctbxBack_Click);
             // 
             // timerRules
             // 
@@ -313,29 +315,47 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(956, 453);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
-            // btnAddRule
+            // btnProposeRule
             // 
-            this.btnAddRule.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
-            this.btnAddRule.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddRule.Location = new System.Drawing.Point(0, 0);
-            this.btnAddRule.Margin = new System.Windows.Forms.Padding(0);
-            this.btnAddRule.Name = "btnAddRule";
-            this.btnAddRule.Size = new System.Drawing.Size(473, 67);
-            this.btnAddRule.TabIndex = 5;
-            this.btnAddRule.Text = "Add New Rule";
-            this.btnAddRule.UseVisualStyleBackColor = false;
+            this.btnProposeRule.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
+            this.btnProposeRule.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnProposeRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProposeRule.Location = new System.Drawing.Point(475, 0);
+            this.btnProposeRule.Margin = new System.Windows.Forms.Padding(0);
+            this.btnProposeRule.Name = "btnProposeRule";
+            this.btnProposeRule.Size = new System.Drawing.Size(475, 67);
+            this.btnProposeRule.TabIndex = 5;
+            this.btnProposeRule.Text = "Add New Rule";
+            this.btnProposeRule.UseVisualStyleBackColor = false;
+            this.btnProposeRule.Click += new System.EventHandler(this.BtnProposeRule_Click);
             // 
             // tableLayoutPanel5
             // 
-            this.tableLayoutPanel5.ColumnCount = 1;
+            this.tableLayoutPanel5.ColumnCount = 2;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Controls.Add(this.btnAddRule, 0, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(479, 387);
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Controls.Add(this.btnComplain, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.btnProposeRule, 1, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(2, 387);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(473, 67);
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(950, 67);
             this.tableLayoutPanel5.TabIndex = 9;
+            // 
+            // btnComplain
+            // 
+            this.btnComplain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
+            this.btnComplain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnComplain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnComplain.Location = new System.Drawing.Point(0, 0);
+            this.btnComplain.Margin = new System.Windows.Forms.Padding(0);
+            this.btnComplain.Name = "btnComplain";
+            this.btnComplain.Size = new System.Drawing.Size(475, 67);
+            this.btnComplain.TabIndex = 6;
+            this.btnComplain.Text = "File Complaint";
+            this.btnComplain.UseVisualStyleBackColor = false;
+            this.btnComplain.Click += new System.EventHandler(this.BtnComplain_Click);
             // 
             // Rules
             // 
@@ -485,7 +505,7 @@
         private System.Windows.Forms.TableLayoutPanel pnlMandatoryRules;
         private System.Windows.Forms.Panel pnlBackHouseRules;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button btnAddRule;
+        private System.Windows.Forms.Button btnProposeRule;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TabPage Rules;
         private System.Windows.Forms.TabControl tabCtrlAdmin;
@@ -494,5 +514,6 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Button btnComplain;
     }
 }

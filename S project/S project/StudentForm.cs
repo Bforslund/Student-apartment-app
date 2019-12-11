@@ -13,7 +13,7 @@ namespace S_project
 {
     public partial class StudentForm : Form
     {
-        private Student student;
+        private UserInfo student;
 
         //Initialize forms for Complaints and Rules
         AddComplainStudent complaintForm = null;
@@ -26,12 +26,12 @@ namespace S_project
             this.Hide();
         }
 
-        public StudentForm(Student student)
+        public StudentForm(UserInfo student)
         {
             InitializeComponent();
 
             this.student = student;
-            lblHello.Text = "Hello, " + this.student.GetFirstName() + " " + this.student.GetLastName();
+            lblHello.Text = "Hello, " + this.student.Name;
         }
 
         private void PctbxBack_Click(object sender, EventArgs e)
@@ -65,7 +65,6 @@ namespace S_project
             //the Add button has been pressed, get the rule from that textbox
             if(AddRuleStudent.ruleName != "")
             {
-                Login.studentRules.Add(new StudentRule(AddRuleStudent.ruleName, AddRuleStudent.repeatRule, student.GetHouseNumber()));
                 AddRuleStudent.ruleName = "";
                 AddRuleStudent.repeatRule = 0;
             }

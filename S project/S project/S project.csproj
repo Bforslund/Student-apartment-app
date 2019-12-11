@@ -70,7 +70,6 @@
     <Compile Include="AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="HouseNumber.cs" />
     <Compile Include="JsonClasses.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -80,16 +79,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rule.cs" />
     <Compile Include="ServerConnection.cs" />
-    <Compile Include="Student.cs" />
     <Compile Include="StudentForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="StudentForm.Designer.cs">
       <DependentUpon>StudentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StudentRule.cs" />
     <EmbeddedResource Include="AddComplainStudent.resx">
       <DependentUpon>AddComplainStudent.cs</DependentUpon>
     </EmbeddedResource>

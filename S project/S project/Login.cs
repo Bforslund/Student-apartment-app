@@ -15,8 +15,6 @@ namespace S_project
         ServerConnection serverConnection = new ServerConnection();
 
        
-        //List containing all the rules made by students from all houses
-        public static List<StudentRule> studentRules = new List<StudentRule>();
 
         public Login()
         {
@@ -66,9 +64,9 @@ namespace S_project
                     break;
 
                 case UserType.TENANT:
-                    Student st = new Student(u.Name, u.Name, u.Room, "NA", "NA", u.HouseNumber);
+                    
 
-                    StudentForm studentForm = new StudentForm(st);
+                    StudentForm studentForm = new StudentForm(u);
                     studentForm.Show();
                     this.Hide();
                     break;

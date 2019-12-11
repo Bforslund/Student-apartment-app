@@ -133,11 +133,13 @@
             // 
             this.timerRules.Enabled = true;
             this.timerRules.Interval = 1000;
+            this.timerRules.Tick += new System.EventHandler(this.TimerRules_Tick);
             // 
             // timerUpdate
             // 
             this.timerUpdate.Enabled = true;
             this.timerUpdate.Interval = 500;
+            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdates_Tick);
             // 
             // tableLayoutPanel4
             // 
@@ -269,9 +271,9 @@
             this.pnlMandatoryRules.AutoSize = true;
             this.pnlMandatoryRules.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlMandatoryRules.ColumnCount = 3;
-            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.55462F));
+            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.15126F));
+            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.08403F));
             this.pnlMandatoryRules.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMandatoryRules.Location = new System.Drawing.Point(0, 72);
             this.pnlMandatoryRules.Margin = new System.Windows.Forms.Padding(0);

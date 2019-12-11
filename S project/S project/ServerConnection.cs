@@ -52,12 +52,12 @@ namespace S_project
             return JsonConvert.DeserializeObject<MandatoryRules>(message);
         }
 
-        public bool UpdateMandatoryRules(MandatoryRules mandatoryRules)
+        public void UpdateMandatoryRules(MandatoryRules mandatoryRules)
         {
             string json = JsonConvert.SerializeObject(mandatoryRules, Formatting.Indented);
 
             string message = GetResponce(PackageType.UPDATE_MANDATORY_RULES, PackageType.RECEIVED, json);
-            return true;
+            
         }
 
         //Connects to the server and sends pacckages

@@ -150,9 +150,9 @@
             this.pnlMandatoryRules.AutoSize = true;
             this.pnlMandatoryRules.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlMandatoryRules.ColumnCount = 3;
-            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.5042F));
+            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.15126F));
+            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.13445F));
             this.pnlMandatoryRules.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMandatoryRules.Location = new System.Drawing.Point(0, 72);
             this.pnlMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
@@ -353,7 +353,7 @@
             // timerUpdate
             // 
             this.timerUpdate.Enabled = true;
-            this.timerUpdate.Interval = 500;
+            this.timerUpdate.Interval = 1000;
             this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
             // 
             // button1

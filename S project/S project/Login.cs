@@ -66,7 +66,7 @@ namespace S_project
                 case UserType.TENANT:
                     
 
-                    StudentForm studentForm = new StudentForm(u);
+                    StudentForm studentForm = new StudentForm(serverConnection, u);
                     studentForm.Show();
                     this.Hide();
                     break;

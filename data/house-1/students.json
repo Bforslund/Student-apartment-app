@@ -7,7 +7,7 @@
       "Login": "admin",
       "Password": "admin",
       "Name": "admin",
-      "HouseNumber": 0,
+      "HouseNumber": 1,
 	  "Room": -1
     },
 	{
@@ -16,7 +16,7 @@
       "Login": "Dima1234",
       "Password": "1234",
       "Name": "Dima",
-      "HouseNumber": 0,
+      "HouseNumber": 1,
 	  "Room": 1
     },
     {
@@ -25,7 +25,7 @@
       "Login": "Bob4321",
       "Password": "4321",
       "Name": "Bob",
-      "HouseNumber": 0,
+      "HouseNumber": 1,
 	  "Room": 2
     }
   ]

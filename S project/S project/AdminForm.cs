@@ -14,11 +14,13 @@ namespace S_project
     {
         private ServerConnection _server;
         private int _houseNumber;
-        
+        private MandatoryRules _rules;
+
         public AdminForm(ServerConnection server, int houseNumber)
         {
             _houseNumber = houseNumber;
             _server = server;
+            _rules = server.GetMandatoryRules(houseNumber);
 
             InitializeComponent();
         }
@@ -36,20 +38,20 @@ namespace S_project
 
         private void BtnAddRule_Click(object sender, EventArgs e)
         {
-            new AddRuleAdmin(_server, _houseNumber).Show();
+            new AddRuleAdmin(_server, _houseNumber, _rules).Show();
         }
 
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
-            //MandatoryRules rules = _server.GetMandatoryRules(_houseNumber);
+            if (_rules.AllRules.Count != pnlMandatoryRules.Controls.Count)
+            {
+                pnlMandatoryRules.Controls.Clear();
 
-            //pnlMandatoryRules.Controls.Clear();
-            //pnlMandatoryRules.RowStyles.Clear();
-
-            //foreach(MandatoryRuleServer rule in rules.AllRules)
-            //{
-            //    AddMandatoryRule(rule);
-            //}
+                foreach (MandatoryRuleServer rule in _rules.AllRules)
+                {
+                    AddMandatoryRule(rule);
+                }
+            }
         }
 
 
@@ -77,31 +79,46 @@ namespace S_project
 
         private void AddMandatoryRule(MandatoryRuleServer rule)
         {
-           // creating new labels and buttons
-            Button removeRuleButton = new Button(); 
+            // creating new labels and buttons
+            Button removeRuleButton = new Button();
             Label ruleLabel = new Label();
             Label ruleNumber = new Label();
-            
+
             ruleLabel.Text = rule.RuleText;
-            removeRuleButton.Size = new Size(98, 33);
-            removeRuleButton.Text = "Remove";
-            ruleNumber.Text = rule.ID.ToString();
+            ruleLabel.AutoSize = true;
+            removeRuleButton.Size = new Size(30, 25);
+            removeRuleButton.Text = "x";
+            ruleNumber.Text = (rule.ID + 1).ToString();
 
             AddMandatoryRuleRow(ruleNumber, ruleLabel, removeRuleButton);
-         
         }
 
-        private void AddMandatoryRuleRow(Label ruleNumber, Label ruleLabel, Button removeRuleButton)
+        public void AddMandatoryRuleRow(Label ruleNumber, Label ruleLabel, Button removeRuleButton)
         {
             int newRow = pnlMandatoryRules.RowCount + 1;
             // when you click it hides everything.
-            removeRuleButton.Click += new EventHandler((s, ea) => { ruleNumber.Hide(); ruleLabel.Hide(); removeRuleButton.Hide(); });
-     
+            removeRuleButton.Click += new EventHandler((s, ea) =>
+            {
+                int index = Convert.ToInt32(ruleNumber.Text) - 1;
+
+                ruleNumber.Dispose();
+                ruleLabel.Dispose();
+                removeRuleButton.Dispose();
+                _rules.AllRules.RemoveAt(index);
+
+                for (int i = 0; i < _rules.AllRules.Count; i++)
+                {
+                    _rules.AllRules[i].ID = i;
+                }
+
+                _server.UpdateMandatoryRules(_rules);
+            });
+
             pnlMandatoryRules.RowCount = newRow; // creates a new row
             pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow); // Add the rulenumber label to coloum 0, and on the new row
             pnlMandatoryRules.Controls.Add(ruleLabel, 1, newRow);
             pnlMandatoryRules.Controls.Add(removeRuleButton, 2, newRow);
-           
+
             pnlMandatoryRules.Update(); // update the screen, method already exists
         }
     }

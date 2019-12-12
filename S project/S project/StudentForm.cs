@@ -13,12 +13,38 @@ namespace S_project
 {
     public partial class StudentForm : Form
     {
-        private Student student;
+        private UserInfo student;
+        private MandatoryRules rules;
+        private ServerConnection server;
 
         //Initialize forms for Complaints and Rules
         AddComplainStudent complaintForm = null;
         AddRuleStudent ruleForm = null;
 
+        private void AddMandatoryRule(MandatoryRuleServer rule)
+        {
+            // creating new labels
+            Label ruleLabel = new Label();
+            Label ruleNumber = new Label();
+
+            ruleLabel.Text = rule.RuleText;
+            ruleLabel.AutoSize = true;
+            ruleNumber.Text = (rule.ID + 1).ToString();
+
+            AddMandatoryRuleRow(ruleNumber, ruleLabel);
+        }
+        public void AddMandatoryRuleRow(Label ruleNumber, Label ruleLabel)
+        {
+            int newRow = pnlMandatoryRules.RowCount + 1;
+            // when you click it hides everything.
+            
+
+            pnlMandatoryRules.RowCount = newRow; // creates a new row
+            pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow); // Add the rulenumber label to coloum 0, and on the new row
+            pnlMandatoryRules.Controls.Add(ruleLabel, 1, newRow);
+
+            pnlMandatoryRules.Update(); // update the screen, method already exists
+        }
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
@@ -26,12 +52,14 @@ namespace S_project
             this.Hide();
         }
 
-        public StudentForm(Student student)
+        public StudentForm(ServerConnection server, UserInfo student)
         {
             InitializeComponent();
 
             this.student = student;
-            lblHello.Text = "Hello, " + this.student.GetFirstName() + " " + this.student.GetLastName();
+            this.server = server;
+            lblHello.Text = "Hello, " + this.student.Name;
+            rules = server.GetMandatoryRules(student.HouseNumber);
         }
 
         private void PctbxBack_Click(object sender, EventArgs e)
@@ -65,7 +93,6 @@ namespace S_project
             //the Add button has been pressed, get the rule from that textbox
             if(AddRuleStudent.ruleName != "")
             {
-                Login.studentRules.Add(new StudentRule(AddRuleStudent.ruleName, AddRuleStudent.repeatRule, student.GetHouseNumber()));
                 AddRuleStudent.ruleName = "";
                 AddRuleStudent.repeatRule = 0;
             }
@@ -100,6 +127,15 @@ namespace S_project
         //Update the rules lists every second
         private void TimerRules_Tick(object sender, EventArgs e)
         {
+            if (rules.AllRules.Count != pnlMandatoryRules.Controls.Count)
+            {
+                pnlMandatoryRules.Controls.Clear();
+
+                foreach (MandatoryRuleServer rule in rules.AllRules)
+                {
+                    AddMandatoryRule(rule);
+                }
+            }
         }
     }
 }

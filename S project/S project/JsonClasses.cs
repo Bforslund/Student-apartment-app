@@ -9,6 +9,7 @@ namespace S_project
         USER_CHECK, INVALID_DATA, USER_INFO,
         GET_HOUSE_RULES, HOUSE_RULES, UPDATE_HOUSE_RULES,
         GET_MANDATORY_RULES, MANDATORY_RULES, UPDATE_MANDATORY_RULES,
+        GET_COMPLAINTS, COMPLAINTS, UPDATE_COMPLAINTS,
         RECEIVED
     }
 
@@ -53,9 +54,11 @@ namespace S_project
         public UserType Type { get; set; }
         public int ID { get; set; }
         public string Name { get; set; }
+        public string LastName { get; set; }
         public int HouseNumber { get; set; }
         public int Room { get; set; }
         public int TotalStudentNumber { get; set; }
+        public Dictionary<string, int> StudentsInfo { get; set; }
     }
 
     //Rules set by tenant
@@ -68,7 +71,7 @@ namespace S_project
         public DateTime LastCompleted { get; set; }
         public int Interval { get; set; }
         public bool OnlyThisWeek { get; set; }
-        public Dictionary<string, bool> StudentsApproval { get; set; }
+        public Dictionary<int, bool> StudentsApproval { get; set; }
         public bool ApprovalState { get; set; }
     }
 
@@ -89,5 +92,21 @@ namespace S_project
     {
         public int HouseNumber { get; set; }
         public List<MandatoryRuleServer> AllRules { get; set; } 
+    }
+
+    //Complaints sent by the students
+    public class Complaint
+    {
+        public int ID { get; set; }
+        public string ComplaintText { get; set; }
+        public DateTime FiledDate { get; set; }
+        public int FiledBy { get; set; } //person's ID
+        public int BrokenBy { get; set; }
+    }
+
+    public class Complaints
+    {
+        public int HouseNumber { get; set; }
+        public List<Complaint> AllComplaints { get; set; }
     }
 }

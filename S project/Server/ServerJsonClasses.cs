@@ -5,7 +5,7 @@ namespace Server
 {
     //Package sent through TCP connection 
     //(Message can be a Serialise JSON/an empty string/)
-    class ServerPackage
+    public class ServerPackage
     {
         public PackageType Type { get; set; }
         public string Message { get; set; }
@@ -18,7 +18,7 @@ namespace Server
     }
 
     //Used for log in 
-    class UserCheck
+    public class UserCheck
     {
         public int HouseNumber { get; set; }
         public string Login { get; set; }
@@ -26,18 +26,20 @@ namespace Server
     }
 
     //User info sent by the server (login & password are omited)
-    class UserInfo
+    public class UserInfo
     {
         public UserType Type { get; set; }
         public int ID { get; set; }
         public string Name { get; set; }
+        public string LastName { get; set; }
         public int HouseNumber { get; set; }
         public int Room { get; set; }
         public int TotalStudentNumber { get; set; }
+        public Dictionary<string, int> StudentsInfo { get; set; }
     }
 
     //Info about user stored on the server
-    class ServerUser
+    public class ServerUser
     {
         public string Login { get; set; }
         public string Password { get; set; }
@@ -45,31 +47,32 @@ namespace Server
         public UserType Type { get; set; }
         public int ID { get; set; }
         public string Name { get; set; }
+        public string LastName { get; set; }
         public int HouseNumber { get; set; }
         public int Room { get; set; }
     }
 
-    class Users
+    public class Users
     {
         public int TotalStudentNumber { get; set; }
         public List<ServerUser> AllUsers { get; set; }
     }
 
     //Rules set by the company
-    class MandatoryRule
+    public class MandatoryRule
     {
         public int ID { get; set; }
         public string RuleText { get; set; }
     }
 
-    class MandatoryRules
+    public class MandatoryRules
     {
         public int HouseNumber { get; set; }
         public List<MandatoryRule> AllRules { get; set; }
     }
 
     //Rules set by tenant
-    class HouseRule
+    public class HouseRule
     {
         public int ID { get; set; }
         public string RuleText { get; set; }
@@ -78,13 +81,29 @@ namespace Server
         public DateTime LastCompleted { get; set; }
         public int Interval { get; set; }
         public bool OnlyThisWeek { get; set; }
-        public Dictionary<string, bool> StudentsApproval { get; set; }
+        public Dictionary<int, bool> StudentsApproval { get; set; }
         public bool ApprovalState { get; set; }
     }
 
-    class HouseRules
+    public class HouseRules
     {
         public int HouseNumber { get; set; }
         public List<HouseRule> AllRules { get; set; }
+    }
+
+    //Complaints sent by the students
+    public class Complaint
+    {
+        public int ID { get; set; }
+        public string ComplaintText { get; set; }
+        public DateTime FiledDate { get; set; }
+        public int FiledBy { get; set; } //person's ID
+        public int BrokenBy { get; set; }
+    }
+
+    public class Complaints
+    {
+        public int HouseNumber { get; set; }
+        public List<Complaint> AllComplaints { get; set; }
     }
 }

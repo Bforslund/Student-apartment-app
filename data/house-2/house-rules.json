@@ -13,7 +13,7 @@
       "Interval": 3,
       "OnlyThisWeek": true,
       "StudentsApproval": {
-        "Jason": false
+        "1": false
       },
       "ApprovalState": false
     }

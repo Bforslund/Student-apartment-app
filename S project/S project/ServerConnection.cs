@@ -60,6 +60,21 @@ namespace S_project
             return true;
         }
 
+        //Returns all complaints
+        public Complaints GetComplaints(int houseNumber)
+        {
+            string message = GetResponce(PackageType.GET_COMPLAINTS, PackageType.COMPLAINTS, houseNumber.ToString());
+            return JsonConvert.DeserializeObject<Complaints>(message);
+        }
+
+        public bool UpdateComplaints(Complaints complaints)
+        {
+            string json = JsonConvert.SerializeObject(complaints, Formatting.Indented);
+
+            string message = GetResponce(PackageType.UPDATE_COMPLAINTS, PackageType.RECEIVED, json);
+            return true;
+        }
+
         //Connects to the server and sends pacckages
         private void SendToServer(string message)
         {

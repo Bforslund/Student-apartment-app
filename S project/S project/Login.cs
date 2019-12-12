@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace S_project
@@ -14,7 +8,7 @@ namespace S_project
     {
         ServerConnection serverConnection = new ServerConnection();
 
-       
+
         //List containing all the rules made by students from all houses
         public static List<StudentRule> studentRules = new List<StudentRule>();
 
@@ -22,7 +16,8 @@ namespace S_project
         {
             InitializeComponent();
             //Convert the displayed characters in the password textbox to *
-            tbPassword.PasswordChar = '*';            
+            tbPassword.PasswordChar = '*';
+            cbHouseNumber.SelectedItem = cbHouseNumber.Items[0];
         }
 
         private void bShowPass_MouseDown(object sender, MouseEventArgs e)

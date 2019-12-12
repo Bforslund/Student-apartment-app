@@ -13,9 +13,9 @@ namespace Server
 {
     class ServerMain
     {
+        const int SLEEP_INTERVAL = 100;
         private TcpListener clientListener;
         private List<TcpClient> clients = new List<TcpClient>();
-        private List<bool> clientsWaiting = new List<bool>();
 
         public ServerMain()
         {
@@ -29,7 +29,6 @@ namespace Server
                 while (true)
                 {
                     clients.Add(await clientListener.AcceptTcpClientAsync());
-                    clientsWaiting.Add(true);
                     Console.Write($"Clients Connected - {clients.Count}\n");
                 }
             });
@@ -55,7 +54,7 @@ namespace Server
                             }
 
                             //Waits for 0.5 seconds
-                            Thread.Sleep(500);
+                            Thread.Sleep(SLEEP_INTERVAL);
                         }
                         catch
                         {
@@ -73,7 +72,7 @@ namespace Server
             //Main loop
             while (true)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(SLEEP_INTERVAL);
                 try
                 {
                     //Checks each connected client, if it has any messages
@@ -85,7 +84,7 @@ namespace Server
                         {
                             byte[] mssg = new byte[1];
                             client.GetStream().Write(mssg, 0, mssg.Length);
-                            
+
                         }
                         catch { CloseTcpConection(index); }
 
@@ -126,10 +125,8 @@ namespace Server
         {
             clients[index].Close();
             clients.RemoveAt(index);
-            clientsWaiting.RemoveAt(index);
         }
 
-        //Doesn't work yet
         private void CheckExistedFiles(int houseNumber)
         {
             if (!Directory.Exists(@$"data\house-{houseNumber}"))
@@ -142,7 +139,7 @@ namespace Server
                     AllRules = new List<HouseRule>()
                 };
 
-                File.WriteAllText(@$"data\house-{houseNumber}\house-rules.json", 
+                File.WriteAllText(@$"data\house-{houseNumber}\house-rules.json",
                     JsonConvert.SerializeObject(houseRules, Formatting.Indented));
             }
             if (!File.Exists(@$"data\house-{houseNumber}\mandatory-rules.json"))
@@ -158,14 +155,25 @@ namespace Server
             }
             if (!File.Exists(@$"data\house-{houseNumber}\students.json"))
             {
-                Users houseRules = new Users
+                Users users = new Users
                 {
                     TotalStudentNumber = 0,
                     AllUsers = new List<ServerUser>()
                 };
 
                 File.WriteAllText(@$"data\house-{houseNumber}\students.json",
-                    JsonConvert.SerializeObject(houseRules, Formatting.Indented));
+                    JsonConvert.SerializeObject(users, Formatting.Indented));
+            }
+            if (!File.Exists(@$"data\house-{houseNumber}\complaints.json"))
+            {
+                Complaints complaints = new Complaints
+                {
+                    HouseNumber = houseNumber,
+                    AllComplaints = new List<Complaint>()
+                };
+
+                File.WriteAllText(@$"data\house-{houseNumber}\complaints.json",
+                    JsonConvert.SerializeObject(complaints, Formatting.Indented));
             }
         }
 
@@ -218,6 +226,25 @@ namespace Server
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
                         break;
                     }
+                case PackageType.GET_COMPLAINTS:
+                    {
+                        CheckExistedFiles(Convert.ToInt32(package.Message));
+
+                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.COMPLAINTS,
+                            File.ReadAllText(@$"data\house-{package.Message}\complaints.json"))));
+                        break;
+                    }
+                case PackageType.UPDATE_COMPLAINTS:
+                    {
+                        MandatoryRules mandatoryRules = JsonConvert.DeserializeObject<MandatoryRules>(package.Message);
+
+                        CheckExistedFiles(Convert.ToInt32(mandatoryRules.HouseNumber));
+
+                        File.WriteAllText(@$"data\house-{mandatoryRules.HouseNumber}\complaints.json", package.Message);
+
+                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
+                        break;
+                    }
             }
         }
 
@@ -230,16 +257,27 @@ namespace Server
 
             foreach (var user in users.AllUsers)
             {
-                if (user.Login == userCheck.Login && user.Password == userCheck.Password)
+                if (user.Login == userCheck.Login && user.Password == userCheck.Password && user.HouseNumber == userCheck.HouseNumber)
                 {
+                    Dictionary<string, int> usersInfo = new Dictionary<string, int>();
+
+                    foreach (var u in users.AllUsers)
+                    {
+                        usersInfo.Add(u.Name, u.ID);
+                    }
+
+                    List<string> s = users.AllUsers.ConvertAll(x => x.Name);
+
                     UserInfo userInfo = new UserInfo()
                     {
                         Type = user.Type,
                         ID = user.ID,
                         Name = user.Name,
+                        LastName = user.LastName,
                         HouseNumber = user.HouseNumber,
                         Room = user.Room,
-                        TotalStudentNumber = users.TotalStudentNumber
+                        TotalStudentNumber = users.TotalStudentNumber,
+                        StudentsInfo = usersInfo
                     };
 
                     string json = JsonConvert.SerializeObject(userInfo);
@@ -255,14 +293,10 @@ namespace Server
         //Send message to the specified client
         private void SendMessage(TcpClient client, string message)
         {
-            try
-            {
-                byte[] Buffer;
-                Buffer = Encoding.Default.GetBytes(message);
-                client.GetStream().Write(Buffer, 0, Buffer.Length);
-                client.Close();
-            }
-            catch { }
+            byte[] Buffer;
+            Buffer = Encoding.Default.GetBytes(message);
+            client.GetStream().Write(Buffer, 0, Buffer.Length);
+            client.Close();
         }
 
         static void Main(string[] args)

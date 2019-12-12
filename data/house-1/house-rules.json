@@ -4,16 +4,18 @@
     {
       "ID": 0,
       "RuleText": "No Smoking",
-	  "OrderOfStudents": [1,0],
-	  "CurrentStudent": 1, 
-	  "LastCompleted": "2019-12-09T14:04:17.1210779+01:00",
-	  "Interval": 3,
-	  "OnlyThisWeek": true,
-	  "StudentsApproval": 
-	  {
-		"Jason": false
-	  },
-	  "ApprovalState": false
+      "OrderOfStudents": [
+        1,
+        0
+      ],
+      "CurrentStudent": 1,
+      "LastCompleted": "2019-12-09T14:04:17.1210779+01:00",
+      "Interval": 3,
+      "OnlyThisWeek": true,
+      "StudentsApproval": {
+        "1": false
+      },
+      "ApprovalState": false
     }
   ]
 }

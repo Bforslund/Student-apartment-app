@@ -5,9 +5,13 @@
       "ID": 0,
       "RuleText": "No Smoking"
     },
-	{
+    {
       "ID": 1,
       "RuleText": "No Parties after 23.00"
+    },
+    {
+      "ID": 2,
+      "RuleText": "sduiajsd"
     }
   ]
 }

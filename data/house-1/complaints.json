@@ -1,0 +1,12 @@
+{
+  "HouseNumber": 1,
+  "AllComplaints": [
+    {
+      "ID": 0,
+      "ComplaintText": "Someone is smoking",
+      "FiledDate": "2019-12-11T14:04:17.1210779+01:00",
+      "FiledBy": 1,
+      "BrokenBy": -1
+    }
+  ]
+}

@@ -167,7 +167,7 @@ namespace S_project
         {
   
             CheckBox box = new CheckBox();
-            box.Text = complaint.ComplaintText;
+            box.Text = $"{complaint.FiledBy} {complaint.ComplaintText}";
             box.AutoSize = true;
             int newRow = tbComplaints.RowCount + 1;
             tbComplaints.Controls.Add(box, 1, newRow);

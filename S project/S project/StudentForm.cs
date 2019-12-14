@@ -20,6 +20,8 @@ namespace S_project
         //Initialize forms for Complaints and Rules
         AddComplainStudent complaintForm = null;
         AddRuleStudent ruleForm = null;
+        List<Schedule> schedules = new List<Schedule>();
+        HouseRules houseRules = new HouseRules();
 
         private void AddMandatoryRule(MandatoryRuleServer rule)
         {
@@ -37,7 +39,7 @@ namespace S_project
         {
             int newRow = pnlMandatoryRules.RowCount + 1;
             // when you click it hides everything.
-            
+
 
             pnlMandatoryRules.RowCount = newRow; // creates a new row
             pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow); // Add the rulenumber label to coloum 0, and on the new row
@@ -91,7 +93,7 @@ namespace S_project
         {
             //If a rule has been added to the textbox in the Rule Form and 
             //the Add button has been pressed, get the rule from that textbox
-            if(AddRuleStudent.ruleName != "")
+            if (AddRuleStudent.ruleName != "")
             {
                 AddRuleStudent.ruleName = "";
                 AddRuleStudent.repeatRule = 0;
@@ -106,18 +108,18 @@ namespace S_project
             }
 
             //If the rule form has been closed, revert ruleForm back to null
-            if(ruleForm != null)
+            if (ruleForm != null)
             {
-                if(ruleForm.IsDisposed == true)
+                if (ruleForm.IsDisposed == true)
                 {
                     ruleForm = null;
                 }
             }
 
             //If the complaint Form has been closed, revert complaintForm back to null
-            if(complaintForm != null)
+            if (complaintForm != null)
             {
-                if(complaintForm.IsDisposed == true)
+                if (complaintForm.IsDisposed == true)
                 {
                     complaintForm = null;
                 }
@@ -136,6 +138,50 @@ namespace S_project
                     AddMandatoryRule(rule);
                 }
             }
+        }
+
+        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
+        {
+            
+
+            for (int i = 0; i < houseRules.AllRules.Count; i++)
+            {
+                Schedule currentScheduleItem = new Schedule(student, i);
+                if (currentScheduleItem.GetID() == student.ID)
+                {
+                    
+                    schedules.Add(currentScheduleItem);
+                    
+                }
+            }
+
+            SortArray();
+
+            for (int i = 0; i < schedules.Count; i++ )
+            {
+                schedules[i].Location = new System.Drawing.Point(10, tableLayoutPanel4.Top - schedules.Count * 100);
+                schedules[i].Name = "Task";
+                schedules[i].Size = new System.Drawing.Size(tableLayoutPanel4.Width - 10, 100);
+                schedules[i].TabIndex = 0;
+            }
+        }
+        private void SortArray()
+        {
+            Schedule temp;
+
+            for (int j = 0; j <= schedules.Count - 2; j++)
+            {
+                for (int i = 0; i <= schedules.Count - 2; i++)
+                {
+                    if (schedules[i].GetDays() > schedules[i + 1].GetDays())
+                    {
+                        temp = schedules[i + 1];
+                        schedules[i + 1] = schedules[i];
+                        schedules[i] = temp;
+                    }
+                }
+            }
+
         }
     }
 }

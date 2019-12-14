@@ -8,35 +8,77 @@ namespace S_project
 {
     class ScheduleItem
     {
-        private DateTime dateTime;
+        private DateTime dateTimeBuffer;
         private String name;
-        private bool done;
-        
-        public ScheduleItem()
+        private int ID;
+        private int index;
+        TimeSpan span;
+
+
+        HouseRules houseRules = new HouseRules();
+
+        ServerConnection serverConnection = new ServerConnection();
+
+        public ScheduleItem(UserInfo user, int index)
         {
 
+            houseRules = serverConnection.GetHouseRules(user.HouseNumber);
+            this.index = index;
+            this.ID = houseRules.AllRules[this.index].OrderOfStudents[houseRules.AllRules[this.index].CurrentStudent];
+            span = DateTime.Today.Subtract(houseRules.AllRules[this.index].LastCompleted);
+
+
+
+            serverConnection.UpdateHouseRules(houseRules);
         }
 
-        public DateTime GetDateTime()
+      public String GetRuleInfo()
         {
-            return this.dateTime;
+            return houseRules.AllRules[index].RuleText;
         }
 
-        public String GetName()
+        public int GetDays()
         {
-            return this.name;
+            return span.Days;
         }
 
+        // Returns the name of the person assigned to the task
+        public int GetID()
+        {
+            return this.ID;
+        }
+
+        // Checks if the task is done today
         public bool GetDone()
         {
-            return done;
+
+            if (span.Days < 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
-        public void SetDone(bool done)
+        // Sets the task as being done
+        public void SetDone()
         {
-            this.done = done;
+
+            dateTimeBuffer = houseRules.AllRules[index].LastCompleted;
+            houseRules.AllRules[index].LastCompleted = DateTime.Today;
+            houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent] = houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent + 1];
+            serverConnection.UpdateHouseRules(houseRules);
         }
 
-
+        // Sets the task as being undone (for mistake purposes)
+        public void SetUnDone()
+        {
+            houseRules.AllRules[index].LastCompleted = dateTimeBuffer;
+            houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent] = houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent - 1];
+            serverConnection.UpdateHouseRules(houseRules);
+        }
     }
 }

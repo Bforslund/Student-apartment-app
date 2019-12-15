@@ -142,7 +142,7 @@ namespace S_project
 
         private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
         {
-            
+            houseRules = server.GetHouseRules(student.HouseNumber);
 
             for (int i = 0; i < houseRules.AllRules.Count; i++)
             {

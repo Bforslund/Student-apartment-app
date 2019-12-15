@@ -3,19 +3,20 @@
   "AllRules": [
     {
       "ID": 0,
-      "RuleText": "No Smoking",
+      "RuleText": "Clean kitchen",
       "OrderOfStudents": [
         1,
-        0
+        2
       ],
       "CurrentStudent": 1,
       "LastCompleted": "2019-12-09T14:04:17.1210779+01:00",
       "Interval": 3,
-      "OnlyThisWeek": true,
+      "OnlyThisWeek": false,
       "StudentsApproval": {
-        "1": false
+        "1": false,
+        "2": true
       },
-      "ApprovalState": false
+      "ApprovalState": true
     }
   ]
 }

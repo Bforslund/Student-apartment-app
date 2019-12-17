@@ -25,7 +25,7 @@ namespace S_project
 
         private void AddMandatoryRule(MandatoryRuleServer rule)
         {
-            // creating new labels
+            // creates new labels
             Label ruleLabel = new Label();
             Label ruleNumber = new Label();
 
@@ -38,28 +38,29 @@ namespace S_project
         public void AddMandatoryRuleRow(Label ruleNumber, Label ruleLabel)
         {
             int newRow = pnlMandatoryRules.RowCount + 1;
-            // when you click it hides everything.
 
-
-            pnlMandatoryRules.RowCount = newRow; // creates a new row
-            pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow); // Add the rulenumber label to coloum 0, and on the new row
+            // creates a new row
+            pnlMandatoryRules.RowCount = newRow;
+            pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow);
             pnlMandatoryRules.Controls.Add(ruleLabel, 1, newRow);
 
             pnlMandatoryRules.Update(); // update the screen, method already exists
         }
         private void AddNotificationsRule(HouseRuleServer rule)
         {
-            // creating new labels
+            // creates labels and buttons to display
             Label ruleLabel = new Label();
             Label ruleNumber = new Label();
             Button approve = new Button();
+            approve.FlatStyle = FlatStyle.Flat;
             Button disapprove = new Button();
+            disapprove.FlatStyle = FlatStyle.Flat;
 
-            ruleLabel.Text = rule.RuleText;
+            ruleLabel.Text = rule.RuleText + " every " + rule.Interval.ToString() + " days";
             ruleLabel.AutoSize = true;
-            approve.Size = new Size(30, 25);
+            approve.Size = new Size(25, 25);
             approve.Text = "+";
-            disapprove.Size = new Size(30, 25);
+            disapprove.Size = new Size(25, 25);
             disapprove.Text = "x";
             ruleNumber.Text = (rule.ID + 1).ToString();
 
@@ -67,36 +68,60 @@ namespace S_project
         }
         public void AddNotificationsRuleRow(Label ruleNumber, Label ruleLabel, Button approve, Button disapprove)
         {
-            int newRow = pnlMandatoryRules.RowCount + 1;
-            // when you click it hides everything.
+            int newRow = pnlNotifications.RowCount + 1;
 
+            //sets the buttons as enabled/disabled depending if the current student 
+            //already approved this rule or not
             approve.Enabled = !houseRules.AllRules[Convert.ToInt32(ruleNumber.Text) - 1].StudentsApproval[student.ID];
             disapprove.Enabled = houseRules.AllRules[Convert.ToInt32(ruleNumber.Text) - 1].StudentsApproval[student.ID];
-
+            if (!approve.Enabled)
+            {
+                approve.BackColor = Color.FromArgb(210, 210, 210);
+            }
+            else
+            {
+                approve.BackColor = Color.White;
+            }
+            if (!disapprove.Enabled)
+            {
+                disapprove.BackColor = Color.FromArgb(210, 210, 210);
+            }
+            else
+            {
+                disapprove.BackColor = Color.White;
+            }
+            //clicking the approve button disables it and changing the approval of the 
+            //current student
             approve.Click += new EventHandler((s, ea) =>
             {
                 int index = Convert.ToInt32(ruleNumber.Text) - 1;
 
                 approve.Enabled = false;
+                approve.BackColor = Color.FromArgb(210, 210, 210);
                 disapprove.Enabled = true;
+                disapprove.BackColor = Color.White;
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = true;
 
                 server.UpdateHouseRules(houseRules);
             });
-
+            //clicking the disapprove button disables it and changing the approval of the 
+            //current student
             disapprove.Click += new EventHandler((s, ea) =>
             {
                 int index = Convert.ToInt32(ruleNumber.Text) - 1;
 
                 disapprove.Enabled = false;
+                disapprove.BackColor = Color.FromArgb(210, 210, 210);
                 approve.Enabled = true;
+                approve.BackColor = Color.White;
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = false;
 
                 server.UpdateHouseRules(houseRules);
             });
 
-            pnlNotifications.RowCount = newRow; // creates a new row
-            pnlNotifications.Controls.Add(ruleNumber, 0, newRow); // Add the rulenumber label to coloum 0, and on the new row
+            // creates a new row
+            pnlNotifications.RowCount = newRow;
+            pnlNotifications.Controls.Add(ruleNumber, 0, newRow);
             pnlNotifications.Controls.Add(ruleLabel, 1, newRow);
             pnlNotifications.Controls.Add(approve, 2, newRow);
             pnlNotifications.Controls.Add(disapprove, 3, newRow);
@@ -105,14 +130,22 @@ namespace S_project
         }
         private void AddHouseRule(HouseRuleServer rule)
         {
-            // creating new labels
+            // creates new labels and button
             Label ruleLabel = new Label();
             Label ruleNumber = new Label();
             Button disapprove = new Button();
+            disapprove.FlatStyle = FlatStyle.Flat;
 
-            ruleLabel.Text = rule.RuleText;
+            if (rule.Interval == 1)
+            {
+                ruleLabel.Text = rule.RuleText + " everyday";
+            }
+            else
+            {
+                ruleLabel.Text = rule.RuleText + " every " + rule.Interval.ToString() + " days";
+            }
             ruleLabel.AutoSize = true;
-            disapprove.Size = new Size(30, 25);
+            disapprove.Size = new Size(25, 25);
             disapprove.Text = "x";
             ruleNumber.Text = (rule.ID + 1).ToString();
 
@@ -120,22 +153,34 @@ namespace S_project
         }
         public void AddHouseRuleRow(Label ruleNumber, Label ruleLabel, Button disapprove)
         {
-            int newRow = pnlMandatoryRules.RowCount + 1;
-            // when you click it hides everything.
+            int newRow = pnlHouseRules.RowCount + 1;
 
+            disapprove.Enabled = houseRules.AllRules[Convert.ToInt32(ruleNumber.Text) - 1].StudentsApproval[student.ID];
+            if (!disapprove.Enabled)
+            {
+                disapprove.BackColor = Color.FromArgb(210, 210, 210);
+            }
+            else
+            {
+                disapprove.BackColor = Color.White;
+            }
+            //clicking the disapprove button disables it and changing the approval of the 
+            //current student
             disapprove.Click += new EventHandler((s, ea) =>
             {
                 int index = Convert.ToInt32(ruleNumber.Text) - 1;
 
                 
                 disapprove.Enabled = false;
+                disapprove.BackColor = Color.FromArgb(210, 210, 210);
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = false;
 
                 server.UpdateHouseRules(houseRules);
             });
 
-            pnlHouseRules.RowCount = newRow; // creates a new row
-            pnlHouseRules.Controls.Add(ruleNumber, 0, newRow); // Add the rulenumber label to coloum 0, and on the new row
+            // creates a new row
+            pnlHouseRules.RowCount = newRow;
+            pnlHouseRules.Controls.Add(ruleNumber, 0, newRow);
             pnlHouseRules.Controls.Add(ruleLabel, 1, newRow);
             pnlHouseRules.Controls.Add(disapprove, 3, newRow);
 

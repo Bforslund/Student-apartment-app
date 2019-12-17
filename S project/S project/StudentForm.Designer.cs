@@ -494,6 +494,7 @@
             this.Controls.Add(this.tabCtrlAdmin);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Name = "StudentForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "5";
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).EndInit();
             this.panel2.ResumeLayout(false);

@@ -108,6 +108,16 @@ namespace S_project
                     _houseRules.AllRules[i].ID = i;
                 }
 
+                //#####  Added in order to update list when remove is clicked 
+
+                pnlHouseRules.Controls.Clear();
+
+                foreach (HouseRuleServer rule in _houseRules.AllRules)
+                {
+                    AddHouseRule(rule);
+                }
+                //#####
+
                 _server.UpdateHouseRules(_houseRules);
             });
 
@@ -152,6 +162,16 @@ namespace S_project
                     _mandatoryRules.AllRules[i].ID = i;
                 }
 
+                //#####  Added in order to update list when remove is clicked 
+
+                pnlMandatoryRules.Controls.Clear();
+
+                foreach (MandatoryRuleServer rule in _mandatoryRules.AllRules)
+                {
+                    AddMandatoryRule(rule);
+                }
+                //#####
+
                 _server.UpdateMandatoryRules(_mandatoryRules);
             });
 
@@ -160,7 +180,9 @@ namespace S_project
             pnlMandatoryRules.Controls.Add(ruleLabel, 1, newRow);
             pnlMandatoryRules.Controls.Add(removeRuleButton, 2, newRow);
 
-            pnlMandatoryRules.Update(); // update the screen, method already exists
+            //#####  Commented line below to speed up updating and remove flickering 
+
+            //pnlMandatoryRules.Update(); // update the screen, method already exists
         }
 
         private void AddComplaint(Complaint complaint)

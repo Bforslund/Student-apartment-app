@@ -162,6 +162,7 @@
             this.Controls.Add(this.tbLogin);
             this.Controls.Add(this.cbHouseNumber);
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();

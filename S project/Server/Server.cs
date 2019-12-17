@@ -317,12 +317,12 @@ namespace Server
             {
                 if (user.Login == userCheck.Login && user.Password == userCheck.Password && user.HouseNumber == userCheck.HouseNumber)
                 {
-                    Dictionary<string, int> usersInfo = new Dictionary<string, int>();
+                    Dictionary<int, string> usersInfo = new Dictionary<int, string>();
 
                     //Adds all student's Name and ID in a dictionary
                     foreach (var u in users.AllUsers)
                     {
-                        usersInfo.Add(u.Name, u.ID);
+                        usersInfo.Add(u.ID, u.Name);
                     }
 
                     List<string> s = users.AllUsers.ConvertAll(x => x.Name);

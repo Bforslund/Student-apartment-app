@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,16 +19,18 @@ namespace S_project
         private MandatoryRules _mandatoryRules;
         private HouseRules _houseRules;
         private Complaints _complaints;
+        private UserInfo _user;
 
-        public AdminForm(ServerConnection server, int houseNumber)
+        public AdminForm(ServerConnection server, int houseNumber, UserInfo user)
         {
+            InitializeComponent();
+
             _houseNumber = houseNumber;
             _server = server;
             _mandatoryRules = server.GetMandatoryRules(houseNumber);
             _houseRules = server.GetHouseRules(houseNumber);
             _complaints = server.GetComplaints(houseNumber);
-
-            InitializeComponent();
+            _user = user;
         }
 
         private void GoBackToLogin()
@@ -49,35 +53,74 @@ namespace S_project
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
             if (_mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count /3)
-            {
-                pnlMandatoryRules.Controls.Clear();
+                UpdateMandatoryRulesLayout();
 
-                foreach (MandatoryRuleServer rule in _mandatoryRules.AllRules)
-                {
-                    AddMandatoryRule(rule);
-                }
-            }
             if (_houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3)
-            {
-                pnlHouseRules.Controls.Clear();
+                UpdateHouseRulesLayout();
 
-                foreach (HouseRuleServer rule in _houseRules.AllRules)
-                {
-                    AddHouseRule(rule);
-                }
-            }
-            if (_complaints.AllComplaints.Count != tbComplaints.Controls.Count)
+            if (_complaints.AllComplaints.Count != pnlComplaints.Controls.Count)
             {
-                tbComplaints.Controls.Clear();
+                pnlComplaints.SuspendLayout();
+                pnlComplaints.Controls.Clear();
 
                 foreach (Complaint complaint in _complaints.AllComplaints)
                 {
                     AddComplaint(complaint);
                 }
+
+                pnlComplaints.ResumeLayout();
             }
         }
 
-        private void AddHouseRule(HouseRuleServer rule) {
+        private void UpdateMandatoryRulesLayout()
+        {
+            fUpdating updateForm = new fUpdating();
+
+            Task.Run(() =>
+            {
+                updateForm.ShowDialog();
+            });
+
+            pnlMandatoryRules.SuspendLayout();
+            pnlMandatoryRules.Controls.Clear();
+
+            foreach (MandatoryRuleServer rule in _mandatoryRules.AllRules)
+            {
+                AddMandatoryRule(rule, _mandatoryRules.AllRules.IndexOf(rule));
+            }
+
+            pnlMandatoryRules.ResumeLayout();
+            Invoke((MethodInvoker)delegate
+            {
+                updateForm.Close();
+            });
+        }
+
+        private void UpdateHouseRulesLayout()
+        {
+            fUpdating updateForm = new fUpdating();
+
+            Task.Run(() =>
+            {
+                updateForm.ShowDialog();
+            });
+
+            pnlHouseRules.SuspendLayout();
+            pnlHouseRules.Controls.Clear();
+
+            foreach (HouseRuleServer rule in _houseRules.AllRules)
+            {
+                AddHouseRule(rule, _houseRules.AllRules.IndexOf(rule));
+            }
+
+            pnlHouseRules.ResumeLayout();
+            Invoke((MethodInvoker)delegate
+            {
+                updateForm.Close();
+            });
+        }
+
+        private void AddHouseRule(HouseRuleServer rule, int index) {
             // i have a button click to update now, but I want to update my list whenever a rule is sent. So When that is Done i will adjust this.
 
             Button removeRuleButton = new Button();
@@ -88,47 +131,32 @@ namespace S_project
             ruleLabel.AutoSize = true;
             removeRuleButton.Size = new Size(30, 25);
             removeRuleButton.Text = "x";
-            ruleNumber.Text = (rule.ID + 1).ToString();
+            ruleNumber.Text = (index + 1).ToString();
             AddHouseRuleRow(ruleNumber, ruleLabel, removeRuleButton);
         }
+        
         public void AddHouseRuleRow(Label ruleNumber, Label ruleLabel, Button removeRuleButton) { 
             int newRow = pnlHouseRules.RowCount + 1;
 
-            removeRuleButton.Click += new EventHandler((s, ea) =>
-            {
-                int index = Convert.ToInt32(ruleNumber.Text) - 1;
-
-                ruleNumber.Dispose();
-                ruleLabel.Dispose();
-                removeRuleButton.Dispose();
-                _houseRules.AllRules.RemoveAt(index);
-
-                for (int i = 0; i < _houseRules.AllRules.Count; i++)
-                {
-                    _houseRules.AllRules[i].ID = i;
-                }
-
-                //#####  Added in order to update list when remove is clicked 
-
-                pnlHouseRules.Controls.Clear();
-
-                foreach (HouseRuleServer rule in _houseRules.AllRules)
-                {
-                    AddHouseRule(rule);
-                }
-                //#####
-
-                _server.UpdateHouseRules(_houseRules);
-            });
+            removeRuleButton.Click += RemoveHouseRuleButton_Click;
+            removeRuleButton.Tag = ruleNumber.Text;
 
             pnlHouseRules.RowCount = newRow;
             pnlHouseRules.Controls.Add(ruleNumber, 0, newRow);
             pnlHouseRules.Controls.Add(ruleLabel, 1, newRow);
             pnlHouseRules.Controls.Add(removeRuleButton, 2, newRow);
-            pnlHouseRules.Update();
         }
 
-        private void AddMandatoryRule(MandatoryRuleServer rule)
+        private void RemoveHouseRuleButton_Click(object sender, EventArgs e)
+        {           
+            int index = Convert.ToInt32(((Button)sender).Tag) - 1;
+            _houseRules.AllRules.RemoveAt(index);
+
+            UpdateHouseRulesLayout();
+            _server.UpdateHouseRules(_houseRules);
+        }
+
+        private void AddMandatoryRule(MandatoryRuleServer rule, int index)
         {
             // creating new labels and buttons
             Button removeRuleButton = new Button();
@@ -139,7 +167,7 @@ namespace S_project
             ruleLabel.AutoSize = true;
             removeRuleButton.Size = new Size(30, 25);
             removeRuleButton.Text = "x";
-            ruleNumber.Text = (rule.ID + 1).ToString();
+            ruleNumber.Text = (index + 1).ToString();
 
             AddMandatoryRuleRow(ruleNumber, ruleLabel, removeRuleButton);
         }
@@ -148,32 +176,8 @@ namespace S_project
         {
             int newRow = pnlMandatoryRules.RowCount + 1;
             // when you click it hides everything.
-            removeRuleButton.Click += new EventHandler((s, ea) =>
-            {
-                int index = Convert.ToInt32(ruleNumber.Text) - 1;
-
-                ruleNumber.Dispose();
-                ruleLabel.Dispose();
-                removeRuleButton.Dispose();
-                _mandatoryRules.AllRules.RemoveAt(index);
-
-                for (int i = 0; i < _mandatoryRules.AllRules.Count; i++)
-                {
-                    _mandatoryRules.AllRules[i].ID = i;
-                }
-
-                //#####  Added in order to update list when remove is clicked 
-
-                pnlMandatoryRules.Controls.Clear();
-
-                foreach (MandatoryRuleServer rule in _mandatoryRules.AllRules)
-                {
-                    AddMandatoryRule(rule);
-                }
-                //#####
-
-                _server.UpdateMandatoryRules(_mandatoryRules);
-            });
+            removeRuleButton.Click += RemoveMandatoryRuleButton_Click;
+            removeRuleButton.Tag = ruleNumber.Text;
 
             pnlMandatoryRules.RowCount = newRow; // creates a new row
             pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow); // Add the rulenumber label to coloum 0, and on the new row
@@ -181,25 +185,35 @@ namespace S_project
             pnlMandatoryRules.Controls.Add(removeRuleButton, 2, newRow);
 
             //#####  Commented line below to speed up updating and remove flickering 
-
             //pnlMandatoryRules.Update(); // update the screen, method already exists
         }
 
-        private void AddComplaint(Complaint complaint)
+        private void RemoveMandatoryRuleButton_Click(object sender, EventArgs e)
         {
-  
-            CheckBox box = new CheckBox();
-            box.Text = $"{complaint.FiledBy} {complaint.ComplaintText}";
-            box.AutoSize = true;
-            int newRow = tbComplaints.RowCount + 1;
-            tbComplaints.Controls.Add(box, 1, newRow);
+            int index = Convert.ToInt32(((Button)sender).Tag) - 1;
+            _mandatoryRules.AllRules.RemoveAt(index);
+
+            UpdateMandatoryRulesLayout();
+            _server.UpdateMandatoryRules(_mandatoryRules);
         }
 
-       
+        private void AddComplaint(Complaint complaint)
+        {  
+            CheckBox box = new CheckBox();
+            box.Text = $"Filed by: {_user.StudentsInfo[complaint.FiledBy]}; Complaint: {complaint.ComplaintText}";
+
+            box.Padding = new Padding(10, 0, 0, 0);
+            box.Size = new Size(30, 30);
+            box.Dock = DockStyle.Top;
+            int newRow = tbComplaints.RowCount + 1;
+            //tbComplaints.Controls.Add(box, 1, newRow);
+            pnlComplaints.Controls.Add(box);
+        }       
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
         {
-            tbComplaints.Controls.Clear();
+            //tbComplaints.Controls.Clear();
+            pnlComplaints.Controls.Clear();
             _complaints.AllComplaints.Clear();
 
             _server.UpdateComplaints(_complaints);
@@ -207,8 +221,9 @@ namespace S_project
 
         private void btnRemoveSelected_Click(object sender, EventArgs e)
         {
-            List<CheckBox> boxes = tbComplaints.Controls.OfType<CheckBox>().ToList(); // it finds all the controls that are checkbox, 
-            //the results are put in the list. So the list for sure only contains checkboxes (we dont know since controls could be anything)
+            List<CheckBox> boxes = pnlComplaints.Controls.OfType<CheckBox>().ToList(); // it finds all the controls that are checkbox, 
+           
+            /*the results are put in the list. So the list for sure only contains checkboxes (we dont know since controls could be anything)
             for (int i = 0; i < boxes.Count; i++)
             {
                 if (boxes[i].Checked)
@@ -216,9 +231,21 @@ namespace S_project
                     boxes[i].Dispose();
                     _complaints.AllComplaints.RemoveAt(i);
                 }
+            }*/
+
+            foreach (var box in boxes.FindAll(x => x.Checked))
+            {
+                //boxes[boxes.IndexOf(box)].Dispose();
+                _complaints.AllComplaints.RemoveAt(boxes.IndexOf(box));
+                boxes.Remove(box);
             }
 
             _server.UpdateComplaints(_complaints);
+        }
+
+        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

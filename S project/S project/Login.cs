@@ -51,7 +51,7 @@ namespace S_project
             switch (u.Type)
             {
                 case UserType.EMPLOYEE:
-                    AdminForm adminForm = new AdminForm(serverConnection, u.HouseNumber);
+                    AdminForm adminForm = new AdminForm(serverConnection, u.HouseNumber, u);
                     adminForm.Show();
                     this.Hide();
                     break;

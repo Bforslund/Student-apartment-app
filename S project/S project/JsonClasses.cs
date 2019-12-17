@@ -58,7 +58,7 @@ namespace S_project
         public int HouseNumber { get; set; }
         public int Room { get; set; }
         public int TotalStudentNumber { get; set; }
-        public Dictionary<string, int> StudentsInfo { get; set; }
+        public Dictionary<int, string> StudentsInfo { get; set; }
     }
 
     //Rules set by tenant

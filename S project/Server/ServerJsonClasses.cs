@@ -35,7 +35,7 @@ namespace Server
         public int HouseNumber { get; set; }
         public int Room { get; set; }
         public int TotalStudentNumber { get; set; }
-        public Dictionary<string, int> StudentsInfo { get; set; }
+        public Dictionary<int, string> StudentsInfo { get; set; }
     }
 
     //Info about user stored on the server

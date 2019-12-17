@@ -13,6 +13,8 @@ namespace S_project
     public partial class Schedule : UserControl
     {
         ScheduleItem scheduleItem;
+        
+        // Constructor To Bind the backend part to the UserControl
         public Schedule(UserInfo user, int index)
         {
             scheduleItem = new ScheduleItem(user, index);
@@ -21,23 +23,26 @@ namespace S_project
         }
 
         
-
+        // Gets the days
         public int GetDays()
         {
             return scheduleItem.GetDays();
         }
-
+        
+        // Gets the ID of the student
         public int GetID()
         {
             return scheduleItem.GetID();
         }
 
+        // Sets the correct days until and info of the assigned task
         private void Schedule_Load(object sender, EventArgs e)
         {
             label1.Text = scheduleItem.GetDays().ToString("D");
             label2.Text = scheduleItem.GetRuleInfo();
         }
 
+        // Changes if the task is done or not
         private void DoneBox_CheckedChanged(object sender, EventArgs e)
         {
             if (DoneBox.Checked)

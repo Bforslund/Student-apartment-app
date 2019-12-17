@@ -19,6 +19,7 @@ namespace S_project
 
         ServerConnection serverConnection = new ServerConnection();
 
+        // Constructor that sets some info on the object correct in the instance variables
         public ScheduleItem(UserInfo user, int index)
         {
 
@@ -31,12 +32,14 @@ namespace S_project
 
             serverConnection.UpdateHouseRules(houseRules);
         }
-
-      public String GetRuleInfo()
+        
+        // Gets the Schedule Item info
+        public String GetRuleInfo()
         {
             return houseRules.AllRules[index].RuleText;
         }
-
+        
+        // Gets the amount of days still left until the task needs to be done
         public int GetDays()
         {
             return span.Days;

@@ -73,6 +73,12 @@ namespace S_project
         public bool OnlyThisWeek { get; set; }
         public Dictionary<int, bool> StudentsApproval { get; set; }
         public bool ApprovalState { get; set; }
+
+        public HouseRuleServer()
+        {
+            this.OrderOfStudents = new List<int>();
+            this.StudentsApproval = new Dictionary<int, bool>();
+        }
     }
 
     public class HouseRules

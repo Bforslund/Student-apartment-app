@@ -98,7 +98,7 @@ namespace Server
         public string ComplaintText { get; set; }
         public DateTime FiledDate { get; set; }
         public int FiledBy { get; set; } //person's ID
-        public int BrokenBy { get; set; }
+        public int BrokenBy { get; set; } //person's ID
     }
 
     public class Complaints

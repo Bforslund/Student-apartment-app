@@ -47,13 +47,13 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnRemoveAll = new System.Windows.Forms.Button();
             this.btnRemoveSelected = new System.Windows.Forms.Button();
+            this.tbBackground = new System.Windows.Forms.TableLayoutPanel();
+            this.tbComplaints = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.pctbxBack = new System.Windows.Forms.PictureBox();
             this.lblHello = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbBackground = new System.Windows.Forms.TableLayoutPanel();
-            this.tbComplaints = new System.Windows.Forms.TableLayoutPanel();
             this.tabCtrlAdmin.SuspendLayout();
             this.Rules.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -62,9 +62,9 @@
             this.pnlBackMandatoryRules.SuspendLayout();
             this.Complaints.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
-            this.panel2.SuspendLayout();
             this.tbBackground.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.SuspendLayout();
             // 
             // tabCtrlAdmin
@@ -303,60 +303,6 @@
             this.btnRemoveSelected.UseVisualStyleBackColor = false;
             this.btnRemoveSelected.Click += new System.EventHandler(this.btnRemoveSelected_Click);
             // 
-            // timerUpdate
-            // 
-            this.timerUpdate.Enabled = true;
-            this.timerUpdate.Interval = 1000;
-            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
-            // 
-            // pctbxBack
-            // 
-            this.pctbxBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pctbxBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pctbxBack.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pctbxBack.ErrorImage")));
-            this.pctbxBack.Image = ((System.Drawing.Image)(resources.GetObject("pctbxBack.Image")));
-            this.pctbxBack.InitialImage = ((System.Drawing.Image)(resources.GetObject("pctbxBack.InitialImage")));
-            this.pctbxBack.Location = new System.Drawing.Point(937, 16);
-            this.pctbxBack.Name = "pctbxBack";
-            this.pctbxBack.Size = new System.Drawing.Size(36, 32);
-            this.pctbxBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pctbxBack.TabIndex = 7;
-            this.pctbxBack.TabStop = false;
-            this.pctbxBack.Click += new System.EventHandler(this.PctbxBack_Click);
-            // 
-            // lblHello
-            // 
-            this.lblHello.AutoSize = true;
-            this.lblHello.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHello.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.lblHello.Location = new System.Drawing.Point(8, 16);
-            this.lblHello.Name = "lblHello";
-            this.lblHello.Size = new System.Drawing.Size(146, 24);
-            this.lblHello.TabIndex = 9;
-            this.lblHello.Text = "Hello, Admin";
-            // 
-            // panel2
-            // 
-            this.panel2.AutoScroll = true;
-            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(956, 68);
-            this.panel2.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(430, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 19);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Complaints";
-            // 
             // tbBackground
             // 
             this.tbBackground.ColumnCount = 1;
@@ -389,6 +335,60 @@
             this.tbComplaints.Size = new System.Drawing.Size(956, 322);
             this.tbComplaints.TabIndex = 2;
             // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(956, 68);
+            this.panel2.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(430, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 19);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Complaints";
+            // 
+            // timerUpdate
+            // 
+            this.timerUpdate.Enabled = true;
+            this.timerUpdate.Interval = 1000;
+            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
+            // 
+            // pctbxBack
+            // 
+            this.pctbxBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pctbxBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pctbxBack.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pctbxBack.ErrorImage")));
+            this.pctbxBack.Image = ((System.Drawing.Image)(resources.GetObject("pctbxBack.Image")));
+            this.pctbxBack.InitialImage = ((System.Drawing.Image)(resources.GetObject("pctbxBack.InitialImage")));
+            this.pctbxBack.Location = new System.Drawing.Point(937, 16);
+            this.pctbxBack.Name = "pctbxBack";
+            this.pctbxBack.Size = new System.Drawing.Size(36, 32);
+            this.pctbxBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pctbxBack.TabIndex = 7;
+            this.pctbxBack.TabStop = false;
+            this.pctbxBack.Click += new System.EventHandler(this.PctbxBack_Click);
+            // 
+            // lblHello
+            // 
+            this.lblHello.AutoSize = true;
+            this.lblHello.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHello.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.lblHello.Location = new System.Drawing.Point(8, 16);
+            this.lblHello.Name = "lblHello";
+            this.lblHello.Size = new System.Drawing.Size(146, 24);
+            this.lblHello.TabIndex = 9;
+            this.lblHello.Text = "Hello, Admin";
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -411,11 +411,11 @@
             this.pnlBackMandatoryRules.PerformLayout();
             this.Complaints.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.tbBackground.ResumeLayout(false);
             this.tbBackground.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

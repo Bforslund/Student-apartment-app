@@ -31,7 +31,7 @@ namespace Server
                 {
                     //Thread won't go farver until new client is connected
                     clients.Add(await clientListener.AcceptTcpClientAsync()); 
-                    Console.Write($"Clients Connected - {clients.Count}\n");
+                    Console.WriteLine($"Clients Connected (normal) - {clients.Count}\n");
                 }
             });
 
@@ -70,6 +70,8 @@ namespace Server
                     }
                 }
             });
+
+            Console.WriteLine("Waiting for clients...\n");
         }
 
         //Starts server 
@@ -119,7 +121,9 @@ namespace Server
                                 message = Encoding.Default.GetString(Buf.ToArray(), 0, Buf.Count);
 
                                 //Deserializes message into a ServerPackage
-                                ServerPackage package = JsonConvert.DeserializeObject<ServerPackage>(message); 
+                                ServerPackage package = JsonConvert.DeserializeObject<ServerPackage>(message);
+
+                                Console.WriteLine(Convert.ToString(package.Type));
 
                                 //Handles received package
                                 HandleDataQuery(client, package);
@@ -127,7 +131,10 @@ namespace Server
                         }
                     }
                 }
-                catch { Console.WriteLine($"Clients Connected - {clients.Count}\n"); }
+                catch 
+                { 
+                    Console.Write($"Clients Connected (catch) - {clients.Count} \n");
+                }
             }
         }
 

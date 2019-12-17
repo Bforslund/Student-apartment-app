@@ -320,7 +320,8 @@ namespace S_project
                 }
             }
         }
-
+        
+        // Method for drawing the required amount of UserControls
         private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
         {
             houseRules = server.GetHouseRules(student.HouseNumber);
@@ -346,6 +347,8 @@ namespace S_project
                 schedules[i].TabIndex = 0;
             }
         }
+        
+        // Method for sorting the list of UserControls
         private void SortArray()
         {
             Schedule temp;

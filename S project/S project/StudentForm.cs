@@ -170,7 +170,7 @@ namespace S_project
             {
                 int index = Convert.ToInt32(ruleNumber.Text) - 1;
 
-                
+
                 disapprove.Enabled = false;
                 disapprove.BackColor = Color.FromArgb(210, 210, 210);
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = false;
@@ -243,7 +243,7 @@ namespace S_project
                 houseRule.LastCompleted = DateTime.Now;
                 houseRule.OnlyThisWeek = false;
 
-                for(int i = 0; i < student.TotalStudentNumber; i++)
+                for (int i = 0; i < student.TotalStudentNumber; i++)
                 {
                     houseRule.StudentsApproval.Add(i + 1, false);
 
@@ -297,7 +297,7 @@ namespace S_project
                 }
             }
 
-            if(houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4)
+            if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4)
             {
                 pnlNotifications.Controls.Clear();
                 pnlHouseRules.Controls.Clear();
@@ -314,18 +314,18 @@ namespace S_project
                 }
             }
 
-            for(int i = 0; i < houseRules.AllRules.Count; i++)
+            for (int i = 0; i < houseRules.AllRules.Count; i++)
             {
                 int numberOfApprovals = 0;
 
-                for(int j = 0; j < student.TotalStudentNumber; j++)
+                for (int j = 0; j < student.TotalStudentNumber; j++)
                 {
                     numberOfApprovals += Convert.ToInt32(houseRules.AllRules[i].StudentsApproval[j + 1]);
                 }
 
-                if(numberOfApprovals > student.TotalStudentNumber / 2)
+                if (numberOfApprovals > student.TotalStudentNumber / 2)
                 {
-                    if(houseRules.AllRules[i].ApprovalState == false)
+                    if (houseRules.AllRules[i].ApprovalState == false)
                     {
                         houseRules.AllRules[i].ApprovalState = true;
                         pnlNotifications.Controls.Clear();
@@ -365,7 +365,7 @@ namespace S_project
                 }
             }
         }
-        
+
         // Method for drawing the required amount of UserControls
         private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
         {
@@ -376,15 +376,15 @@ namespace S_project
                 Schedule currentScheduleItem = new Schedule(student, i);
                 if (currentScheduleItem.GetID() == student.ID)
                 {
-                    
+
                     schedules.Add(currentScheduleItem);
-                    
+
                 }
             }
 
             SortArray();
 
-            for (int i = 0; i < schedules.Count; i++ )
+            for (int i = 0; i < schedules.Count; i++)
             {
                 schedules[i].Location = new System.Drawing.Point(10, tableLayoutPanel4.Top - schedules.Count * 100);
                 schedules[i].Name = "Task";
@@ -392,7 +392,7 @@ namespace S_project
                 schedules[i].TabIndex = 0;
             }
         }
-        
+
         // Method for sorting the list of UserControls
         private void SortArray()
         {

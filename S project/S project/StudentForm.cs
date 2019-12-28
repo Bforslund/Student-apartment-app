@@ -289,17 +289,21 @@ namespace S_project
         {
             if (mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 2)
             {
+                pnlMandatoryRules.SuspendLayout();
                 pnlMandatoryRules.Controls.Clear();
 
                 foreach (MandatoryRuleServer rule in mandatoryRules.AllRules)
                 {
                     AddMandatoryRule(rule);
                 }
+                pnlMandatoryRules.ResumeLayout();
             }
 
             if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4)
             {
+                pnlNotifications.SuspendLayout();
                 pnlNotifications.Controls.Clear();
+                pnlHouseRules.SuspendLayout();
                 pnlHouseRules.Controls.Clear();
                 foreach (HouseRuleServer rule in houseRules.AllRules)
                 {
@@ -312,6 +316,8 @@ namespace S_project
                         AddHouseRule(rule);
                     }
                 }
+                pnlNotifications.ResumeLayout();
+                pnlHouseRules.ResumeLayout();
             }
 
             for (int i = 0; i < houseRules.AllRules.Count; i++)
@@ -328,7 +334,9 @@ namespace S_project
                     if (houseRules.AllRules[i].ApprovalState == false)
                     {
                         houseRules.AllRules[i].ApprovalState = true;
+                        pnlNotifications.SuspendLayout();
                         pnlNotifications.Controls.Clear();
+                        pnlHouseRules.SuspendLayout();
                         pnlHouseRules.Controls.Clear();
                         foreach (HouseRuleServer rule in houseRules.AllRules)
                         {
@@ -341,6 +349,8 @@ namespace S_project
                                 AddHouseRule(rule);
                             }
                         }
+                        pnlNotifications.ResumeLayout();
+                        pnlHouseRules.ResumeLayout();
                     }
                 }
                 else
@@ -348,7 +358,9 @@ namespace S_project
                     if (houseRules.AllRules[i].ApprovalState == true)
                     {
                         houseRules.AllRules[i].ApprovalState = false;
+                        pnlNotifications.SuspendLayout();
                         pnlNotifications.Controls.Clear();
+                        pnlHouseRules.SuspendLayout();
                         pnlHouseRules.Controls.Clear();
                         foreach (HouseRuleServer rule in houseRules.AllRules)
                         {
@@ -361,6 +373,8 @@ namespace S_project
                                 AddHouseRule(rule);
                             }
                         }
+                        pnlNotifications.ResumeLayout();
+                        pnlHouseRules.ResumeLayout();
                     }
                 }
             }

@@ -75,6 +75,21 @@ namespace S_project
             return true;
         }
 
+        //Returns all Chat messages
+        public ChatHistory GetMessages(int houseNumber)
+        {
+            string message = GetResponce(PackageType.GET_MESSAGES, PackageType.MESSAGES, houseNumber.ToString());
+            return JsonConvert.DeserializeObject<ChatHistory>(message);
+        }
+
+        public bool UpdateMessages(ChatHistory msg)
+        {
+            string json = JsonConvert.SerializeObject(msg, Formatting.Indented);
+
+            string message = GetResponce(PackageType.UPDATE_MESSAGES, PackageType.RECEIVED, json);
+            return true;
+        }
+
         //Connects to the server and sends pacckages
         private void SendToServer(string message)
         {

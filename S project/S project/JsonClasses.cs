@@ -10,6 +10,9 @@ namespace S_project
         GET_HOUSE_RULES, HOUSE_RULES, UPDATE_HOUSE_RULES,
         GET_MANDATORY_RULES, MANDATORY_RULES, UPDATE_MANDATORY_RULES,
         GET_COMPLAINTS, COMPLAINTS, UPDATE_COMPLAINTS,
+        GET_MESSAGES,
+        MESSAGES,
+        UPDATE_MESSAGES,
         RECEIVED
     }
 
@@ -114,5 +117,18 @@ namespace S_project
     {
         public int HouseNumber { get; set; }
         public List<Complaint> AllComplaints { get; set; }
+    }
+
+    public class ChatMessage
+    {
+        public DateTime FiledDate { get; set;}
+        public int FiledBy { get; set; } //person's ID
+
+        public string MessageText { get; set; }
+    }
+    public class ChatHistory
+    {
+        public int HouseNumber { get; set; }
+        public List<ChatMessage> AllMessages { get; set; }
     }
 }

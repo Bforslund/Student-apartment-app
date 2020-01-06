@@ -106,4 +106,17 @@ namespace Server
         public int HouseNumber { get; set; }
         public List<Complaint> AllComplaints { get; set; }
     }
+
+    public class ChatMessage
+    {
+        public DateTime Date { get; set; }
+        public int FiledBy { get; set; } //person's ID
+
+        public string MessageText { get; set; }
+    }
+    public class ChatHistory
+    {
+        public int HouseNumber { get; set; }
+        public List<ChatMessage> AllMessages { get; set; }
+    }
 }

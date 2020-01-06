@@ -1,0 +1,90 @@
+{
+  "HouseNumber": 1,
+  "AllRules": [
+    {
+      "ID": 0,
+      "RuleText": "Clean kitchen",
+      "OrderOfStudents": [
+        1,
+        2
+      ],
+      "CurrentStudent": 1,
+      "LastCompleted": "2019-12-09T14:04:17.1210779+01:00",
+      "Interval": 3,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 1,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        1,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2019-12-17T00:59:43.3132261+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 1,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        1,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2019-12-17T00:59:43.3132261+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 1,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        1,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2019-12-17T00:59:43.3132261+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 1,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        1,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2019-12-17T00:59:43.3132261+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    }
+  ]
+}

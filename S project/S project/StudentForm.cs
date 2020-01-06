@@ -23,6 +23,29 @@ namespace S_project
         List<Schedule> schedules = new List<Schedule>();
         HouseRules houseRules = new HouseRules();
 
+        public StudentForm(ServerConnection server, UserInfo student)
+        {
+            InitializeComponent();
+
+            this.student = student;
+            this.server = server;
+            lblHello.Text = "Hello, " + this.student.Name;
+            mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
+            houseRules = server.GetHouseRules(student.HouseNumber);
+        }
+        
+        private void GoBackToLogin()
+        {
+            Login loginForm = new Login();
+            loginForm.Show();
+            this.Hide();
+        }
+        
+        private void PctbxBack_Click(object sender, EventArgs e)
+        {
+            GoBackToLogin();
+        }
+
         private void AddMandatoryRule(MandatoryRuleServer rule)
         {
             // creates new labels
@@ -35,6 +58,7 @@ namespace S_project
 
             AddMandatoryRuleRow(ruleNumber, ruleLabel);
         }
+        
         public void AddMandatoryRuleRow(Label ruleNumber, Label ruleLabel)
         {
             int newRow = pnlMandatoryRules.RowCount + 1;
@@ -185,28 +209,6 @@ namespace S_project
             pnlHouseRules.Controls.Add(disapprove, 3, newRow);
 
             pnlHouseRules.Update(); // update the screen, method already exists
-        }
-        private void GoBackToLogin()
-        {
-            Login loginForm = new Login();
-            loginForm.Show();
-            this.Hide();
-        }
-
-        public StudentForm(ServerConnection server, UserInfo student)
-        {
-            InitializeComponent();
-
-            this.student = student;
-            this.server = server;
-            lblHello.Text = "Hello, " + this.student.Name;
-            mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
-            houseRules = server.GetHouseRules(student.HouseNumber);
-        }
-
-        private void PctbxBack_Click(object sender, EventArgs e)
-        {
-            GoBackToLogin();
         }
 
         private void BtnComplain_Click(object sender, EventArgs e)
@@ -398,13 +400,13 @@ namespace S_project
 
             SortArray();
 
-            for (int i = 0; i < schedules.Count; i++)
+            /*for (int i = 0; i < schedules.Count; i++)
             {
-                schedules[i].Location = new System.Drawing.Point(10, tableLayoutPanel4.Top - schedules.Count * 100);
+                schedules[i].Location = new System.Drawing.Point(10, tableLayoutSchedule.Top - schedules.Count * 100);
                 schedules[i].Name = "Task";
-                schedules[i].Size = new System.Drawing.Size(tableLayoutPanel4.Width - 10, 100);
+                schedules[i].Size = new System.Drawing.Size(tableLayoutSchedule.Width - 10, 100);
                 schedules[i].TabIndex = 0;
-            }
+            }*/
         }
 
         // Method for sorting the list of UserControls

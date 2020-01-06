@@ -36,6 +36,7 @@
             this.Complaints = new System.Windows.Forms.TabPage();
             this.tbBackground = new System.Windows.Forms.TableLayoutPanel();
             this.tbComplaints = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlComplaints = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -43,21 +44,20 @@
             this.btnRemoveSelected = new System.Windows.Forms.Button();
             this.tabCtrlAdmin = new System.Windows.Forms.TabControl();
             this.Rules = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pnlBackHouseRules = new System.Windows.Forms.Panel();
-            this.lblHouseRules = new System.Windows.Forms.Label();
-            this.pnlBackMandatoryRules = new System.Windows.Forms.Panel();
-            this.lblMandatoryRules = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.pnlMandatoryRules = new System.Windows.Forms.TableLayoutPanel();
-            this.btnAddRule = new System.Windows.Forms.Button();
+            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.panel7 = new System.Windows.Forms.Panel();
             this.pnlHouseRules = new System.Windows.Forms.TableLayoutPanel();
-            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
-            this.pnlComplaints = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnAddRule = new System.Windows.Forms.Button();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.pnlMandatoryRules = new System.Windows.Forms.TableLayoutPanel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.pnlBackMandatoryRules = new System.Windows.Forms.Panel();
+            this.lblMandatoryRules = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblHouseRules = new System.Windows.Forms.Label();
+            this.pnlBackHouseRules = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.Complaints.SuspendLayout();
@@ -67,12 +67,12 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.tabCtrlAdmin.SuspendLayout();
             this.Rules.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.pnlBackHouseRules.SuspendLayout();
-            this.pnlBackMandatoryRules.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
+            this.pnlBackMandatoryRules.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.pnlBackHouseRules.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -158,6 +158,16 @@
             this.tbComplaints.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tbComplaints.Size = new System.Drawing.Size(972, 332);
             this.tbComplaints.TabIndex = 2;
+            // 
+            // pnlComplaints
+            // 
+            this.pnlComplaints.AutoScroll = true;
+            this.pnlComplaints.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlComplaints.Location = new System.Drawing.Point(0, 0);
+            this.pnlComplaints.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlComplaints.Name = "pnlComplaints";
+            this.pnlComplaints.Size = new System.Drawing.Size(972, 332);
+            this.pnlComplaints.TabIndex = 0;
             // 
             // panel2
             // 
@@ -253,147 +263,11 @@
             this.Rules.TabIndex = 1;
             this.Rules.Text = "Rules";
             // 
-            // tableLayoutPanel1
+            // timerUpdate
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.79541F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.4091653F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.79542F));
-            this.tableLayoutPanel1.Controls.Add(this.pnlBackHouseRules, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pnlBackMandatoryRules, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel5, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel7, 2, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(972, 471);
-            this.tableLayoutPanel1.TabIndex = 8;
-            // 
-            // pnlBackHouseRules
-            // 
-            this.pnlBackHouseRules.AutoScroll = true;
-            this.pnlBackHouseRules.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlBackHouseRules.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
-            this.pnlBackHouseRules.Controls.Add(this.lblHouseRules);
-            this.pnlBackHouseRules.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBackHouseRules.Location = new System.Drawing.Point(487, 0);
-            this.pnlBackHouseRules.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlBackHouseRules.Name = "pnlBackHouseRules";
-            this.pnlBackHouseRules.Size = new System.Drawing.Size(485, 75);
-            this.pnlBackHouseRules.TabIndex = 2;
-            // 
-            // lblHouseRules
-            // 
-            this.lblHouseRules.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblHouseRules.AutoSize = true;
-            this.lblHouseRules.Location = new System.Drawing.Point(188, 25);
-            this.lblHouseRules.Name = "lblHouseRules";
-            this.lblHouseRules.Size = new System.Drawing.Size(107, 19);
-            this.lblHouseRules.TabIndex = 6;
-            this.lblHouseRules.Text = "House rules";
-            // 
-            // pnlBackMandatoryRules
-            // 
-            this.pnlBackMandatoryRules.AutoScroll = true;
-            this.pnlBackMandatoryRules.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlBackMandatoryRules.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
-            this.pnlBackMandatoryRules.Controls.Add(this.lblMandatoryRules);
-            this.pnlBackMandatoryRules.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBackMandatoryRules.Location = new System.Drawing.Point(0, 0);
-            this.pnlBackMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlBackMandatoryRules.Name = "pnlBackMandatoryRules";
-            this.pnlBackMandatoryRules.Size = new System.Drawing.Size(484, 75);
-            this.pnlBackMandatoryRules.TabIndex = 1;
-            // 
-            // lblMandatoryRules
-            // 
-            this.lblMandatoryRules.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblMandatoryRules.AutoSize = true;
-            this.lblMandatoryRules.Location = new System.Drawing.Point(160, 25);
-            this.lblMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
-            this.lblMandatoryRules.Name = "lblMandatoryRules";
-            this.lblMandatoryRules.Size = new System.Drawing.Size(144, 19);
-            this.lblMandatoryRules.TabIndex = 5;
-            this.lblMandatoryRules.Text = "Mandatory rules";
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(484, 75);
-            this.panel3.Margin = new System.Windows.Forms.Padding(0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(3, 396);
-            this.panel3.TabIndex = 7;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(484, 0);
-            this.panel5.Margin = new System.Windows.Forms.Padding(0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(3, 75);
-            this.panel5.TabIndex = 8;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.panel6);
-            this.panel4.Controls.Add(this.btnAddRule);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 75);
-            this.panel4.Margin = new System.Windows.Forms.Padding(0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(484, 396);
-            this.panel4.TabIndex = 9;
-            // 
-            // panel6
-            // 
-            this.panel6.AutoScroll = true;
-            this.panel6.AutoScrollMargin = new System.Drawing.Size(10, 10);
-            this.panel6.Controls.Add(this.pnlMandatoryRules);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(484, 329);
-            this.panel6.TabIndex = 11;
-            // 
-            // pnlMandatoryRules
-            // 
-            this.pnlMandatoryRules.AutoSize = true;
-            this.pnlMandatoryRules.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlMandatoryRules.ColumnCount = 3;
-            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.pnlMandatoryRules.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlMandatoryRules.Location = new System.Drawing.Point(0, 0);
-            this.pnlMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlMandatoryRules.Name = "pnlMandatoryRules";
-            this.pnlMandatoryRules.RowCount = 1;
-            this.pnlMandatoryRules.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.pnlMandatoryRules.Size = new System.Drawing.Size(484, 0);
-            this.pnlMandatoryRules.TabIndex = 12;
-            // 
-            // btnAddRule
-            // 
-            this.btnAddRule.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
-            this.btnAddRule.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnAddRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddRule.Location = new System.Drawing.Point(0, 329);
-            this.btnAddRule.Margin = new System.Windows.Forms.Padding(0);
-            this.btnAddRule.Name = "btnAddRule";
-            this.btnAddRule.Size = new System.Drawing.Size(484, 67);
-            this.btnAddRule.TabIndex = 10;
-            this.btnAddRule.Text = "Add New Rule";
-            this.btnAddRule.UseVisualStyleBackColor = false;
-            this.btnAddRule.Click += new System.EventHandler(this.BtnAddRule_Click);
+            this.timerUpdate.Enabled = true;
+            this.timerUpdate.Interval = 500;
+            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
             // 
             // panel7
             // 
@@ -424,21 +298,147 @@
             this.pnlHouseRules.Size = new System.Drawing.Size(485, 0);
             this.pnlHouseRules.TabIndex = 1;
             // 
-            // timerUpdate
+            // panel4
             // 
-            this.timerUpdate.Enabled = true;
-            this.timerUpdate.Interval = 500;
-            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
+            this.panel4.Controls.Add(this.panel6);
+            this.panel4.Controls.Add(this.btnAddRule);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 75);
+            this.panel4.Margin = new System.Windows.Forms.Padding(0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(484, 396);
+            this.panel4.TabIndex = 9;
             // 
-            // pnlComplaints
+            // btnAddRule
             // 
-            this.pnlComplaints.AutoScroll = true;
-            this.pnlComplaints.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlComplaints.Location = new System.Drawing.Point(0, 0);
-            this.pnlComplaints.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlComplaints.Name = "pnlComplaints";
-            this.pnlComplaints.Size = new System.Drawing.Size(972, 332);
-            this.pnlComplaints.TabIndex = 0;
+            this.btnAddRule.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
+            this.btnAddRule.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnAddRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddRule.Location = new System.Drawing.Point(0, 329);
+            this.btnAddRule.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAddRule.Name = "btnAddRule";
+            this.btnAddRule.Size = new System.Drawing.Size(484, 67);
+            this.btnAddRule.TabIndex = 10;
+            this.btnAddRule.Text = "Add New Rule";
+            this.btnAddRule.UseVisualStyleBackColor = false;
+            this.btnAddRule.Click += new System.EventHandler(this.BtnAddRule_Click);
+            // 
+            // panel6
+            // 
+            this.panel6.AutoScroll = true;
+            this.panel6.AutoScrollMargin = new System.Drawing.Size(10, 10);
+            this.panel6.Controls.Add(this.pnlMandatoryRules);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(484, 329);
+            this.panel6.TabIndex = 11;
+            // 
+            // pnlMandatoryRules
+            // 
+            this.pnlMandatoryRules.AutoSize = true;
+            this.pnlMandatoryRules.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlMandatoryRules.ColumnCount = 3;
+            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.pnlMandatoryRules.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.pnlMandatoryRules.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlMandatoryRules.Location = new System.Drawing.Point(0, 0);
+            this.pnlMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlMandatoryRules.Name = "pnlMandatoryRules";
+            this.pnlMandatoryRules.RowCount = 1;
+            this.pnlMandatoryRules.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.pnlMandatoryRules.Size = new System.Drawing.Size(484, 0);
+            this.pnlMandatoryRules.TabIndex = 12;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(484, 0);
+            this.panel5.Margin = new System.Windows.Forms.Padding(0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(3, 75);
+            this.panel5.TabIndex = 8;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(484, 75);
+            this.panel3.Margin = new System.Windows.Forms.Padding(0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(3, 396);
+            this.panel3.TabIndex = 7;
+            // 
+            // pnlBackMandatoryRules
+            // 
+            this.pnlBackMandatoryRules.AutoScroll = true;
+            this.pnlBackMandatoryRules.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlBackMandatoryRules.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.pnlBackMandatoryRules.Controls.Add(this.lblMandatoryRules);
+            this.pnlBackMandatoryRules.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBackMandatoryRules.Location = new System.Drawing.Point(0, 0);
+            this.pnlBackMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlBackMandatoryRules.Name = "pnlBackMandatoryRules";
+            this.pnlBackMandatoryRules.Size = new System.Drawing.Size(484, 75);
+            this.pnlBackMandatoryRules.TabIndex = 1;
+            // 
+            // lblMandatoryRules
+            // 
+            this.lblMandatoryRules.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblMandatoryRules.AutoSize = true;
+            this.lblMandatoryRules.Location = new System.Drawing.Point(160, 25);
+            this.lblMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
+            this.lblMandatoryRules.Name = "lblMandatoryRules";
+            this.lblMandatoryRules.Size = new System.Drawing.Size(144, 19);
+            this.lblMandatoryRules.TabIndex = 5;
+            this.lblMandatoryRules.Text = "Mandatory rules";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.79541F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.4091653F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.79542F));
+            this.tableLayoutPanel1.Controls.Add(this.pnlBackHouseRules, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pnlBackMandatoryRules, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel5, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel7, 2, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(972, 471);
+            this.tableLayoutPanel1.TabIndex = 8;
+            // 
+            // lblHouseRules
+            // 
+            this.lblHouseRules.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblHouseRules.AutoSize = true;
+            this.lblHouseRules.Location = new System.Drawing.Point(188, 25);
+            this.lblHouseRules.Name = "lblHouseRules";
+            this.lblHouseRules.Size = new System.Drawing.Size(107, 19);
+            this.lblHouseRules.TabIndex = 6;
+            this.lblHouseRules.Text = "House rules";
+            // 
+            // pnlBackHouseRules
+            // 
+            this.pnlBackHouseRules.AutoScroll = true;
+            this.pnlBackHouseRules.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlBackHouseRules.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.pnlBackHouseRules.Controls.Add(this.lblHouseRules);
+            this.pnlBackHouseRules.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBackHouseRules.Location = new System.Drawing.Point(487, 0);
+            this.pnlBackHouseRules.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlBackHouseRules.Name = "pnlBackHouseRules";
+            this.pnlBackHouseRules.Size = new System.Drawing.Size(485, 75);
+            this.pnlBackHouseRules.TabIndex = 2;
             // 
             // AdminForm
             // 
@@ -465,16 +465,16 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tabCtrlAdmin.ResumeLayout(false);
             this.Rules.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.pnlBackHouseRules.ResumeLayout(false);
-            this.pnlBackHouseRules.PerformLayout();
-            this.pnlBackMandatoryRules.ResumeLayout(false);
-            this.pnlBackMandatoryRules.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
+            this.pnlBackMandatoryRules.ResumeLayout(false);
+            this.pnlBackMandatoryRules.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.pnlBackHouseRules.ResumeLayout(false);
+            this.pnlBackHouseRules.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -495,6 +495,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage Rules;
+        private System.Windows.Forms.Timer timerUpdate;
+        private System.Windows.Forms.Panel pnlComplaints;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel pnlBackHouseRules;
         private System.Windows.Forms.Label lblHouseRules;
@@ -503,12 +505,10 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button btnAddRule;
-        private System.Windows.Forms.Timer timerUpdate;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.TableLayoutPanel pnlMandatoryRules;
+        private System.Windows.Forms.Button btnAddRule;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.TableLayoutPanel pnlHouseRules;
-        private System.Windows.Forms.Panel pnlComplaints;
     }
 }

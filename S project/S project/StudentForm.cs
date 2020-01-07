@@ -36,8 +36,8 @@ namespace S_project
             timerRules.Start();
             timerUpdate.Start();
 
-            TimerRules_Tick(null, null);
-            TimerUpdates_Tick(null, null);
+            RulesUpdateTick(false);
+            UpdatesTick();
         }
         
         private void GoBackToLogin()
@@ -74,10 +74,10 @@ namespace S_project
             pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow);
             pnlMandatoryRules.Controls.Add(ruleLabel, 1, newRow);
 
-            pnlMandatoryRules.Update(); // update the screen, method already exists
+            //pnlMandatoryRules.Update(); // update the screen, method already exists
         }
 
-        private void AddNotificationsRule(HouseRuleServer rule, int index)
+        private void AddNotificationsRule(HouseRuleServer rule, int index , int textIndex)
         {
             // creates labels and buttons to display
             Label ruleLabel = new Label();
@@ -93,7 +93,8 @@ namespace S_project
             approve.Text = "+";
             disapprove.Size = new Size(25, 25);
             disapprove.Text = "x";
-            ruleNumber.Text = (index + 1).ToString();
+            ruleNumber.Text = (textIndex + 1).ToString();
+            ruleNumber.Tag = index + 1;
 
             AddNotificationsRuleRow(ruleNumber, ruleLabel, approve, disapprove);
         }
@@ -104,8 +105,8 @@ namespace S_project
 
             //sets the buttons as enabled/disabled depending if the current student 
             //already approved this rule or not
-            approve.Enabled = !houseRules.AllRules[Convert.ToInt32(ruleNumber.Text) - 1].StudentsApproval[student.ID];
-            disapprove.Enabled = houseRules.AllRules[Convert.ToInt32(ruleNumber.Text) - 1].StudentsApproval[student.ID];
+            approve.Enabled = !houseRules.AllRules[Convert.ToInt32(ruleNumber.Tag) - 1].StudentsApproval[student.ID];
+            disapprove.Enabled = houseRules.AllRules[Convert.ToInt32(ruleNumber.Tag) - 1].StudentsApproval[student.ID];
             if (!approve.Enabled)
             {
                 approve.BackColor = Color.FromArgb(210, 210, 210);
@@ -126,7 +127,7 @@ namespace S_project
             //current student
             approve.Click += new EventHandler((s, ea) =>
             {
-                int index = Convert.ToInt32(ruleNumber.Text) - 1;
+                int index = Convert.ToInt32(ruleNumber.Tag) - 1;
 
                 approve.Enabled = false;
                 approve.BackColor = Color.FromArgb(210, 210, 210);
@@ -135,12 +136,14 @@ namespace S_project
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = true;
 
                 server.UpdateHouseRules(houseRules);
+                RulesUpdateTick();
+                UpdatesTick();
             });
             //clicking the disapprove button disables it and changing the approval of the 
             //current student
             disapprove.Click += new EventHandler((s, ea) =>
             {
-                int index = Convert.ToInt32(ruleNumber.Text) - 1;
+                int index = Convert.ToInt32(ruleNumber.Tag) - 1;
 
                 disapprove.Enabled = false;
                 disapprove.BackColor = Color.FromArgb(210, 210, 210);
@@ -149,6 +152,8 @@ namespace S_project
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = false;
 
                 server.UpdateHouseRules(houseRules);
+                RulesUpdateTick();
+                UpdatesTick();
             });
 
             // creates a new row
@@ -161,7 +166,7 @@ namespace S_project
             //pnlNotifications.Update(); // update the screen, method already exists
         }
 
-        private void AddHouseRule(HouseRuleServer rule, int index)
+        private void AddHouseRule(HouseRuleServer rule, int index, int textIndex)
         {
             // creates new labels and button
             Label ruleLabel = new Label();
@@ -180,7 +185,8 @@ namespace S_project
             ruleLabel.AutoSize = true;
             disapprove.Size = new Size(25, 25);
             disapprove.Text = "x";
-            ruleNumber.Text = (index + 1).ToString();
+            ruleNumber.Text = (textIndex + 1).ToString();
+            ruleNumber.Tag = index + 1;
 
             AddHouseRuleRow(ruleNumber, ruleLabel, disapprove);
         }
@@ -189,7 +195,7 @@ namespace S_project
         {
             int newRow = pnlHouseRules.RowCount + 1;
 
-            disapprove.Enabled = houseRules.AllRules[Convert.ToInt32(ruleNumber.Text) - 1].StudentsApproval[student.ID];
+            disapprove.Enabled = houseRules.AllRules[Convert.ToInt32(ruleNumber.Tag) - 1].StudentsApproval[student.ID];
             if (!disapprove.Enabled)
             {
                 disapprove.BackColor = Color.FromArgb(210, 210, 210);
@@ -202,14 +208,15 @@ namespace S_project
             //current student
             disapprove.Click += new EventHandler((s, ea) =>
             {
-                int index = Convert.ToInt32(ruleNumber.Text) - 1;
-
+                int index = Convert.ToInt32(ruleNumber.Tag) - 1;
 
                 disapprove.Enabled = false;
                 disapprove.BackColor = Color.FromArgb(210, 210, 210);
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = false;
 
                 server.UpdateHouseRules(houseRules);
+                RulesUpdateTick();
+                UpdatesTick();
             });
 
             // creates a new row
@@ -242,6 +249,11 @@ namespace S_project
         }
 
         private void TimerUpdates_Tick(object sender, EventArgs e)
+        {
+            UpdatesTick();
+        }
+
+        private void UpdatesTick()
         {
             //If a rule has been added to the textbox in the Rule Form and 
             //the Add button has been pressed, get the rule from that textbox
@@ -301,15 +313,22 @@ namespace S_project
         //Update the rules lists every second
         private void TimerRules_Tick(object sender, EventArgs e)
         {
+            RulesUpdateTick();
+        }
+
+        public void RulesUpdateTick(bool showUpdate = true)
+        {
+            fUpdating updateForm = new fUpdating();
+
             MandatoryRules mr = server.GetMandatoryRules(student.HouseNumber);
             if (mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 2 ||
                 mr.AllRules.Count != pnlMandatoryRules.Controls.Count / 2)
             {
                 mandatoryRules = mr;
 
-                fUpdating updateForm = new fUpdating();
+                updateForm = new fUpdating();
 
-                if (sender != null)
+                if (showUpdate)
                 {
                     Task.Run(() =>
                     {
@@ -326,7 +345,7 @@ namespace S_project
                 }
                 pnlMandatoryRules.ResumeLayout();
 
-                if(sender != null)
+                if (showUpdate)
                 {
                     Invoke((MethodInvoker)delegate
                     {
@@ -349,9 +368,9 @@ namespace S_project
             {
                 houseRules = hr;
 
-                fUpdating updateForm = new fUpdating();
+                updateForm = new fUpdating();
 
-                if (sender != null)
+                if (showUpdate)
                 {
                     Task.Run(() =>
                     {
@@ -359,26 +378,31 @@ namespace S_project
                     });
                 }
 
-                pnlNotifications.SuspendLayout();
                 pnlNotifications.Controls.Clear();
+                pnlNotifications.SuspendLayout();
+
                 pnlHouseRules.SuspendLayout();
                 pnlHouseRules.Controls.Clear();
 
-                foreach (HouseRuleServer rule in hr.AllRules)
+                int approved = 0;
+                int disapproved = 0;
+                foreach (HouseRuleServer rule in houseRules.AllRules)
                 {
                     if (rule.ApprovalState == false)
                     {
-                        AddNotificationsRule(rule, hr.AllRules.IndexOf(rule));
+                        AddNotificationsRule(rule, houseRules.AllRules.IndexOf(rule), disapproved);
+                        disapproved++;
                     }
                     else
                     {
-                        AddHouseRule(rule, hr.AllRules.IndexOf(rule));
+                        AddHouseRule(rule, houseRules.AllRules.IndexOf(rule), approved);
+                        approved++;
                     }
                 }
                 pnlNotifications.ResumeLayout();
                 pnlHouseRules.ResumeLayout();
 
-                if (sender != null)
+                if (showUpdate)
                 {
                     Invoke((MethodInvoker)delegate
                     {
@@ -408,48 +432,110 @@ namespace S_project
                 {
                     if (houseRules.AllRules[i].ApprovalState == false)
                     {
+                        updateForm = new fUpdating();
+
+                        if (showUpdate)
+                        {
+                            Task.Run(() =>
+                            {
+                                updateForm.ShowDialog();
+                            });
+                        }
+
                         houseRules.AllRules[i].ApprovalState = true;
                         pnlNotifications.SuspendLayout();
                         pnlNotifications.Controls.Clear();
                         pnlHouseRules.SuspendLayout();
                         pnlHouseRules.Controls.Clear();
+
+                        int approved = 0;
+                        int disapproved = 0;
                         foreach (HouseRuleServer rule in houseRules.AllRules)
                         {
                             if (rule.ApprovalState == false)
                             {
-                                AddNotificationsRule(rule, houseRules.AllRules.IndexOf(rule));
+                                AddNotificationsRule(rule, houseRules.AllRules.IndexOf(rule), disapproved);
+                                disapproved++;
                             }
                             else
                             {
-                                AddHouseRule(rule, houseRules.AllRules.IndexOf(rule));
+                                AddHouseRule(rule, houseRules.AllRules.IndexOf(rule), approved);
+                                approved++;
                             }
                         }
                         pnlNotifications.ResumeLayout();
                         pnlHouseRules.ResumeLayout();
+
+                        if (showUpdate)
+                        {
+                            Invoke((MethodInvoker)delegate
+                            {
+                                while (true)
+                                {
+                                    try
+                                    {
+                                        updateForm.Close();
+                                        break;
+                                    }
+                                    catch { continue; }
+                                }
+                            });
+                        }
                     }
                 }
                 else
                 {
                     if (houseRules.AllRules[i].ApprovalState == true)
                     {
+                        updateForm = new fUpdating();
+
+                        if (showUpdate)
+                        {
+                            Task.Run(() =>
+                            {
+                                updateForm.ShowDialog();
+                            });
+                        }
+
                         houseRules.AllRules[i].ApprovalState = false;
                         pnlNotifications.SuspendLayout();
                         pnlNotifications.Controls.Clear();
                         pnlHouseRules.SuspendLayout();
                         pnlHouseRules.Controls.Clear();
+
+                        int approved = 0;
+                        int disapproved = 0;
                         foreach (HouseRuleServer rule in houseRules.AllRules)
                         {
                             if (rule.ApprovalState == false)
                             {
-                                AddNotificationsRule(rule, houseRules.AllRules.IndexOf(rule));
+                                AddNotificationsRule(rule, houseRules.AllRules.IndexOf(rule), disapproved);
+                                disapproved++;
                             }
                             else
                             {
-                                AddHouseRule(rule, houseRules.AllRules.IndexOf(rule));
+                                AddHouseRule(rule, houseRules.AllRules.IndexOf(rule), approved);
+                                approved++;
                             }
                         }
                         pnlNotifications.ResumeLayout();
                         pnlHouseRules.ResumeLayout();
+
+                        if (showUpdate)
+                        {
+                            Invoke((MethodInvoker)delegate
+                            {
+                                while (true)
+                                {
+                                    try
+                                    {
+                                        updateForm.Close();
+                                        break;
+                                    }
+                                    catch { continue; }
+                                }
+                            });
+                        }
                     }
                 }
             }

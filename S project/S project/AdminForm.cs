@@ -226,7 +226,17 @@ namespace S_project
         private void AddComplaint(Complaint complaint)
         {  
             CheckBox box = new CheckBox();
-            box.Text = $"Filed by: {_user.StudentsInfo[complaint.FiledBy]}; Complaint: {complaint.ComplaintText}";
+            string complaintFiler;
+            if(complaint.FiledBy == -1)
+            {
+                complaintFiler = "Anonymous";
+            }
+            else
+            {
+                complaintFiler = _user.StudentsInfo[complaint.FiledBy];
+            }
+
+            box.Text = $"Filed by: {complaintFiler}; Complaint: {complaint.ComplaintText}";
 
             box.Padding = new Padding(10, 0, 0, 0);
             box.Size = new Size(30, 30);

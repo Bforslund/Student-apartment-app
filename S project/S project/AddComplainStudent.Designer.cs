@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlNewComplaint = new System.Windows.Forms.Panel();
             this.lblNewComplaint = new System.Windows.Forms.Label();
             this.lblRuleBroken = new System.Windows.Forms.Label();
@@ -35,6 +36,8 @@
             this.cbxRuleBroken = new System.Windows.Forms.ComboBox();
             this.cbxName = new System.Windows.Forms.ComboBox();
             this.lblName = new System.Windows.Forms.Label();
+            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
+            this.cbAnon = new System.Windows.Forms.CheckBox();
             this.pnlNewComplaint.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,12 +116,31 @@
             this.lblName.TabIndex = 32;
             this.lblName.Text = "By:";
             // 
+            // timerUpdate
+            // 
+            this.timerUpdate.Enabled = true;
+            this.timerUpdate.Interval = 500;
+            this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
+            // 
+            // cbAnon
+            // 
+            this.cbAnon.AutoSize = true;
+            this.cbAnon.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.cbAnon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.cbAnon.Location = new System.Drawing.Point(12, 252);
+            this.cbAnon.Name = "cbAnon";
+            this.cbAnon.Size = new System.Drawing.Size(148, 42);
+            this.cbAnon.TabIndex = 33;
+            this.cbAnon.Text = "File complaint\r\n anonymously";
+            this.cbAnon.UseVisualStyleBackColor = true;
+            // 
             // AddComplainStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
             this.ClientSize = new System.Drawing.Size(382, 313);
+            this.Controls.Add(this.cbAnon);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.cbxName);
             this.Controls.Add(this.cbxRuleBroken);
@@ -143,5 +165,7 @@
         private System.Windows.Forms.ComboBox cbxRuleBroken;
         private System.Windows.Forms.ComboBox cbxName;
         private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Timer timerUpdate;
+        private System.Windows.Forms.CheckBox cbAnon;
     }
 }

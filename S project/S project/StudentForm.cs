@@ -22,6 +22,7 @@ namespace S_project
         AddRuleStudent ruleForm = null;
         List<Schedule> schedules = new List<Schedule>();
         HouseRules houseRules = new HouseRules();
+        Complaints complaints = new Complaints();
 
         public StudentForm(ServerConnection server, UserInfo student)
         {
@@ -32,6 +33,7 @@ namespace S_project
             lblHello.Text = "Hello, " + this.student.Name;
             mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
             houseRules = server.GetHouseRules(student.HouseNumber);
+            complaints = server.GetComplaints(student.HouseNumber);
 
             timerRules.Start();
             timerUpdate.Start();
@@ -233,7 +235,7 @@ namespace S_project
             //If a Complaint Form does not already exist, create one
             if (complaintForm == null)
             {
-                complaintForm = new AddComplainStudent();
+                complaintForm = new AddComplainStudent(houseRules, mandatoryRules, student);
                 complaintForm.Show();
             }
         }
@@ -287,8 +289,19 @@ namespace S_project
             //the Add button has been pressed, get the complaint from that textbox
             if (AddComplainStudent.ruleBroken != "")
             {
+                Complaint complaint = new Complaint();
+                complaint.BrokenBy = AddComplainStudent.IDOfRuleBreaker;
+                complaint.ComplaintText = AddComplainStudent.ruleBroken;
+                complaint.FiledBy = AddComplainStudent.IDOfComplainer;
+                complaint.FiledDate = DateTime.Now;
+                complaint.ID = complaints.AllComplaints.Count;
+                complaints.AllComplaints.Add(complaint);
+
                 AddComplainStudent.ruleBroken = "";
-                AddComplainStudent.nameOfRuleBreaker = "";
+                AddComplainStudent.IDOfRuleBreaker = 0;
+                AddComplainStudent.IDOfComplainer = 0;
+
+                server.UpdateComplaints(complaints);
             }
 
             //If the rule form has been closed, revert ruleForm back to null
@@ -305,6 +318,7 @@ namespace S_project
             {
                 if (complaintForm.IsDisposed == true)
                 {
+
                     complaintForm = null;
                 }
             }

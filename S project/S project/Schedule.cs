@@ -15,11 +15,11 @@ namespace S_project
         ScheduleItem scheduleItem;
         
         // Constructor To Bind the backend part to the UserControl
-        public Schedule(UserInfo user, int index)
+        public Schedule(UserInfo user, int index, HouseRules houseRules)
         {
-            scheduleItem = new ScheduleItem(user, index);
+            scheduleItem = new ScheduleItem(user, index, houseRules);
             InitializeComponent();
-            this.BackColor = Color.LightGray;
+            this.BackColor = Color.LightBlue;
         }
 
         

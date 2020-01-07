@@ -570,32 +570,6 @@ namespace S_project
         }
 
         // Method for drawing the required amount of UserControls
-        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
-        {
-            houseRules = server.GetHouseRules(student.HouseNumber);
-
-            for (int i = 0; i < houseRules.AllRules.Count; i++)
-            {
-                Schedule currentScheduleItem = new Schedule(student, i);
-                if (currentScheduleItem.GetID() == student.ID)
-                {
-
-                    schedules.Add(currentScheduleItem);
-
-                }
-            }
-
-            SortArray();
-
-            /*for (int i = 0; i < schedules.Count; i++)
-            {
-                schedules[i].Location = new System.Drawing.Point(10, tableLayoutSchedule.Top - schedules.Count * 100);
-                schedules[i].Name = "Task";
-                schedules[i].Size = new System.Drawing.Size(tableLayoutSchedule.Width - 10, 100);
-                schedules[i].TabIndex = 0;
-            }*/
-        }
-
         // Method for sorting the list of UserControls
         private void SortArray()
         {
@@ -613,6 +587,83 @@ namespace S_project
                     }
                 }
             }
+        }
+
+        private void tabCtrlAdmin_TabIndexChanged(object sender, EventArgs e)
+        {
+            fUpdating updateForm = new fUpdating();
+
+            Task.Run(() =>
+            {
+                try
+                {
+                    updateForm.ShowDialog();
+                }
+                catch { }
+            });
+
+
+            if (tabCtrlAdmin.SelectedIndex == 0)
+            {
+                schedules.Clear();
+                HouseRules houseRules = new HouseRules();
+
+                ServerConnection serverConnection = new ServerConnection();
+                houseRules = server.GetHouseRules(student.HouseNumber);
+
+
+                panel5.SuspendLayout();
+                for (int i = 0; i < houseRules.AllRules.Count; i++)
+                {
+                    Schedule currentScheduleItem = new Schedule(student, i, houseRules);
+                    if (currentScheduleItem.GetID() == student.ID)
+                    {
+
+                        schedules.Add(currentScheduleItem);
+
+                    }
+                }
+
+
+
+
+                SortArray();
+
+                for (int i = 0; i < schedules.Count; i++)
+                {
+
+                    schedules[i].Name = "Task";
+                    //                    schedules[i].Size = new System.Drawing.Size(panel5.Width - 10, 20);
+                    //                    schedules[i].Location = new System.Drawing.Point(10, panel5.Top - schedules.Count * schedules[0].);
+                    schedules[i].TabIndex = 0;
+                    schedules[i].Dock = DockStyle.Top;
+                    panel5.Controls.Add(schedules[i]);
+
+                }
+
+
+
+                panel5.ResumeLayout();
+                /*Thread.Sleep(500);
+                */
+            }
+
+            Invoke((MethodInvoker)delegate
+            {
+                while (true)
+                {
+                    try
+                    {
+                        updateForm.Close();
+                        break;
+                    }
+                    catch
+                    {
+                        Thread.Sleep(100);
+                    }
+                }
+            });
+
         }
 
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)

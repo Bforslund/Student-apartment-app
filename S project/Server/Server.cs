@@ -213,6 +213,19 @@ namespace Server
                 File.WriteAllText(@$"data\house-{houseNumber}\complaints.json",
                     JsonConvert.SerializeObject(complaints, Formatting.Indented));
             }
+            if (!File.Exists(@$"data\house-{houseNumber}\messages.json"))
+            {
+                //Creates a new object with zero complaints
+                ChatHistory messages = new ChatHistory
+                {
+                    HouseNumber = houseNumber,
+                    AllMessages = new List<ChatMessage>()
+                };
+
+                //Saves new file
+                File.WriteAllText(@$"data\house-{houseNumber}\messages.json",
+                    JsonConvert.SerializeObject(messages, Formatting.Indented));
+            }
         }
 
         //Handles received packages based on their types
@@ -296,6 +309,30 @@ namespace Server
 
                         //Update file
                         File.WriteAllText(@$"data\house-{mandatoryRules.HouseNumber}\complaints.json", package.Message);
+
+                        //Sends responce
+                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
+                        break;
+                    }
+                case PackageType.GET_MESSAGES:
+                    {
+                        //Checks if needed files/directories exist
+                        CheckExistedFiles(Convert.ToInt32(package.Message));
+
+                        //Sends responce
+                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MESSAGES,
+                            File.ReadAllText(@$"data\house-{package.Message}\messages.json"))));
+                        break;
+                    }
+                case PackageType.UPDATE_MESSAGES:
+                    {
+                        ChatHistory chathistory = JsonConvert.DeserializeObject<ChatHistory>(package.Message);
+
+                        //Checks if needed files/directories 
+                        CheckExistedFiles(Convert.ToInt32(chathistory.HouseNumber));
+
+                        //Update file
+                        File.WriteAllText(@$"data\house-{chathistory.HouseNumber}\messages.json", package.Message);
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));

@@ -19,6 +19,7 @@ namespace S_project
         private MandatoryRules _mandatoryRules;
         private HouseRules _houseRules;
         private Complaints _complaints;
+        private ChatHistory _messages;
         private UserInfo _user;
 
         public AdminForm(ServerConnection server, int houseNumber, UserInfo user)
@@ -30,6 +31,7 @@ namespace S_project
             _mandatoryRules = server.GetMandatoryRules(houseNumber);
             _houseRules = server.GetHouseRules(houseNumber);
             _complaints = server.GetComplaints(houseNumber);
+            _messages = server.GetMessages(houseNumber);
             _user = user;
         }
 
@@ -69,6 +71,17 @@ namespace S_project
                 }
 
                 pnlComplaints.ResumeLayout();
+            }
+            if (_messages.AllMessages.Count != tbKUK.Controls.Count)
+            {
+                //pnlChat.SuspendLayout();
+                tbKUK.Controls.Clear();
+
+                foreach (ChatMessage m in _messages.AllMessages)
+                {
+                    AddMessages(m);
+                }
+                //pnlChat.ResumeLayout();
             }
         }
 
@@ -246,6 +259,47 @@ namespace S_project
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void AddMessages(ChatMessage msg) // is work in progress guys, dont judge pls :]
+        { // if anyone wants to fix it, go AHEAD :D
+            int newrow = tbKUK.RowCount + 1;
+            Label Chat = new Label();
+            Chat.Text = $"{msg.FiledDate} Admin: {msg.MessageText}";
+            Chat.AutoSize = true;
+
+            // tbKUK.Controls.Add(Chat); this doesnt work either ughhhhhhhhhhhhhh
+            tbKUK.RowCount = newrow;
+            tbKUK.Controls.Add(Chat, 0, newrow); // WHYYYYYYYY doesn't this work, shit code -___________-
+        }
+
+        private void btSend_Click(object sender, EventArgs e)
+        {
+            if (textChat.Text != "")
+            {
+                ChatMessage NewMsg = new ChatMessage(); 
+
+                NewMsg.MessageText = textChat.Text; 
+                NewMsg.FiledBy = 2; // ???? XD
+                NewMsg.FiledDate = DateTime.Now;
+                _messages.AllMessages.Add(NewMsg);
+                _server.UpdateMessages(_messages);
+
+                textChat.Clear();
+                
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid rule");
+            }
+        }
+
+        private void btClear_Click(object sender, EventArgs e)
+        {
+            tbKUK.Controls.Clear();
+            _messages.AllMessages.Clear();
+
+            _server.UpdateMessages(_messages);
         }
     }
 }

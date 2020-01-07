@@ -59,7 +59,7 @@
             this.pnlHouseRules = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.tbKUK = new System.Windows.Forms.TableLayoutPanel();
+            this.tbChat = new System.Windows.Forms.TableLayoutPanel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.btClear = new System.Windows.Forms.Button();
@@ -465,29 +465,30 @@
             // 
             // panel10
             // 
+            this.panel10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel10.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.panel10.Controls.Add(this.tbKUK);
+            this.panel10.Controls.Add(this.tbChat);
             this.panel10.Location = new System.Drawing.Point(-4, 81);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(982, 340);
             this.panel10.TabIndex = 2;
             // 
-            // tbKUK
+            // tbChat
             // 
-            this.tbKUK.AutoScroll = true;
-            this.tbKUK.AutoSize = true;
-            this.tbKUK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tbKUK.ColumnCount = 1;
-            this.tbKUK.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbKUK.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbKUK.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbKUK.Location = new System.Drawing.Point(0, 0);
-            this.tbKUK.Name = "tbKUK";
-            this.tbKUK.RowCount = 1;
-            this.tbKUK.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbKUK.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1F));
-            this.tbKUK.Size = new System.Drawing.Size(982, 0);
-            this.tbKUK.TabIndex = 0;
+            this.tbChat.AutoScrollMargin = new System.Drawing.Size(10, 10);
+            this.tbChat.AutoSize = true;
+            this.tbChat.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tbChat.ColumnCount = 1;
+            this.tbChat.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbChat.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbChat.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tbChat.Location = new System.Drawing.Point(0, 0);
+            this.tbChat.Name = "tbChat";
+            this.tbChat.RowCount = 1;
+            this.tbChat.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbChat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1F));
+            this.tbChat.Size = new System.Drawing.Size(982, 0);
+            this.tbChat.TabIndex = 0;
             // 
             // panel9
             // 
@@ -649,6 +650,6 @@
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label labelchat;
         private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.TableLayoutPanel tbKUK;
+        private System.Windows.Forms.TableLayoutPanel tbChat;
     }
 }

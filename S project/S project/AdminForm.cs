@@ -85,10 +85,10 @@ namespace S_project
                 pnlComplaints.ResumeLayout();
             }
 
-            if (_messages.AllMessages.Count != tbKUK.Controls.Count)
+            if (_messages.AllMessages.Count != tbChat.Controls.Count)
             {
                 //pnlChat.SuspendLayout();
-                tbKUK.Controls.Clear();
+                tbChat.Controls.Clear();
 
                 foreach (ChatMessage m in _messages.AllMessages)
                 {
@@ -147,8 +147,7 @@ namespace S_project
         }
 
         private void AddHouseRule(HouseRuleServer rule, int index) {
-            // i have a button click to update now, but I want to update my list whenever a rule is sent. So When that is Done i will adjust this.
-
+           
             Button removeRuleButton = new Button();
             Label ruleLabel = new Label();
             Label ruleNumber = new Label();
@@ -284,16 +283,16 @@ namespace S_project
             Environment.Exit(0);
         }
 
-        private void AddMessages(ChatMessage msg) // is work in progress guys, dont judge pls :]
-        { // if anyone wants to fix it, go AHEAD :D
-            int newrow = tbKUK.RowCount + 1;
+        private void AddMessages(ChatMessage msg) 
+        { 
+            int newrow = tbChat.RowCount + 1;
             Label Chat = new Label();
             Chat.Text = $"{msg.FiledDate} Admin: {msg.MessageText}";
             Chat.AutoSize = true;
 
-            // tbKUK.Controls.Add(Chat); this doesnt work either ughhhhhhhhhhhhhh
-            tbKUK.RowCount = newrow;
-            tbKUK.Controls.Add(Chat, 0, newrow); // WHYYYYYYYY doesn't this work, shit code -___________-
+            
+            tbChat.RowCount = newrow;
+            tbChat.Controls.Add(Chat, 0, newrow); 
         }
 
         private void btSend_Click(object sender, EventArgs e)
@@ -319,7 +318,7 @@ namespace S_project
 
         private void btClear_Click(object sender, EventArgs e)
         {
-            tbKUK.Controls.Clear();
+            tbChat.Controls.Clear();
             _messages.AllMessages.Clear();
 
             _server.UpdateMessages(_messages);

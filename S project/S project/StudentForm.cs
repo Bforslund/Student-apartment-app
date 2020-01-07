@@ -16,6 +16,7 @@ namespace S_project
         private UserInfo student;
         private MandatoryRules mandatoryRules;
         private ServerConnection server;
+        private ChatHistory _messages;
 
         //Initialize forms for Complaints and Rules
         AddComplainStudent complaintForm = null;
@@ -23,6 +24,7 @@ namespace S_project
         List<Schedule> schedules = new List<Schedule>();
         HouseRules houseRules = new HouseRules();
         Complaints complaints = new Complaints();
+
 
         public StudentForm(ServerConnection server, UserInfo student)
         {
@@ -34,6 +36,7 @@ namespace S_project
             mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
             houseRules = server.GetHouseRules(student.HouseNumber);
             complaints = server.GetComplaints(student.HouseNumber);
+            _messages = server.GetMessages(student.HouseNumber);
 
             timerRules.Start();
             timerUpdate.Start();
@@ -253,6 +256,17 @@ namespace S_project
         private void TimerUpdates_Tick(object sender, EventArgs e)
         {
             UpdatesTick();
+            if (_messages.AllMessages.Count != tbChat.Controls.Count) // If misplaced, please place it somewhere else :)
+            {
+                //pnlChat.SuspendLayout();
+                tbChat.Controls.Clear();
+
+                foreach (ChatMessage m in _messages.AllMessages)
+                {
+                    AddMessages(m);
+                }
+                //pnlChat.ResumeLayout();
+            }
         }
 
         private void UpdatesTick()
@@ -604,6 +618,46 @@ namespace S_project
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);
+        }
+        // --------------------------------------- Chat -----------------//
+        private void AddMessages(ChatMessage msg)
+        {
+            int newrow = tbChat.RowCount + 1;
+            Label Chat = new Label();
+            //Chat.Text = $"{msg.FiledDate} Admin: {msg.MessageText}"; // no clue how to add a studentname :/
+            Chat.AutoSize = true;
+
+            tbChatStudent.RowCount = newrow;
+            tbChatStudent.Controls.Add(Chat, 0, newrow);
+        }
+
+        private void btSend_Click(object sender, EventArgs e)
+        {
+            if (textChat.Text != "")
+            {
+                ChatMessage NewMsg = new ChatMessage();
+
+                NewMsg.MessageText = textChat.Text;
+                NewMsg.FiledBy = 2; // ???? XD
+                NewMsg.FiledDate = DateTime.Now;
+                _messages.AllMessages.Add(NewMsg);
+                server.UpdateMessages(_messages);
+
+                textChat.Clear();
+
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid rule");
+            }
+        }
+
+        private void btClear_Click(object sender, EventArgs e)
+        {
+            tbChat.Controls.Clear();
+            _messages.AllMessages.Clear();
+
+            server.UpdateMessages(_messages);
         }
     }
 }

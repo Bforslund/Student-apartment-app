@@ -186,9 +186,10 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(430, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 19);
+            this.label1.Size = new System.Drawing.Size(134, 26);
             this.label1.TabIndex = 6;
             this.label1.Text = "Complaints";
             // 
@@ -388,10 +389,11 @@
             // 
             this.lblMandatoryRules.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblMandatoryRules.AutoSize = true;
+            this.lblMandatoryRules.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblMandatoryRules.Location = new System.Drawing.Point(160, 25);
             this.lblMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
             this.lblMandatoryRules.Name = "lblMandatoryRules";
-            this.lblMandatoryRules.Size = new System.Drawing.Size(144, 19);
+            this.lblMandatoryRules.Size = new System.Drawing.Size(179, 24);
             this.lblMandatoryRules.TabIndex = 5;
             this.lblMandatoryRules.Text = "Mandatory rules";
             // 
@@ -421,9 +423,10 @@
             // 
             this.lblHouseRules.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblHouseRules.AutoSize = true;
+            this.lblHouseRules.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblHouseRules.Location = new System.Drawing.Point(188, 25);
             this.lblHouseRules.Name = "lblHouseRules";
-            this.lblHouseRules.Size = new System.Drawing.Size(107, 19);
+            this.lblHouseRules.Size = new System.Drawing.Size(134, 24);
             this.lblHouseRules.TabIndex = 6;
             this.lblHouseRules.Text = "House rules";
             // 

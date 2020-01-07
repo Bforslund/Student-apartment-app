@@ -193,7 +193,7 @@
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(973, 467);
             this.tableLayoutPanel2.TabIndex = 0;
@@ -208,16 +208,17 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(973, 60);
+            this.panel2.Size = new System.Drawing.Size(973, 75);
             this.panel2.TabIndex = 1;
             // 
             // lblSchedule
             // 
             this.lblSchedule.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSchedule.AutoSize = true;
-            this.lblSchedule.Location = new System.Drawing.Point(438, 23);
+            this.lblSchedule.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblSchedule.Location = new System.Drawing.Point(440, 26);
             this.lblSchedule.Name = "lblSchedule";
-            this.lblSchedule.Size = new System.Drawing.Size(83, 19);
+            this.lblSchedule.Size = new System.Drawing.Size(112, 26);
             this.lblSchedule.TabIndex = 6;
             this.lblSchedule.Text = "Schedule";
             // 
@@ -225,10 +226,10 @@
             // 
             this.panel5.AutoScroll = true;
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 60);
+            this.panel5.Location = new System.Drawing.Point(0, 75);
             this.panel5.Margin = new System.Windows.Forms.Padding(0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(973, 407);
+            this.panel5.Size = new System.Drawing.Size(973, 392);
             this.panel5.TabIndex = 2;
             // 
             // Rules
@@ -241,7 +242,6 @@
             this.Rules.Location = new System.Drawing.Point(4, 28);
             this.Rules.Margin = new System.Windows.Forms.Padding(0);
             this.Rules.Name = "Rules";
-            this.Rules.Padding = new System.Windows.Forms.Padding(3);
             this.Rules.Size = new System.Drawing.Size(975, 469);
             this.Rules.TabIndex = 1;
             this.Rules.Text = "Rules";
@@ -260,24 +260,27 @@
             this.tableLayoutAllRules.Controls.Add(this.panel3, 1, 0);
             this.tableLayoutAllRules.Controls.Add(this.panel8, 2, 1);
             this.tableLayoutAllRules.Controls.Add(this.panel6, 0, 1);
+            this.tableLayoutAllRules.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutAllRules.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutAllRules.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutAllRules.Name = "tableLayoutAllRules";
             this.tableLayoutAllRules.RowCount = 3;
-            this.tableLayoutAllRules.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.64027F));
-            this.tableLayoutAllRules.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75.05519F));
-            this.tableLayoutAllRules.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.34879F));
-            this.tableLayoutAllRules.Size = new System.Drawing.Size(956, 453);
+            this.tableLayoutAllRules.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutAllRules.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutAllRules.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tableLayoutAllRules.Size = new System.Drawing.Size(973, 467);
             this.tableLayoutAllRules.TabIndex = 8;
             // 
             // btnComplain
             // 
             this.btnComplain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
+            this.btnComplain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnComplain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnComplain.Location = new System.Drawing.Point(0, 387);
+            this.btnComplain.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnComplain.Location = new System.Drawing.Point(0, 400);
             this.btnComplain.Margin = new System.Windows.Forms.Padding(0);
             this.btnComplain.Name = "btnComplain";
-            this.btnComplain.Size = new System.Drawing.Size(475, 66);
+            this.btnComplain.Size = new System.Drawing.Size(484, 67);
             this.btnComplain.TabIndex = 6;
             this.btnComplain.Text = "File Complaint";
             this.btnComplain.UseVisualStyleBackColor = false;
@@ -288,10 +291,11 @@
             this.btnProposeRule.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(202)))), ((int)(((byte)(241)))));
             this.btnProposeRule.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnProposeRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProposeRule.Location = new System.Drawing.Point(479, 387);
+            this.btnProposeRule.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnProposeRule.Location = new System.Drawing.Point(487, 400);
             this.btnProposeRule.Margin = new System.Windows.Forms.Padding(0);
             this.btnProposeRule.Name = "btnProposeRule";
-            this.btnProposeRule.Size = new System.Drawing.Size(477, 66);
+            this.btnProposeRule.Size = new System.Drawing.Size(486, 67);
             this.btnProposeRule.TabIndex = 5;
             this.btnProposeRule.Text = "Add New Rule";
             this.btnProposeRule.UseVisualStyleBackColor = false;
@@ -305,18 +309,20 @@
             this.pnlBackHouseRules.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
             this.pnlBackHouseRules.Controls.Add(this.lblHouseRules);
             this.pnlBackHouseRules.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBackHouseRules.Location = new System.Drawing.Point(479, 0);
+            this.pnlBackHouseRules.Location = new System.Drawing.Point(487, 0);
             this.pnlBackHouseRules.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBackHouseRules.Name = "pnlBackHouseRules";
-            this.pnlBackHouseRules.Size = new System.Drawing.Size(477, 48);
+            this.pnlBackHouseRules.Size = new System.Drawing.Size(486, 50);
             this.pnlBackHouseRules.TabIndex = 2;
             // 
             // lblHouseRules
             // 
+            this.lblHouseRules.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.lblHouseRules.AutoSize = true;
-            this.lblHouseRules.Location = new System.Drawing.Point(188, 25);
+            this.lblHouseRules.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblHouseRules.Location = new System.Drawing.Point(187, 16);
             this.lblHouseRules.Name = "lblHouseRules";
-            this.lblHouseRules.Size = new System.Drawing.Size(107, 19);
+            this.lblHouseRules.Size = new System.Drawing.Size(122, 22);
             this.lblHouseRules.TabIndex = 6;
             this.lblHouseRules.Text = "House rules";
             // 
@@ -330,16 +336,18 @@
             this.pnlBackMandatoryRules.Location = new System.Drawing.Point(0, 0);
             this.pnlBackMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBackMandatoryRules.Name = "pnlBackMandatoryRules";
-            this.pnlBackMandatoryRules.Size = new System.Drawing.Size(476, 48);
+            this.pnlBackMandatoryRules.Size = new System.Drawing.Size(484, 50);
             this.pnlBackMandatoryRules.TabIndex = 1;
             // 
             // lblMandatoryRules
             // 
+            this.lblMandatoryRules.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.lblMandatoryRules.AutoSize = true;
-            this.lblMandatoryRules.Location = new System.Drawing.Point(148, 25);
+            this.lblMandatoryRules.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblMandatoryRules.Location = new System.Drawing.Point(131, 16);
             this.lblMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
             this.lblMandatoryRules.Name = "lblMandatoryRules";
-            this.lblMandatoryRules.Size = new System.Drawing.Size(144, 19);
+            this.lblMandatoryRules.Size = new System.Drawing.Size(163, 22);
             this.lblMandatoryRules.TabIndex = 5;
             this.lblMandatoryRules.Text = "Mandatory rules";
             // 
@@ -348,10 +356,10 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
             this.panel1.Controls.Add(this.tableLayoutPanel6);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(476, 48);
+            this.panel1.Location = new System.Drawing.Point(484, 50);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(3, 339);
+            this.panel1.Size = new System.Drawing.Size(3, 350);
             this.panel1.TabIndex = 7;
             // 
             // tableLayoutPanel6
@@ -370,17 +378,17 @@
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(3, 339);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(3, 350);
             this.tableLayoutPanel6.TabIndex = 9;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(476, 0);
+            this.panel3.Location = new System.Drawing.Point(484, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(3, 48);
+            this.panel3.Size = new System.Drawing.Size(3, 50);
             this.panel3.TabIndex = 8;
             // 
             // panel8
@@ -388,10 +396,10 @@
             this.panel8.AutoScroll = true;
             this.panel8.Controls.Add(this.pnlHouseRules);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(479, 48);
+            this.panel8.Location = new System.Drawing.Point(487, 50);
             this.panel8.Margin = new System.Windows.Forms.Padding(0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(477, 339);
+            this.panel8.Size = new System.Drawing.Size(486, 350);
             this.panel8.TabIndex = 9;
             // 
             // pnlHouseRules
@@ -409,7 +417,7 @@
             this.pnlHouseRules.Name = "pnlHouseRules";
             this.pnlHouseRules.RowCount = 1;
             this.pnlHouseRules.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.pnlHouseRules.Size = new System.Drawing.Size(477, 0);
+            this.pnlHouseRules.Size = new System.Drawing.Size(486, 0);
             this.pnlHouseRules.TabIndex = 10;
             // 
             // panel6
@@ -417,10 +425,10 @@
             this.panel6.AutoScroll = true;
             this.panel6.Controls.Add(this.pnlMandatoryRules);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 48);
+            this.panel6.Location = new System.Drawing.Point(0, 50);
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(476, 339);
+            this.panel6.Size = new System.Drawing.Size(484, 350);
             this.panel6.TabIndex = 10;
             // 
             // pnlMandatoryRules
@@ -438,7 +446,7 @@
             this.pnlMandatoryRules.Name = "pnlMandatoryRules";
             this.pnlMandatoryRules.RowCount = 1;
             this.pnlMandatoryRules.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.pnlMandatoryRules.Size = new System.Drawing.Size(476, 0);
+            this.pnlMandatoryRules.Size = new System.Drawing.Size(484, 0);
             this.pnlMandatoryRules.TabIndex = 7;
             // 
             // Notifications
@@ -484,10 +492,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.label1.Location = new System.Drawing.Point(430, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 19);
+            this.label1.Size = new System.Drawing.Size(150, 26);
             this.label1.TabIndex = 6;
             this.label1.Text = "Notifications";
             // 
@@ -533,6 +542,7 @@
             this.Name = "StudentForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "5";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminForm_FormClosed);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).EndInit();

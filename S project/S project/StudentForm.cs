@@ -426,7 +426,11 @@ namespace S_project
                     }
                 }
             }
+        }
 
+        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

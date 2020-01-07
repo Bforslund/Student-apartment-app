@@ -86,13 +86,13 @@
             // timerRules
             // 
             this.timerRules.Enabled = true;
-            this.timerRules.Interval = 1000;
+            this.timerRules.Interval = 5000;
             this.timerRules.Tick += new System.EventHandler(this.TimerRules_Tick);
             // 
             // timerUpdate
             // 
             this.timerUpdate.Enabled = true;
-            this.timerUpdate.Interval = 500;
+            this.timerUpdate.Interval = 5000;
             this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdates_Tick);
             // 
             // panelTop
@@ -152,6 +152,7 @@
             this.pctbxBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctbxBack.TabIndex = 16;
             this.pctbxBack.TabStop = false;
+            this.pctbxBack.Click += new System.EventHandler(this.PctbxBack_Click);
             // 
             // tabCtrlAdmin
             // 
@@ -277,10 +278,10 @@
             this.btnComplain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnComplain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnComplain.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnComplain.Location = new System.Drawing.Point(0, 400);
+            this.btnComplain.Location = new System.Drawing.Point(0, 392);
             this.btnComplain.Margin = new System.Windows.Forms.Padding(0);
             this.btnComplain.Name = "btnComplain";
-            this.btnComplain.Size = new System.Drawing.Size(484, 67);
+            this.btnComplain.Size = new System.Drawing.Size(484, 75);
             this.btnComplain.TabIndex = 6;
             this.btnComplain.Text = "File Complaint";
             this.btnComplain.UseVisualStyleBackColor = false;
@@ -292,10 +293,10 @@
             this.btnProposeRule.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnProposeRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProposeRule.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnProposeRule.Location = new System.Drawing.Point(487, 400);
+            this.btnProposeRule.Location = new System.Drawing.Point(487, 392);
             this.btnProposeRule.Margin = new System.Windows.Forms.Padding(0);
             this.btnProposeRule.Name = "btnProposeRule";
-            this.btnProposeRule.Size = new System.Drawing.Size(486, 67);
+            this.btnProposeRule.Size = new System.Drawing.Size(486, 75);
             this.btnProposeRule.TabIndex = 5;
             this.btnProposeRule.Text = "Add New Rule";
             this.btnProposeRule.UseVisualStyleBackColor = false;
@@ -359,7 +360,7 @@
             this.panel1.Location = new System.Drawing.Point(484, 50);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(3, 350);
+            this.panel1.Size = new System.Drawing.Size(3, 342);
             this.panel1.TabIndex = 7;
             // 
             // tableLayoutPanel6
@@ -378,7 +379,7 @@
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(3, 350);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(3, 342);
             this.tableLayoutPanel6.TabIndex = 9;
             // 
             // panel3
@@ -399,7 +400,7 @@
             this.panel8.Location = new System.Drawing.Point(487, 50);
             this.panel8.Margin = new System.Windows.Forms.Padding(0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(486, 350);
+            this.panel8.Size = new System.Drawing.Size(486, 342);
             this.panel8.TabIndex = 9;
             // 
             // pnlHouseRules
@@ -428,7 +429,7 @@
             this.panel6.Location = new System.Drawing.Point(0, 50);
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(484, 350);
+            this.panel6.Size = new System.Drawing.Size(484, 342);
             this.panel6.TabIndex = 10;
             // 
             // pnlMandatoryRules

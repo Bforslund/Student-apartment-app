@@ -58,6 +58,8 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.pnlHouseRules = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.tbKUK = new System.Windows.Forms.TableLayoutPanel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.btClear = new System.Windows.Forms.Button();
@@ -66,8 +68,6 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.labelchat = new System.Windows.Forms.Label();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.tbKUK = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.Complaints.SuspendLayout();
@@ -84,9 +84,9 @@
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
-            this.panel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -318,9 +318,10 @@
             // 
             this.lblHouseRules.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblHouseRules.AutoSize = true;
+            this.lblHouseRules.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblHouseRules.Location = new System.Drawing.Point(188, 25);
             this.lblHouseRules.Name = "lblHouseRules";
-            this.lblHouseRules.Size = new System.Drawing.Size(107, 19);
+            this.lblHouseRules.Size = new System.Drawing.Size(134, 24);
             this.lblHouseRules.TabIndex = 6;
             this.lblHouseRules.Text = "House rules";
             // 
@@ -341,10 +342,11 @@
             // 
             this.lblMandatoryRules.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblMandatoryRules.AutoSize = true;
+            this.lblMandatoryRules.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblMandatoryRules.Location = new System.Drawing.Point(160, 25);
             this.lblMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
             this.lblMandatoryRules.Name = "lblMandatoryRules";
-            this.lblMandatoryRules.Size = new System.Drawing.Size(144, 19);
+            this.lblMandatoryRules.Size = new System.Drawing.Size(179, 24);
             this.lblMandatoryRules.TabIndex = 5;
             this.lblMandatoryRules.Text = "Mandatory rules";
             // 
@@ -423,15 +425,6 @@
             // 
             // panel7
             // 
-            this.lblMandatoryRules.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblMandatoryRules.AutoSize = true;
-            this.lblMandatoryRules.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblMandatoryRules.Location = new System.Drawing.Point(160, 25);
-            this.lblMandatoryRules.Margin = new System.Windows.Forms.Padding(0);
-            this.lblMandatoryRules.Name = "lblMandatoryRules";
-            this.lblMandatoryRules.Size = new System.Drawing.Size(179, 24);
-            this.lblMandatoryRules.TabIndex = 5;
-            this.lblMandatoryRules.Text = "Mandatory rules";
             this.panel7.AutoScroll = true;
             this.panel7.Controls.Add(this.pnlHouseRules);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -469,6 +462,32 @@
             this.tabPage1.Size = new System.Drawing.Size(974, 473);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Chat";
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel10.Controls.Add(this.tbKUK);
+            this.panel10.Location = new System.Drawing.Point(-4, 81);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(982, 340);
+            this.panel10.TabIndex = 2;
+            // 
+            // tbKUK
+            // 
+            this.tbKUK.AutoScroll = true;
+            this.tbKUK.AutoSize = true;
+            this.tbKUK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tbKUK.ColumnCount = 1;
+            this.tbKUK.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbKUK.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbKUK.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tbKUK.Location = new System.Drawing.Point(0, 0);
+            this.tbKUK.Name = "tbKUK";
+            this.tbKUK.RowCount = 1;
+            this.tbKUK.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbKUK.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1F));
+            this.tbKUK.Size = new System.Drawing.Size(982, 0);
+            this.tbKUK.TabIndex = 0;
             // 
             // panel9
             // 
@@ -538,45 +557,11 @@
             this.labelchat.TabIndex = 0;
             this.labelchat.Text = "Chat";
             // 
-            this.lblHouseRules.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblHouseRules.AutoSize = true;
-            this.lblHouseRules.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblHouseRules.Location = new System.Drawing.Point(188, 25);
-            this.lblHouseRules.Name = "lblHouseRules";
-            this.lblHouseRules.Size = new System.Drawing.Size(134, 24);
-            this.lblHouseRules.TabIndex = 6;
-            this.lblHouseRules.Text = "House rules";
             // timerUpdate
             // 
             this.timerUpdate.Enabled = true;
-            this.timerUpdate.Interval = 500;
+            this.timerUpdate.Interval = 5000;
             this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
-            // 
-            // panel10
-            // 
-            this.panel10.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.panel10.Controls.Add(this.tbKUK);
-            this.panel10.Location = new System.Drawing.Point(-4, 81);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(982, 340);
-            this.panel10.TabIndex = 2;
-            // 
-            // tbKUK
-            // 
-            this.tbKUK.AutoScroll = true;
-            this.tbKUK.AutoSize = true;
-            this.tbKUK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tbKUK.ColumnCount = 1;
-            this.tbKUK.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbKUK.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbKUK.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbKUK.Location = new System.Drawing.Point(0, 0);
-            this.tbKUK.Name = "tbKUK";
-            this.tbKUK.RowCount = 1;
-            this.tbKUK.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbKUK.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbKUK.Size = new System.Drawing.Size(982, 0);
-            this.tbKUK.TabIndex = 0;
             // 
             // AdminForm
             // 
@@ -614,12 +599,12 @@
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.tabPage1.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

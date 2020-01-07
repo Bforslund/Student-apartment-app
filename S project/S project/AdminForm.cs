@@ -16,7 +16,7 @@ namespace S_project
     {
         private ServerConnection _server;
         private int _houseNumber;
-        private MandatoryRules _mandatoryRules;
+        private MandatoryRules _mandatoryRules = new MandatoryRules();
         private HouseRules _houseRules;
         private Complaints _complaints;
         private ChatHistory _messages;
@@ -53,14 +53,26 @@ namespace S_project
         }
 
         private void TimerUpdate_Tick(object sender, EventArgs e)
-        {
-            if (_mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count /3)
-                UpdateMandatoryRulesLayout();
+        {            
+            MandatoryRules mr = _server.GetMandatoryRules(_houseNumber);
+            if (_mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 3 ||
+                mr.AllRules.Count != pnlMandatoryRules.Controls.Count / 3)
+            {
+                _mandatoryRules = mr;
+                UpdateMandatoryRulesLayout(mr);
+            }
+                
 
-            if (_houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3)
-                UpdateHouseRulesLayout();
-
-            if (_complaints.AllComplaints.Count != pnlComplaints.Controls.Count)
+            HouseRules hr = _server.GetHouseRules(_houseNumber);
+            if (_houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 ||
+                hr.AllRules.Count != pnlHouseRules.Controls.Count / 3)
+            {
+                _houseRules = hr;
+                UpdateHouseRulesLayout(hr);
+            }
+                
+            if (_complaints.AllComplaints.Count != pnlComplaints.Controls.Count ||
+                _server.GetComplaints(_houseNumber).AllComplaints.Count != pnlComplaints.Controls.Count)
             {
                 pnlComplaints.SuspendLayout();
                 pnlComplaints.Controls.Clear();
@@ -72,6 +84,7 @@ namespace S_project
 
                 pnlComplaints.ResumeLayout();
             }
+
             if (_messages.AllMessages.Count != tbKUK.Controls.Count)
             {
                 //pnlChat.SuspendLayout();
@@ -85,7 +98,7 @@ namespace S_project
             }
         }
 
-        private void UpdateMandatoryRulesLayout()
+        private void UpdateMandatoryRulesLayout(MandatoryRules mr)
         {
             fUpdating updateForm = new fUpdating();
 
@@ -97,9 +110,9 @@ namespace S_project
             pnlMandatoryRules.SuspendLayout();
             pnlMandatoryRules.Controls.Clear();
 
-            foreach (MandatoryRuleServer rule in _mandatoryRules.AllRules)
+            foreach (MandatoryRuleServer rule in mr.AllRules)
             {
-                AddMandatoryRule(rule, _mandatoryRules.AllRules.IndexOf(rule));
+                AddMandatoryRule(rule, mr.AllRules.IndexOf(rule));
             }
 
             pnlMandatoryRules.ResumeLayout();
@@ -109,7 +122,7 @@ namespace S_project
             });
         }
 
-        private void UpdateHouseRulesLayout()
+        private void UpdateHouseRulesLayout(HouseRules hr)
         {
             fUpdating updateForm = new fUpdating();
 
@@ -121,9 +134,9 @@ namespace S_project
             pnlHouseRules.SuspendLayout();
             pnlHouseRules.Controls.Clear();
 
-            foreach (HouseRuleServer rule in _houseRules.AllRules)
+            foreach (HouseRuleServer rule in hr.AllRules)
             {
-                AddHouseRule(rule, _houseRules.AllRules.IndexOf(rule));
+                AddHouseRule(rule, hr.AllRules.IndexOf(rule));
             }
 
             pnlHouseRules.ResumeLayout();
@@ -165,7 +178,7 @@ namespace S_project
             int index = Convert.ToInt32(((Button)sender).Tag) - 1;
             _houseRules.AllRules.RemoveAt(index);
 
-            UpdateHouseRulesLayout();
+            UpdateHouseRulesLayout(_houseRules);
             _server.UpdateHouseRules(_houseRules);
         }
 
@@ -206,7 +219,7 @@ namespace S_project
             int index = Convert.ToInt32(((Button)sender).Tag) - 1;
             _mandatoryRules.AllRules.RemoveAt(index);
 
-            UpdateMandatoryRulesLayout();
+            UpdateMandatoryRulesLayout(_mandatoryRules);
             _server.UpdateMandatoryRules(_mandatoryRules);
         }
 

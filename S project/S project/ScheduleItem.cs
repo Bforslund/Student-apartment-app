@@ -15,15 +15,15 @@ namespace S_project
         TimeSpan span;
 
 
-        HouseRules houseRules = new HouseRules();
+        HouseRules houseRules;
 
         ServerConnection serverConnection = new ServerConnection();
 
         // Constructor that sets some info on the object correct in the instance variables
-        public ScheduleItem(UserInfo user, int index)
+        public ScheduleItem(UserInfo user, int index, HouseRules houseRules)
         {
 
-            houseRules = serverConnection.GetHouseRules(user.HouseNumber);
+            this.houseRules = houseRules;
             this.index = index;
             this.ID = houseRules.AllRules[this.index].OrderOfStudents[houseRules.AllRules[this.index].CurrentStudent];
             span = DateTime.Today.Subtract(houseRules.AllRules[this.index].LastCompleted);

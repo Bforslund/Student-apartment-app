@@ -256,10 +256,10 @@ namespace S_project
         private void TimerUpdates_Tick(object sender, EventArgs e)
         {
             UpdatesTick();
-            if (_messages.AllMessages.Count != tbChat.Controls.Count) // If misplaced, please place it somewhere else :)
+            if (_messages.AllMessages.Count != tbChatStudent.Controls.Count) // If misplaced, please place it somewhere else :)
             {
                 //pnlChat.SuspendLayout();
-                tbChat.Controls.Clear();
+                tbChatStudent.Controls.Clear();
 
                 foreach (ChatMessage m in _messages.AllMessages)
                 {
@@ -659,7 +659,7 @@ namespace S_project
                     }
                     catch
                     {
-                        Thread.Sleep(100);
+                        //Thread.Sleep(100);
                     }
                 }
             });
@@ -673,9 +673,9 @@ namespace S_project
         // --------------------------------------- Chat -----------------//
         private void AddMessages(ChatMessage msg)
         {
-            int newrow = tbChat.RowCount + 1;
+            int newrow = tbChatStudent.RowCount + 1;
             Label Chat = new Label();
-            //Chat.Text = $"{msg.FiledDate} Admin: {msg.MessageText}"; // no clue how to add a studentname :/
+            Chat.Text = $"{msg.FiledDate} Student: {msg.MessageText}"; // no clue how to add a studentname :/
             Chat.AutoSize = true;
 
             tbChatStudent.RowCount = newrow;

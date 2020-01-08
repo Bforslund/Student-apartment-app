@@ -38,7 +38,7 @@ namespace S_project
         // Sets the correct days until and info of the assigned task
         private void Schedule_Load(object sender, EventArgs e)
         {
-            label1.Text = scheduleItem.GetDays().ToString("D");
+            label1.Text = "In " + scheduleItem.GetDays().ToString("D") + " Days";
             label2.Text = scheduleItem.GetRuleInfo();
         }
 
@@ -55,6 +55,11 @@ namespace S_project
                 scheduleItem.SetUnDone();
                 this.BackColor = Color.LightGray;
             }
+        }
+
+        public void DisableDoneBox()
+        {
+            DoneBox.Visible = false;
         }
     }
 }

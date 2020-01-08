@@ -65,16 +65,14 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.pnlNotifications = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btClear = new System.Windows.Forms.Button();
-            this.btSend = new System.Windows.Forms.Button();
-            this.textChat = new System.Windows.Forms.TextBox();
-            this.pnlchat = new System.Windows.Forms.Panel();
-            this.tbChatStudent = new System.Windows.Forms.TableLayoutPanel();
-            this.tbChat = new System.Windows.Forms.TableLayoutPanel();
+            this.tbChatAll = new System.Windows.Forms.TableLayoutPanel();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.labelchat = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panelChat = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textChat = new System.Windows.Forms.TextBox();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.tabCtrlAdmin.SuspendLayout();
@@ -93,9 +91,9 @@
             this.panel4.SuspendLayout();
             this.panel7.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.pnlchat.SuspendLayout();
+            this.tbChatAll.SuspendLayout();
             this.panel9.SuspendLayout();
+            this.panel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // timerRules
@@ -553,9 +551,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.panel10);
-            this.tabPage1.Controls.Add(this.pnlchat);
-            this.tabPage1.Controls.Add(this.panel9);
+            this.tabPage1.Controls.Add(this.tbChatAll);
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(975, 469);
@@ -563,119 +559,107 @@
             this.tabPage1.Text = "Chat";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // panel10
+            // tbChatAll
             // 
-            this.panel10.BackColor = System.Drawing.SystemColors.Control;
-            this.panel10.Controls.Add(this.label2);
-            this.panel10.Controls.Add(this.btClear);
-            this.panel10.Controls.Add(this.btSend);
-            this.panel10.Controls.Add(this.textChat);
-            this.panel10.Location = new System.Drawing.Point(0, 405);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(982, 61);
-            this.panel10.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(154, 19);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Send a message:";
-            // 
-            // btClear
-            // 
-            this.btClear.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btClear.Location = new System.Drawing.Point(706, 11);
-            this.btClear.Name = "btClear";
-            this.btClear.Size = new System.Drawing.Size(255, 38);
-            this.btClear.TabIndex = 2;
-            this.btClear.Text = "Clear history";
-            this.btClear.UseVisualStyleBackColor = false;
-            this.btClear.Click += new System.EventHandler(this.btClear_Click);
-            // 
-            // btSend
-            // 
-            this.btSend.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btSend.Location = new System.Drawing.Point(590, 10);
-            this.btSend.Name = "btSend";
-            this.btSend.Size = new System.Drawing.Size(110, 27);
-            this.btSend.TabIndex = 1;
-            this.btSend.Text = ">";
-            this.btSend.UseVisualStyleBackColor = false;
-            this.btSend.Click += new System.EventHandler(this.btSend_Click);
-            // 
-            // textChat
-            // 
-            this.textChat.Location = new System.Drawing.Point(217, 11);
-            this.textChat.Name = "textChat";
-            this.textChat.Size = new System.Drawing.Size(367, 26);
-            this.textChat.TabIndex = 0;
-            // 
-            // pnlchat
-            // 
-            this.pnlchat.AutoScroll = true;
-            this.pnlchat.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlchat.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pnlchat.Controls.Add(this.tbChatStudent);
-            this.pnlchat.Controls.Add(this.tbChat);
-            this.pnlchat.Location = new System.Drawing.Point(-4, 64);
-            this.pnlchat.Name = "pnlchat";
-            this.pnlchat.Size = new System.Drawing.Size(982, 340);
-            this.pnlchat.TabIndex = 3;
-            // 
-            // tbChatStudent
-            // 
-            this.tbChatStudent.AutoScrollMargin = new System.Drawing.Size(10, 10);
-            this.tbChatStudent.AutoSize = true;
-            this.tbChatStudent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tbChatStudent.ColumnCount = 1;
-            this.tbChatStudent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbChatStudent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbChatStudent.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbChatStudent.Location = new System.Drawing.Point(0, 0);
-            this.tbChatStudent.Name = "tbChatStudent";
-            this.tbChatStudent.RowCount = 1;
-            this.tbChatStudent.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbChatStudent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1F));
-            this.tbChatStudent.Size = new System.Drawing.Size(982, 0);
-            this.tbChatStudent.TabIndex = 1;
-            // 
-            // tbChat
-            // 
-            this.tbChat.AutoScrollMargin = new System.Drawing.Size(10, 10);
-            this.tbChat.AutoSize = true;
-            this.tbChat.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tbChat.ColumnCount = 1;
-            this.tbChat.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbChat.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbChat.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbChat.Location = new System.Drawing.Point(0, 0);
-            this.tbChat.Name = "tbChat";
-            this.tbChat.RowCount = 1;
-            this.tbChat.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbChat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1F));
-            this.tbChat.Size = new System.Drawing.Size(982, 0);
-            this.tbChat.TabIndex = 0;
+            this.tbChatAll.ColumnCount = 1;
+            this.tbChatAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbChatAll.Controls.Add(this.panel9, 0, 0);
+            this.tbChatAll.Controls.Add(this.panelChat, 0, 1);
+            this.tbChatAll.Controls.Add(this.panel10, 0, 2);
+            this.tbChatAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbChatAll.Location = new System.Drawing.Point(0, 0);
+            this.tbChatAll.Margin = new System.Windows.Forms.Padding(0);
+            this.tbChatAll.Name = "tbChatAll";
+            this.tbChatAll.RowCount = 3;
+            this.tbChatAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tbChatAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbChatAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tbChatAll.Size = new System.Drawing.Size(975, 469);
+            this.tbChatAll.TabIndex = 1;
             // 
             // panel9
             // 
-            this.panel9.BackColor = System.Drawing.Color.RoyalBlue;
-            this.panel9.Controls.Add(this.labelchat);
-            this.panel9.Location = new System.Drawing.Point(3, 3);
+            this.panel9.AutoScroll = true;
+            this.panel9.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.panel9.Controls.Add(this.label2);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(0, 0);
+            this.panel9.Margin = new System.Windows.Forms.Padding(0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(982, 81);
-            this.panel9.TabIndex = 1;
+            this.panel9.Size = new System.Drawing.Size(975, 75);
+            this.panel9.TabIndex = 2;
             // 
-            // labelchat
+            // label2
             // 
-            this.labelchat.AutoSize = true;
-            this.labelchat.Location = new System.Drawing.Point(427, 27);
-            this.labelchat.Name = "labelchat";
-            this.labelchat.Size = new System.Drawing.Size(48, 19);
-            this.labelchat.TabIndex = 0;
-            this.labelchat.Text = "Chat";
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(431, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 26);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Chat";
+            // 
+            // panelChat
+            // 
+            this.panelChat.AutoScroll = true;
+            this.panelChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
+            this.panelChat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelChat.Location = new System.Drawing.Point(0, 75);
+            this.panelChat.Margin = new System.Windows.Forms.Padding(0);
+            this.panelChat.Name = "panelChat";
+            this.panelChat.Size = new System.Drawing.Size(975, 319);
+            this.panelChat.TabIndex = 3;
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel10.Controls.Add(this.btnSend);
+            this.panel10.Controls.Add(this.label3);
+            this.panel10.Controls.Add(this.textChat);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.Location = new System.Drawing.Point(0, 394);
+            this.panel10.Margin = new System.Windows.Forms.Padding(0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(975, 75);
+            this.panel10.TabIndex = 4;
+            // 
+            // btnSend
+            // 
+            this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSend.Font = new System.Drawing.Font("MS Reference Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSend.Location = new System.Drawing.Point(898, 0);
+            this.btnSend.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(77, 75);
+            this.btnSend.TabIndex = 3;
+            this.btnSend.Text = ">";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btSend_Click);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(8, 24);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(177, 26);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Send Message:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textChat
+            // 
+            this.textChat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.textChat.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textChat.Location = new System.Drawing.Point(224, 27);
+            this.textChat.Name = "textChat";
+            this.textChat.Size = new System.Drawing.Size(632, 26);
+            this.textChat.TabIndex = 1;
             // 
             // StudentForm
             // 
@@ -717,12 +701,11 @@
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.tabPage1.ResumeLayout(false);
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
-            this.pnlchat.ResumeLayout(false);
-            this.pnlchat.PerformLayout();
+            this.tbChatAll.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -763,15 +746,13 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.TableLayoutPanel pnlMandatoryRules;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TableLayoutPanel tbChatAll;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label labelchat;
-        private System.Windows.Forms.Panel pnlchat;
-        private System.Windows.Forms.TableLayoutPanel tbChat;
-        private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btClear;
-        private System.Windows.Forms.Button btSend;
+        private System.Windows.Forms.Panel panelChat;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textChat;
-        private System.Windows.Forms.TableLayoutPanel tbChatStudent;
     }
 }

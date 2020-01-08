@@ -92,16 +92,15 @@ namespace S_project
                 pnlComplaints.ResumeLayout();
             }
 
-            if (_messages.AllMessages.Count != tbChat.Controls.Count)
+            ChatHistory ch = _server.GetMessages(_houseNumber);
+            if (_messages.AllMessages.Count != panelChat.Controls.Count || 
+               ch.AllMessages.Count != panelChat.Controls.Count)
             {
-                //pnlChat.SuspendLayout();
-                tbChat.Controls.Clear();
-
-                foreach (ChatMessage m in _messages.AllMessages)
+                for (int i = panelChat.Controls.Count; i < ch.AllMessages.Count; i++)
                 {
-                    AddMessages(m);
+                    AddMessages(ch.AllMessages[i]);
                 }
-                //pnlChat.ResumeLayout();
+                panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
             }
         }
 
@@ -320,15 +319,13 @@ namespace S_project
         }
 
         private void AddMessages(ChatMessage msg) 
-        { 
-            int newrow = tbChat.RowCount + 1;
-            Label Chat = new Label();
-            Chat.Text = $"{msg.FiledDate}  {_user.StudentsInfo[msg.FiledBy]}: {msg.MessageText}";
-            Chat.AutoSize = true;
-
-            
-            tbChat.RowCount = newrow;
-            tbChat.Controls.Add(Chat, 0, newrow); 
+        {
+            ucChatMessage chatMessage = new ucChatMessage(msg.MessageText, $"{msg.FiledDate}", _user.StudentsInfo[msg.FiledBy]);
+            chatMessage.Dock = DockStyle.Top;
+            chatMessage.PerformAutoScale();
+            chatMessage.PerformLayout();
+            panelChat.Controls.Add(chatMessage);
+            panelChat.Controls.SetChildIndex(chatMessage, 0);
         }
 
         private void btSend_Click(object sender, EventArgs e)
@@ -345,21 +342,25 @@ namespace S_project
 
                 textChat.Clear();
                 UpdateTick();
-
-
             }
             else
             {
                 MessageBox.Show("Please enter a valid rule");
             }
         }
-
-        private void btClear_Click(object sender, EventArgs e)
+        
+        private void textChat_KeyPress(object sender, KeyPressEventArgs e)
         {
-            tbChat.Controls.Clear();
-            _messages.AllMessages.Clear();
+            if (e.KeyChar == (char)13)
+            {
+                btnSend.PerformClick();
+                textChat.Text = "";
+            }
+        }
 
-            _server.UpdateMessages(_messages);
+        private void panel9_VisibleChanged(object sender, EventArgs e)
+        {
+            panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
         }
     }
 }

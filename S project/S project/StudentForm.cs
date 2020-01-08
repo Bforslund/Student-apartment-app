@@ -256,17 +256,6 @@ namespace S_project
         private void TimerUpdates_Tick(object sender, EventArgs e)
         {
             UpdatesTick();
-            if (_messages.AllMessages.Count != tbChatStudent.Controls.Count) // If misplaced, please place it somewhere else :)
-            {
-                //pnlChat.SuspendLayout();
-                tbChatStudent.Controls.Clear();
-
-                foreach (ChatMessage m in _messages.AllMessages)
-                {
-                    AddMessages(m);
-                }
-                //pnlChat.ResumeLayout();
-            }
         }
 
         private void UpdatesTick()
@@ -567,6 +556,17 @@ namespace S_project
                     }
                 }
             }
+
+            ChatHistory ch = server.GetMessages(student.HouseNumber);
+            if (_messages.AllMessages.Count != panelChat.Controls.Count ||
+               ch.AllMessages.Count != panelChat.Controls.Count)
+            {
+                for (int i = panelChat.Controls.Count; i < ch.AllMessages.Count; i++)
+                {
+                    AddMessages(ch.AllMessages[i]);
+                }
+                panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
+            }
         }
 
         // Method for drawing the required amount of UserControls
@@ -673,13 +673,12 @@ namespace S_project
         // --------------------------------------- Chat -----------------//
         private void AddMessages(ChatMessage msg)
         {
-            int newrow = tbChatStudent.RowCount + 1;
-            Label Chat = new Label();
-            Chat.Text = $"{msg.FiledDate} {student.StudentsInfo[msg.FiledBy]}: {msg.MessageText}"; // no clue how to add a studentname :/
-            Chat.AutoSize = true;
-
-            tbChatStudent.RowCount = newrow;
-            tbChatStudent.Controls.Add(Chat, 0, newrow);
+            ucChatMessage chatMessage = new ucChatMessage(msg.MessageText, $"{msg.FiledDate}", student.StudentsInfo[msg.FiledBy]);
+            chatMessage.Dock = DockStyle.Top;
+            chatMessage.PerformAutoScale();
+            chatMessage.PerformLayout();
+            panelChat.Controls.Add(chatMessage);
+            panelChat.Controls.SetChildIndex(chatMessage, 0);
         }
 
         private void btSend_Click(object sender, EventArgs e)
@@ -689,26 +688,32 @@ namespace S_project
                 ChatMessage NewMsg = new ChatMessage();
 
                 NewMsg.MessageText = textChat.Text;
-                NewMsg.FiledBy = student.ID;
+                NewMsg.FiledBy = student.ID; // ???? XD
                 NewMsg.FiledDate = DateTime.Now;
                 _messages.AllMessages.Add(NewMsg);
                 server.UpdateMessages(_messages);
 
                 textChat.Clear();
-
+                RulesUpdateTick();
             }
             else
             {
-                MessageBox.Show("Please enter a text");
+                MessageBox.Show("Please enter a valid rule");
             }
         }
 
-        private void btClear_Click(object sender, EventArgs e)
+        private void textChat_KeyPress(object sender, KeyPressEventArgs e)
         {
-            tbChat.Controls.Clear();
-            _messages.AllMessages.Clear();
+            if (e.KeyChar == (char)13)
+            {
+                btnSend.PerformClick();
+                textChat.Text = "";
+            }
+        }
 
-            server.UpdateMessages(_messages);
+        private void panel9_VisibleChanged(object sender, EventArgs e)
+        {
+            panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
         }
     }
 }

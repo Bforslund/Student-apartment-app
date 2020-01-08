@@ -465,6 +465,7 @@
             // 
             // panel10
             // 
+            this.panel10.AutoScroll = true;
             this.panel10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel10.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.panel10.Controls.Add(this.tbChat);

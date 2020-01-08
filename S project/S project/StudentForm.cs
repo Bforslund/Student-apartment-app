@@ -675,7 +675,7 @@ namespace S_project
         {
             int newrow = tbChatStudent.RowCount + 1;
             Label Chat = new Label();
-            Chat.Text = $"{msg.FiledDate} Student: {msg.MessageText}"; // no clue how to add a studentname :/
+            Chat.Text = $"{msg.FiledDate} {student.StudentsInfo[msg.FiledBy]}: {msg.MessageText}"; // no clue how to add a studentname :/
             Chat.AutoSize = true;
 
             tbChatStudent.RowCount = newrow;
@@ -689,7 +689,7 @@ namespace S_project
                 ChatMessage NewMsg = new ChatMessage();
 
                 NewMsg.MessageText = textChat.Text;
-                NewMsg.FiledBy = 2; // ???? XD
+                NewMsg.FiledBy = student.ID;
                 NewMsg.FiledDate = DateTime.Now;
                 _messages.AllMessages.Add(NewMsg);
                 server.UpdateMessages(_messages);
@@ -699,7 +699,7 @@ namespace S_project
             }
             else
             {
-                MessageBox.Show("Please enter a valid rule");
+                MessageBox.Show("Please enter a text");
             }
         }
 

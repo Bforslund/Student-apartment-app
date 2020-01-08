@@ -33,6 +33,8 @@ namespace S_project
             _complaints = server.GetComplaints(houseNumber);
             _messages = server.GetMessages(houseNumber);
             _user = user;
+
+            UpdateTick(false);
         }
 
         private void GoBackToLogin()
@@ -53,24 +55,29 @@ namespace S_project
         }
 
         private void TimerUpdate_Tick(object sender, EventArgs e)
-        {            
+        {
+            UpdateTick();
+        }
+
+        private void UpdateTick(bool showUpdate = true)
+        {
             MandatoryRules mr = _server.GetMandatoryRules(_houseNumber);
             if (_mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 3 ||
                 mr.AllRules.Count != pnlMandatoryRules.Controls.Count / 3)
             {
                 _mandatoryRules = mr;
-                UpdateMandatoryRulesLayout(mr);
+                UpdateMandatoryRulesLayout(mr, showUpdate);
             }
-                
+
 
             HouseRules hr = _server.GetHouseRules(_houseNumber);
             if (_houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 ||
                 hr.AllRules.Count != pnlHouseRules.Controls.Count / 3)
             {
                 _houseRules = hr;
-                UpdateHouseRulesLayout(hr);
+                UpdateHouseRulesLayout(hr, showUpdate);
             }
-                
+
             if (_complaints.AllComplaints.Count != pnlComplaints.Controls.Count ||
                 _server.GetComplaints(_houseNumber).AllComplaints.Count != pnlComplaints.Controls.Count)
             {
@@ -98,14 +105,17 @@ namespace S_project
             }
         }
 
-        private void UpdateMandatoryRulesLayout(MandatoryRules mr)
+        private void UpdateMandatoryRulesLayout(MandatoryRules mr, bool showUpdate)
         {
             fUpdating updateForm = new fUpdating();
 
-            Task.Run(() =>
+            if (showUpdate)
             {
-                updateForm.ShowDialog();
-            });
+                Task.Run(() =>
+                {
+                    updateForm.ShowDialog();
+                });
+            }
 
             pnlMandatoryRules.SuspendLayout();
             pnlMandatoryRules.Controls.Clear();
@@ -116,20 +126,34 @@ namespace S_project
             }
 
             pnlMandatoryRules.ResumeLayout();
-            Invoke((MethodInvoker)delegate
+            if (showUpdate)
             {
-                updateForm.Close();
-            });
+                Invoke((MethodInvoker)delegate
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            updateForm.Close();
+                            break;
+                        }
+                        catch { continue; }
+                    }
+                });
+            }
         }
 
-        private void UpdateHouseRulesLayout(HouseRules hr)
+        private void UpdateHouseRulesLayout(HouseRules hr, bool showUpdate)
         {
             fUpdating updateForm = new fUpdating();
 
-            Task.Run(() =>
+            if (showUpdate)
             {
-                updateForm.ShowDialog();
-            });
+                Task.Run(() =>
+                {
+                    updateForm.ShowDialog();
+                });
+            }
 
             pnlHouseRules.SuspendLayout();
             pnlHouseRules.Controls.Clear();
@@ -140,10 +164,22 @@ namespace S_project
             }
 
             pnlHouseRules.ResumeLayout();
-            Invoke((MethodInvoker)delegate
+
+            if (showUpdate)
             {
-                updateForm.Close();
-            });
+                Invoke((MethodInvoker)delegate
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            updateForm.Close();
+                            break;
+                        }
+                        catch { continue; }
+                    }
+                });
+            }
         }
 
         private void AddHouseRule(HouseRuleServer rule, int index) {
@@ -177,7 +213,7 @@ namespace S_project
             int index = Convert.ToInt32(((Button)sender).Tag) - 1;
             _houseRules.AllRules.RemoveAt(index);
 
-            UpdateHouseRulesLayout(_houseRules);
+            UpdateHouseRulesLayout(_houseRules, true);
             _server.UpdateHouseRules(_houseRules);
         }
 
@@ -218,7 +254,7 @@ namespace S_project
             int index = Convert.ToInt32(((Button)sender).Tag) - 1;
             _mandatoryRules.AllRules.RemoveAt(index);
 
-            UpdateMandatoryRulesLayout(_mandatoryRules);
+            UpdateMandatoryRulesLayout(_mandatoryRules, true);
             _server.UpdateMandatoryRules(_mandatoryRules);
         }
 
@@ -287,7 +323,7 @@ namespace S_project
         { 
             int newrow = tbChat.RowCount + 1;
             Label Chat = new Label();
-            Chat.Text = $"{msg.FiledDate} Admin: {msg.MessageText}";
+            Chat.Text = $"{msg.FiledDate}  {_user.StudentsInfo[msg.FiledBy]}: {msg.MessageText}";
             Chat.AutoSize = true;
 
             
@@ -301,14 +337,16 @@ namespace S_project
             {
                 ChatMessage NewMsg = new ChatMessage(); 
 
-                NewMsg.MessageText = textChat.Text; 
-                NewMsg.FiledBy = 2; // ???? XD
+                NewMsg.MessageText = textChat.Text;
+                NewMsg.FiledBy = _user.ID; // ???? XD
                 NewMsg.FiledDate = DateTime.Now;
                 _messages.AllMessages.Add(NewMsg);
                 _server.UpdateMessages(_messages);
 
                 textChat.Clear();
-                
+                UpdateTick();
+
+
             }
             else
             {

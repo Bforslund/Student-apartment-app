@@ -25,6 +25,7 @@ namespace S_project
             this.houseRules = houseRules;
             this.mandatoryRules = mandatoryRules;
             this.users = users;
+            cbAnon.Checked = false;
         }
 
         private void BtnAddComplaint_Click(object sender, EventArgs e)
@@ -60,7 +61,17 @@ namespace S_project
 
         private void timerUpdate_Tick(object sender, EventArgs e)
         {
-            if (cbxRuleBroken.Items.Count != this.mandatoryRules.AllRules.Count + this.houseRules.AllRules.Count)
+            int approvedRules = 0;
+
+            foreach (var rule in this.houseRules.AllRules)
+            {
+                if (rule.ApprovalState == true)
+                {
+                    approvedRules++;
+                }
+            }
+
+            if (cbxRuleBroken.Items.Count != this.mandatoryRules.AllRules.Count + approvedRules)
             {
                 foreach (var rule in this.mandatoryRules.AllRules)
                 {
@@ -68,7 +79,10 @@ namespace S_project
                 }
                 foreach (var rule in this.houseRules.AllRules)
                 {
-                    cbxRuleBroken.Items.Add(rule.RuleText);
+                    if (rule.ApprovalState == true)
+                    {
+                        cbxRuleBroken.Items.Add(rule.RuleText);
+                    }
                 }
             }
 

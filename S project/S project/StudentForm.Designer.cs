@@ -33,8 +33,6 @@
             this.timerRules = new System.Windows.Forms.Timer(this.components);
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.lblHello = new System.Windows.Forms.Label();
             this.pctbxBack = new System.Windows.Forms.PictureBox();
             this.tabCtrlAdmin = new System.Windows.Forms.TabControl();
@@ -112,8 +110,6 @@
             // 
             // panelTop
             // 
-            this.panelTop.Controls.Add(this.button2);
-            this.panelTop.Controls.Add(this.button1);
             this.panelTop.Controls.Add(this.lblHello);
             this.panelTop.Controls.Add(this.pctbxBack);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -121,26 +117,6 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(983, 51);
             this.panelTop.TabIndex = 13;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button2.Location = new System.Drawing.Point(385, 10);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 30);
-            this.button2.TabIndex = 17;
-            this.button2.Text = "Mandatory";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button1.Location = new System.Drawing.Point(491, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 30);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "House";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // lblHello
             // 
@@ -731,8 +707,6 @@
         private System.Windows.Forms.Timer timerRules;
         private System.Windows.Forms.Timer timerUpdate;
         private System.Windows.Forms.Panel panelTop;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblHello;
         private System.Windows.Forms.PictureBox pctbxBack;
         private System.Windows.Forms.TabControl tabCtrlAdmin;

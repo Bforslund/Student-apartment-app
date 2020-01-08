@@ -621,6 +621,9 @@ namespace S_project
 
                         schedules.Add(currentScheduleItem);
 
+                    } else
+                    {
+                        currentScheduleItem.DisableDoneBox();
                     }
                 }
 

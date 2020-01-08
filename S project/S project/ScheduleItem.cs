@@ -25,8 +25,23 @@ namespace S_project
 
             this.houseRules = houseRules;
             this.index = index;
+            int timesUntilNextAppointment = 0;
+            for( int i = 1; i <= houseRules.AllRules[index].OrderOfStudents.Count; i++ )
+            {
+                int p = houseRules.AllRules[index].CurrentStudent;
+                if (user.ID == houseRules.AllRules[p].CurrentStudent)
+                {
+                    timesUntilNextAppointment = i;
+                    break;
+                }
+                p++;
+                if (p == houseRules.AllRules[index].OrderOfStudents.Count)
+                {
+                    p = 0;
+                }
+            }
             this.ID = houseRules.AllRules[this.index].OrderOfStudents[houseRules.AllRules[this.index].CurrentStudent];
-            span = DateTime.Today.Subtract(houseRules.AllRules[this.index].LastCompleted);
+            span = DateTime.Today.Subtract(houseRules.AllRules[index].LastCompleted.AddDays(timesUntilNextAppointment*houseRules.AllRules[index].Interval));
 
 
 
@@ -69,10 +84,15 @@ namespace S_project
         // Sets the task as being done
         public void SetDone()
         {
-
+           
             dateTimeBuffer = houseRules.AllRules[index].LastCompleted;
             houseRules.AllRules[index].LastCompleted = DateTime.Today;
-            houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent] = houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent + 1];
+            houseRules.AllRules[index].CurrentStudent += 1;
+            if ( houseRules.AllRules[index].CurrentStudent == houseRules.AllRules[index].OrderOfStudents.Count())
+            {
+                houseRules.AllRules[index].CurrentStudent = 0;
+            }
+            
             serverConnection.UpdateHouseRules(houseRules);
         }
 
@@ -80,7 +100,12 @@ namespace S_project
         public void SetUnDone()
         {
             houseRules.AllRules[index].LastCompleted = dateTimeBuffer;
-            houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent] = houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent - 1];
+            houseRules.AllRules[index].CurrentStudent -= 1;
+            if (houseRules.AllRules[index].CurrentStudent < 0)
+            {
+                houseRules.AllRules[index].CurrentStudent = houseRules.AllRules[index].OrderOfStudents.Count() - 1;
+            }
+            //houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent] = houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent - 1];
             serverConnection.UpdateHouseRules(houseRules);
         }
     }

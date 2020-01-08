@@ -8,15 +8,15 @@
         1,
         2
       ],
-      "CurrentStudent": 1,
-      "LastCompleted": "2019-12-09T14:04:17.1210779+01:00",
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
       "Interval": 3,
       "OnlyThisWeek": false,
       "StudentsApproval": {
         "1": true,
-        "2": false
+        "2": true
       },
-      "ApprovalState": false
+      "ApprovalState": true
     },
     {
       "ID": 1,
@@ -26,7 +26,24 @@
         2
       ],
       "CurrentStudent": 0,
-      "LastCompleted": "2019-12-17T00:59:43.3132261+01:00",
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": true
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 2,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        1
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
       "Interval": 1,
       "OnlyThisWeek": false,
       "StudentsApproval": {
@@ -36,14 +53,14 @@
       "ApprovalState": false
     },
     {
-      "ID": 1,
+      "ID": 3,
       "RuleText": "lk;lk",
       "OrderOfStudents": [
-        1,
+        2,
         2
       ],
       "CurrentStudent": 0,
-      "LastCompleted": "2019-12-17T00:59:43.3132261+01:00",
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
       "Interval": 1,
       "OnlyThisWeek": false,
       "StudentsApproval": {
@@ -53,14 +70,14 @@
       "ApprovalState": false
     },
     {
-      "ID": 1,
+      "ID": 4,
       "RuleText": "lk;lk",
       "OrderOfStudents": [
-        1,
+        2,
         2
       ],
       "CurrentStudent": 0,
-      "LastCompleted": "2019-12-17T00:59:43.3132261+01:00",
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
       "Interval": 1,
       "OnlyThisWeek": false,
       "StudentsApproval": {
@@ -70,14 +87,269 @@
       "ApprovalState": false
     },
     {
-      "ID": 1,
+      "ID": 5,
       "RuleText": "lk;lk",
       "OrderOfStudents": [
-        1,
+        2,
         2
       ],
       "CurrentStudent": 0,
-      "LastCompleted": "2019-12-17T00:59:43.3132261+01:00",
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 6,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 7,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 8,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 9,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 10,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 11,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 12,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 13,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 14,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 15,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 16,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 17,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 18,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 19,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 1,
+      "LastCompleted": "2020-01-08T00:00:00+01:00",
+      "Interval": 1,
+      "OnlyThisWeek": false,
+      "StudentsApproval": {
+        "1": true,
+        "2": false
+      },
+      "ApprovalState": false
+    },
+    {
+      "ID": 20,
+      "RuleText": "lk;lk",
+      "OrderOfStudents": [
+        2,
+        2
+      ],
+      "CurrentStudent": 0,
+      "LastCompleted": "2020-01-06T00:00:00+01:00",
       "Interval": 1,
       "OnlyThisWeek": false,
       "StudentsApproval": {

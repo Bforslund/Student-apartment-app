@@ -13,16 +13,16 @@ namespace S_project
 {
     public partial class Schedule : UserControl
     {
-        ScheduleItem scheduleItem;
+        private ScheduleItem scheduleItem;
         
         // Constructor To Bind the backend part to the UserControl
         public Schedule(UserInfo user, int index, HouseRules houseRules)
         {
             scheduleItem = new ScheduleItem(user, index, houseRules);
             InitializeComponent();
+
             this.BackColor = Color.LightBlue;
         }
-
         
         // Gets the days
         public int GetDays()
@@ -39,6 +39,7 @@ namespace S_project
         // Sets the correct days until and info of the assigned task
         private void Schedule_Load(object sender, EventArgs e)
         {
+            this.Width = this.Parent.Width;
             label1.Text = "In " + scheduleItem.GetDays().ToString("D") + " Days";
             label2.Text = scheduleItem.GetRuleInfo();
         }

@@ -37,6 +37,8 @@ namespace S_project
             complaints = server.GetComplaints(student.HouseNumber);
             _messages = server.GetMessages(student.HouseNumber);
 
+            ScheduleUpdate(false);
+
             timerRules.Start();
             timerUpdate.Start();
 
@@ -604,82 +606,90 @@ namespace S_project
             }
         }
 
-        private void tabCtrlAdmin_TabIndexChanged(object sender, EventArgs e)
+        private void tabCtrlAdmin_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (tabCtrlAdmin.SelectedIndex == 0)
+                ScheduleUpdate();
+        }
+
+        private void ScheduleUpdate(bool showUpdate = true)
+        {            
             fUpdating updateForm = new fUpdating();
 
-            Task.Run(() =>
+            if (showUpdate)
             {
-                try
-                {
-                    updateForm.ShowDialog();
-                }
-                catch { }
-            });
-
-
-            if (tabCtrlAdmin.SelectedIndex == 0)
-            {
-                schedules.Clear();
-                HouseRules houseRules = new HouseRules();
-
-                ServerConnection serverConnection = new ServerConnection();
-                houseRules = server.GetHouseRules(student.HouseNumber);
-
-
-                panel5.SuspendLayout();
-                for (int i = 0; i < houseRules.AllRules.Count; i++)
-                {
-                    Schedule currentScheduleItem = new Schedule(student, i, houseRules);
-                    if (currentScheduleItem.GetID() == student.ID)
-                    {
-
-                        schedules.Add(currentScheduleItem);
-
-                    } else
-                    {
-                        currentScheduleItem.DisableDoneBox();
-                    }
-                }
-
-                SortArray();
-
-                for (int i = 0; i < schedules.Count; i++)
-                {
-
-                    schedules[i].Name = "Task";
-                    //                    schedules[i].Size = new System.Drawing.Size(panel5.Width - 10, 20);
-                    //                    schedules[i].Location = new System.Drawing.Point(10, panel5.Top - schedules.Count * schedules[0].);
-                    schedules[i].TabIndex = 0;
-                    schedules[i].Dock = DockStyle.Top;
-                    panel5.Controls.Add(schedules[i]);
-
-                }
-
-                panel5.ResumeLayout();
-                /*Thread.Sleep(500);
-                */
-            }
-
-            Invoke((MethodInvoker)delegate
-            {
-                while (true)
+                Task.Run(() =>
                 {
                     try
                     {
-                        updateForm.Close();
-                        break;
+                        updateForm.ShowDialog();
                     }
-                    catch
+                    catch { }
+                });
+            }
+
+            schedules.Clear();
+            panel5.Controls.Clear();
+            HouseRules houseRules = new HouseRules();
+
+            houseRules = server.GetHouseRules(student.HouseNumber);
+
+            panel5.SuspendLayout();
+            for (int i = 0; i < houseRules.AllRules.Count; i++)
+            {
+                Schedule currentScheduleItem = new Schedule(student, i, houseRules);
+                if (currentScheduleItem.GetID() == student.ID)
+                {
+
+                    schedules.Add(currentScheduleItem);
+
+                }
+                else
+                {
+                    currentScheduleItem.DisableDoneBox();
+                }
+            }
+
+            SortArray();
+
+            for (int i = 0; i < schedules.Count; i++)
+            {
+                schedules[i].Name = "Task";
+                //                    schedules[i].Size = new System.Drawing.Size(panel5.Width - 10, 20);
+                //                    schedules[i].Location = new System.Drawing.Point(10, panel5.Top - schedules.Count * schedules[0].);
+                schedules[i].TabIndex = 0;
+                schedules[i].Dock = DockStyle.Top;
+                schedules[i].PerformAutoScale();
+                schedules[i].PerformLayout();
+                panel5.Controls.Add(schedules[i]);
+            }
+
+            panel5.ResumeLayout();
+            /*Thread.Sleep(500);
+            */
+
+            if (showUpdate)
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    while (true)
                     {
+                        try
+                        {
+                            updateForm.Close();
+                            break;
+                        }
+                        catch
+                        {
                         //Thread.Sleep(100);
                     }
-                }
-            });
-
-        }
-        #endregion
+                    }
+                });
+            }
+        }   
         
+        #endregion
+
         #region Chat
         private void AddMessages(ChatMessage msg)
         {

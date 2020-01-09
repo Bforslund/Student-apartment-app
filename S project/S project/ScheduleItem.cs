@@ -15,15 +15,12 @@ namespace S_project
         private int index;
         TimeSpan span;
 
-
         HouseRules houseRules;
-
         ServerConnection serverConnection = new ServerConnection();
 
         // Constructor that sets some info on the object correct in the instance variables
         public ScheduleItem(UserInfo user, int index, HouseRules houseRules)
         {
-
             this.houseRules = houseRules;
             this.index = index;
             int timesUntilNextAppointment = 0;
@@ -43,8 +40,6 @@ namespace S_project
             }
             this.ID = houseRules.AllRules[this.index].OrderOfStudents[houseRules.AllRules[this.index].CurrentStudent];
             span = DateTime.Today.Subtract(houseRules.AllRules[index].LastCompleted.AddDays(timesUntilNextAppointment*houseRules.AllRules[index].Interval));
-
-
 
             serverConnection.UpdateHouseRules(houseRules);
         }
@@ -84,8 +79,7 @@ namespace S_project
 
         // Sets the task as being done
         public void SetDone()
-        {
-           
+        {           
             dateTimeBuffer = houseRules.AllRules[index].LastCompleted;
             houseRules.AllRules[index].LastCompleted = DateTime.Today;
             houseRules.AllRules[index].CurrentStudent += 1;

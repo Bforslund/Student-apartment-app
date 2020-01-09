@@ -158,7 +158,7 @@
             this.tabCtrlAdmin.SelectedIndex = 0;
             this.tabCtrlAdmin.Size = new System.Drawing.Size(983, 501);
             this.tabCtrlAdmin.TabIndex = 14;
-            this.tabCtrlAdmin.SelectedIndexChanged += new System.EventHandler(this.tabCtrlAdmin_TabIndexChanged);
+            this.tabCtrlAdmin.SelectedIndexChanged += new System.EventHandler(this.tabCtrlAdmin_SelectedIndexChanged);
             // 
             // Schedule
             // 
@@ -637,6 +637,7 @@
             this.textChat.Name = "textChat";
             this.textChat.Size = new System.Drawing.Size(632, 26);
             this.textChat.TabIndex = 1;
+            this.textChat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textChat_KeyPress);
             // 
             // StudentForm
             // 

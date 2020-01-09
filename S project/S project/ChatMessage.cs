@@ -19,6 +19,7 @@ namespace S_project
             lbTime.Text = time;
             lbName.Text = name;
 
+            tbMessage.Enabled = true;
             tbMessage.SelectAll();
             tbMessage.SelectionColor = Color.Black;
         }

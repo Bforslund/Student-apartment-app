@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using ServerLibrary;
 
 namespace S_project
 {
@@ -12,6 +13,7 @@ namespace S_project
     {
         private TcpClient tcp;
 
+        #region Getting/Updating data on the server
         //Returns user information if credentials are correct
         public UserInfo CheckUser(string login, string password, int houseNumber)
         {
@@ -89,7 +91,9 @@ namespace S_project
             string message = GetResponce(PackageType.UPDATE_MESSAGES, PackageType.RECEIVED, json);
             return true;
         }
+        #endregion
 
+        #region Communication with the server
         //Connects to the server and sends pacckages
         private void SendToServer(string message)
         {
@@ -200,5 +204,6 @@ namespace S_project
 
             return Encoding.Default.GetString(Buf.ToArray(), 0, Buf.Count);
         }
+        #endregion 
     }
 }

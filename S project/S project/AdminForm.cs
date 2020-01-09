@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ServerLibrary;
 
 namespace S_project
 {
@@ -119,7 +120,7 @@ namespace S_project
             pnlMandatoryRules.SuspendLayout();
             pnlMandatoryRules.Controls.Clear();
 
-            foreach (MandatoryRuleServer rule in mr.AllRules)
+            foreach (MandatoryRule rule in mr.AllRules)
             {
                 AddMandatoryRule(rule, mr.AllRules.IndexOf(rule));
             }
@@ -157,7 +158,7 @@ namespace S_project
             pnlHouseRules.SuspendLayout();
             pnlHouseRules.Controls.Clear();
 
-            foreach (HouseRuleServer rule in hr.AllRules)
+            foreach (HouseRule rule in hr.AllRules)
             {
                 AddHouseRule(rule, hr.AllRules.IndexOf(rule));
             }
@@ -181,7 +182,7 @@ namespace S_project
             }
         }
 
-        private void AddHouseRule(HouseRuleServer rule, int index) {
+        private void AddHouseRule(HouseRule rule, int index) {
            
             Button removeRuleButton = new Button();
             Label ruleLabel = new Label();
@@ -216,7 +217,7 @@ namespace S_project
             _server.UpdateHouseRules(_houseRules);
         }
 
-        private void AddMandatoryRule(MandatoryRuleServer rule, int index)
+        private void AddMandatoryRule(MandatoryRule rule, int index)
         {
             // creating new labels and buttons
             Button removeRuleButton = new Button();

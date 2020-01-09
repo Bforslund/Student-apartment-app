@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ServerLibrary;
 
 namespace S_project
 {
@@ -28,7 +29,7 @@ namespace S_project
         {
             if(tbxRuleName.Text != "")
             {
-                MandatoryRuleServer NewRule = new MandatoryRuleServer(); // create a new rule from the class
+                MandatoryRule NewRule = new MandatoryRule(); // create a new rule from the class
 
                 NewRule.RuleText = tbxRuleName.Text; // set the new ruleText from the textbox
                 NewRule.ID = _rules.AllRules.Count; // the Id is the count of the rules.

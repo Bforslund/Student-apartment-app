@@ -160,5 +160,11 @@
       <Version>12.0.3</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServerLibrary\ServerLibrary.csproj">
+      <Project>{09461ede-746f-4a0c-ab4b-c4f0dea94473}</Project>
+      <Name>ServerLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

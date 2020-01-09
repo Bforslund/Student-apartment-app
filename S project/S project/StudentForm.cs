@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using ServerLibrary;
 
 namespace S_project
 {
@@ -57,7 +57,7 @@ namespace S_project
             GoBackToLogin();
         }
 
-        private void AddMandatoryRule(MandatoryRuleServer rule, int index)
+        private void AddMandatoryRule(MandatoryRule rule, int index)
         {
             // creates new labels
             Label ruleLabel = new Label();
@@ -82,7 +82,7 @@ namespace S_project
             //pnlMandatoryRules.Update(); // update the screen, method already exists
         }
 
-        private void AddNotificationsRule(HouseRuleServer rule, int index , int textIndex)
+        private void AddNotificationsRule(HouseRule rule, int index , int textIndex)
         {
             // creates labels and buttons to display
             Label ruleLabel = new Label();
@@ -171,7 +171,7 @@ namespace S_project
             //pnlNotifications.Update(); // update the screen, method already exists
         }
 
-        private void AddHouseRule(HouseRuleServer rule, int index, int textIndex)
+        private void AddHouseRule(HouseRule rule, int index, int textIndex)
         {
             // creates new labels and button
             Label ruleLabel = new Label();
@@ -264,7 +264,7 @@ namespace S_project
             //the Add button has been pressed, get the rule from that textbox
             if (AddRuleStudent.ruleName != "")
             {
-                HouseRuleServer houseRule = new HouseRuleServer();
+                HouseRule houseRule = new HouseRule();
                 houseRule.ApprovalState = false;
                 houseRule.ID = houseRules.AllRules.Count;
                 houseRule.Interval = AddRuleStudent.repeatRule;
@@ -356,7 +356,7 @@ namespace S_project
                 pnlMandatoryRules.SuspendLayout();
                 pnlMandatoryRules.Controls.Clear();
 
-                foreach (MandatoryRuleServer rule in mr.AllRules)
+                foreach (MandatoryRule rule in mr.AllRules)
                 {
                     AddMandatoryRule(rule, mr.AllRules.IndexOf(rule));
                 }
@@ -403,7 +403,7 @@ namespace S_project
 
                 int approved = 0;
                 int disapproved = 0;
-                foreach (HouseRuleServer rule in houseRules.AllRules)
+                foreach (HouseRule rule in houseRules.AllRules)
                 {
                     if (rule.ApprovalState == false)
                     {
@@ -467,7 +467,7 @@ namespace S_project
 
                         int approved = 0;
                         int disapproved = 0;
-                        foreach (HouseRuleServer rule in houseRules.AllRules)
+                        foreach (HouseRule rule in houseRules.AllRules)
                         {
                             if (rule.ApprovalState == false)
                             {
@@ -522,7 +522,7 @@ namespace S_project
 
                         int approved = 0;
                         int disapproved = 0;
-                        foreach (HouseRuleServer rule in houseRules.AllRules)
+                        foreach (HouseRule rule in houseRules.AllRules)
                         {
                             if (rule.ApprovalState == false)
                             {

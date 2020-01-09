@@ -21,7 +21,6 @@ namespace S_project
 
             tbMessage.SelectAll();
             tbMessage.SelectionColor = Color.Black;
-            //tbMessage.SelectionBackColor = Color.FromArgb(246, 246, 246);
         }
 
         private void rchContents_ContentsResized(object sender,

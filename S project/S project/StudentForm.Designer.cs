@@ -158,6 +158,7 @@
             this.tabCtrlAdmin.SelectedIndex = 0;
             this.tabCtrlAdmin.Size = new System.Drawing.Size(983, 501);
             this.tabCtrlAdmin.TabIndex = 14;
+            this.tabCtrlAdmin.SelectedIndexChanged += new System.EventHandler(this.tabCtrlAdmin_TabIndexChanged);
             // 
             // Schedule
             // 

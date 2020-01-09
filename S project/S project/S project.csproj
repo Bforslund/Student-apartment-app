@@ -77,7 +77,6 @@
       <DependentUpon>ChatMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="Encrypter.cs" />
-    <Compile Include="JsonClasses.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

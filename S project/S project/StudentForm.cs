@@ -25,7 +25,6 @@ namespace S_project
         HouseRules houseRules = new HouseRules();
         Complaints complaints = new Complaints();
 
-
         public StudentForm(ServerConnection server, UserInfo student)
         {
             InitializeComponent();
@@ -44,7 +43,8 @@ namespace S_project
             RulesUpdateTick(false);
             UpdatesTick();
         }
-        
+
+        #region Helpers
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
@@ -57,6 +57,33 @@ namespace S_project
             GoBackToLogin();
         }
 
+        private void BtnComplain_Click(object sender, EventArgs e)
+        {
+            //If a Complaint Form does not already exist, create one
+            if (complaintForm == null)
+            {
+                complaintForm = new AddComplainStudent(houseRules, mandatoryRules, student);
+                complaintForm.Show();
+            }
+        }
+
+        private void BtnProposeRule_Click(object sender, EventArgs e)
+        {
+            //If a Rule Form does not already exist, create one
+            if (ruleForm == null)
+            {
+                ruleForm = new AddRuleStudent();
+                ruleForm.Show();
+            }
+        }
+
+        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+        #endregion
+
+        #region Working with Mandatory Rules
         private void AddMandatoryRule(MandatoryRule rule, int index)
         {
             // creates new labels
@@ -81,7 +108,9 @@ namespace S_project
 
             //pnlMandatoryRules.Update(); // update the screen, method already exists
         }
+        #endregion
 
+        #region Working with Notifications
         private void AddNotificationsRule(HouseRule rule, int index , int textIndex)
         {
             // creates labels and buttons to display
@@ -170,7 +199,9 @@ namespace S_project
 
             //pnlNotifications.Update(); // update the screen, method already exists
         }
+        #endregion
 
+        #region Working with House Rules
         private void AddHouseRule(HouseRule rule, int index, int textIndex)
         {
             // creates new labels and button
@@ -232,27 +263,9 @@ namespace S_project
 
             //pnlHouseRules.Update(); // update the screen, method already exists
         }
+        #endregion
 
-        private void BtnComplain_Click(object sender, EventArgs e)
-        {
-            //If a Complaint Form does not already exist, create one
-            if (complaintForm == null)
-            {
-                complaintForm = new AddComplainStudent(houseRules, mandatoryRules, student);
-                complaintForm.Show();
-            }
-        }
-
-        private void BtnProposeRule_Click(object sender, EventArgs e)
-        {
-            //If a Rule Form does not already exist, create one
-            if (ruleForm == null)
-            {
-                ruleForm = new AddRuleStudent();
-                ruleForm.Show();
-            }
-        }
-
+        #region Timers Ticks
         private void TimerUpdates_Tick(object sender, EventArgs e)
         {
             UpdatesTick();
@@ -568,7 +581,9 @@ namespace S_project
                 panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
             }
         }
+        #endregion
 
+        #region Schedule
         // Method for drawing the required amount of UserControls
         // Method for sorting the list of UserControls
         private void SortArray()
@@ -627,9 +642,6 @@ namespace S_project
                     }
                 }
 
-
-
-
                 SortArray();
 
                 for (int i = 0; i < schedules.Count; i++)
@@ -643,8 +655,6 @@ namespace S_project
                     panel5.Controls.Add(schedules[i]);
 
                 }
-
-
 
                 panel5.ResumeLayout();
                 /*Thread.Sleep(500);
@@ -668,18 +678,17 @@ namespace S_project
             });
 
         }
-
-        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Environment.Exit(0);
-        }
-        // --------------------------------------- Chat -----------------//
+        #endregion
+        
+        #region Chat
         private void AddMessages(ChatMessage msg)
         {
             ucChatMessage chatMessage = new ucChatMessage(msg.MessageText, $"{msg.FiledDate}", student.StudentsInfo[msg.FiledBy]);
             chatMessage.Dock = DockStyle.Top;
+
             chatMessage.PerformAutoScale();
             chatMessage.PerformLayout();
+
             panelChat.Controls.Add(chatMessage);
             panelChat.Controls.SetChildIndex(chatMessage, 0);
         }
@@ -718,5 +727,6 @@ namespace S_project
         {
             panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
         }
+        #endregion
     }
 }

@@ -633,9 +633,11 @@ namespace S_project
 
             schedules.Clear();
             panel5.Controls.Clear();
-            HouseRules houseRules = new HouseRules();
+            //HouseRules houseRules = new HouseRules();
 
-            houseRules = server.GetHouseRules(student.HouseNumber);
+            //houseRules = server.GetHouseRules(student.HouseNumber);
+
+            //houseRules = 
 
             panel5.SuspendLayout();
             for (int i = 0; i < houseRules.AllRules.Count; i++)

@@ -40,8 +40,6 @@ namespace S_project
             }
             this.ID = houseRules.AllRules[this.index].OrderOfStudents[houseRules.AllRules[this.index].CurrentStudent];
             span = DateTime.Today.Subtract(houseRules.AllRules[index].LastCompleted.AddDays(timesUntilNextAppointment*houseRules.AllRules[index].Interval));
-
-            serverConnection.UpdateHouseRules(houseRules);
         }
         
         // Gets the Schedule Item info

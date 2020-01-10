@@ -198,9 +198,14 @@ namespace S_project
             //int count = 2;
 
             while (tcp.GetStream().DataAvailable)
+            //while (count > 1)
             {
                 byte[] msg = new byte[1024];
-                int count = tcp.GetStream().Read(msg, 0, msg.Length);
+                //try
+                //{
+                 int   count = tcp.GetStream().Read(msg, 0, msg.Length);
+                //}
+                //catch { break; }
                 Buf.AddRange(msg.Take(count));
             }
 

@@ -6,12 +6,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using ServerLibrary;
+using System.Threading;
 
 namespace S_project
 {
     public class ServerConnection
     {
         private TcpClient tcp;
+        public static bool Connected = false;
 
         #region Getting/Updating data on the server
         //Returns user information if credentials are correct
@@ -130,14 +132,13 @@ namespace S_project
             byte[] Buffer;
             Buffer = Encoding.Default.GetBytes(message);
             tcp.GetStream().Write(Buffer, 0, Buffer.Length);
-
-            //Starts waiting for a response
-            //BeginReading();
         }
 
         //Packs everything so that server can understand
         private string GetResponce(PackageType sendType, PackageType receivedType, string data)
         {
+            Connected = true;
+
             ServerPackage serverPackage = new ServerPackage(sendType, data);
             string json = JsonConvert.SerializeObject(serverPackage, Formatting.Indented);
 
@@ -148,14 +149,16 @@ namespace S_project
             while (true)
             {
                 message = ReadFromServer();
+                message = message.Replace("\0", "");
 
                 if (message.Length > 1)
-                {
+                {                   
                     ServerPackage package = JsonConvert.DeserializeObject<ServerPackage>(message);
 
                     if (package.Type == receivedType)
                     {
                         tcp.Close();
+                        Connected = false;
                         return package.Message;
                     }
                     else { continue; }
@@ -165,6 +168,8 @@ namespace S_project
 
         private ServerPackage GetResponce(PackageType sendType, PackageType[] receivedTypes, string data)
         {
+            Connected = true;
+
             ServerPackage serverPackage = new ServerPackage(sendType, data);
             string json = JsonConvert.SerializeObject(serverPackage, Formatting.Indented);
 
@@ -175,6 +180,7 @@ namespace S_project
             while (true)
             {
                 message = ReadFromServer();
+                message = message.Replace("\0", "");
 
                 if (message.Length > 1)
                 {
@@ -183,6 +189,7 @@ namespace S_project
                     if (receivedTypes.Contains(package.Type))
                     {
                         tcp.Close();
+                        Connected = false;
                         return package;
                     }
                     else { continue; }
@@ -194,32 +201,35 @@ namespace S_project
         private string ReadFromServer()
         {
             List<byte> Buf = new List<byte>();
-            tcp.GetStream().ReadTimeout = 20;
-            //int count = 2;
-
-            while (tcp.GetStream().DataAvailable)
-            //while (count > 1)
+            List<byte> Num = new List<byte>();
+            //tcp.GetStream().ReadTimeout = 20;
+            
+            while (true)
             {
                 byte[] msg = new byte[1024];
+                int count = 0;
                 //try
                 //{
-                 int   count = tcp.GetStream().Read(msg, 0, msg.Length);
+                    count = tcp.GetStream().Read(msg, 0, msg.Length);
                 //}
                 //catch { break; }
-                Buf.AddRange(msg.Take(count));
+
+                //Buf.AddRange(msg.Take(count));
+                Buf.AddRange(msg);
+                if (count > 1)
+                    Thread.Sleep(75);
+
+                if (count == 1024)
+                    continue;
+                else
+                {
+                    if (Buf.Count % 1460 == 0)
+                    {
+                        continue;
+                    }
+                    break;
+                }
             }
-
-            //byte[] msg = new byte[1000000];
-
-            //int count = 0;
-
-            //while(count > 1)
-            //{
-            //    count += tcp.GetStream().Read(msg, 0, msg.Length);
-            //}
-            //int count = tcp.GetStream().Read(msg, 0, msg.Length);
-
-            //return Encoding.Default.GetString(Buf.ToArray(), 0, Buf.Count);
 
             return Encoding.Default.GetString(Buf.ToArray(), 0, Buf.Count);
         }

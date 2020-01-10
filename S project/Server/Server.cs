@@ -263,6 +263,8 @@ namespace Server
                         //Update file
                         File.WriteAllText(@$"data/house-{houseRules.HouseNumber}/house-rules.json", package.Message);
 
+                        SendUpdated();
+
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
                         break;
@@ -283,6 +285,8 @@ namespace Server
 
                         //Checks if needed files/directories exist
                         CheckExistedFiles(Convert.ToInt32(mandatoryRules.HouseNumber));
+
+                        SendUpdated();
 
                         //Update file
                         File.WriteAllText(@$"data/house-{mandatoryRules.HouseNumber}/mandatory-rules.json", package.Message);
@@ -307,6 +311,8 @@ namespace Server
 
                         //Checks if needed files/directories 
                         CheckExistedFiles(Convert.ToInt32(mandatoryRules.HouseNumber));
+
+                        SendUpdated();
 
                         //Update file
                         File.WriteAllText(@$"data/house-{mandatoryRules.HouseNumber}/complaints.json", package.Message);
@@ -335,11 +341,21 @@ namespace Server
                         //Update file
                         File.WriteAllText(@$"data/house-{chathistory.HouseNumber}/messages.json", package.Message);
 
+                        SendUpdated();
+
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
                         break;
                     }
             }
+        }
+
+        private void SendUpdated()
+        {
+            byte[] data = Encoding.UTF8.GetBytes("Updated");
+            UdpClient udpClient = new UdpClient();
+
+            udpClient.Send(data, data.Length, "255.255.255.255", 6543);
         }
 
         //Checks if login and password are correct

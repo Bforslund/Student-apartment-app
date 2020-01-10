@@ -71,7 +71,6 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textChat = new System.Windows.Forms.TextBox();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.tabCtrlAdmin.SuspendLayout();
@@ -731,6 +730,5 @@
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textChat;
-        private System.IO.Ports.SerialPort serialPort1;
     }
 }

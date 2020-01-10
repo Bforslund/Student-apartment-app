@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ServerLibrary;
+using System.Threading;
+using System.Net.Sockets;
+using System.Net;
 
 namespace S_project
 {
@@ -24,6 +27,7 @@ namespace S_project
         List<Schedule> schedules = new List<Schedule>();
         HouseRules houseRules = new HouseRules();
         Complaints complaints = new Complaints();
+        UdpClient udpClient = new UdpClient();
 
         public StudentForm(ServerConnection server, UserInfo student)
         {
@@ -32,10 +36,56 @@ namespace S_project
             this.student = student;
             this.server = server;
             lblHello.Text = "Hello, " + this.student.Name;
+
             mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
             houseRules = server.GetHouseRules(student.HouseNumber);
             complaints = server.GetComplaints(student.HouseNumber);
             _messages = server.GetMessages(student.HouseNumber);
+
+            Task.Run(() =>
+            {
+                udpClient.Client.Bind(new IPEndPoint(0, 6543));
+
+                while (true)
+                {
+                    Thread.Sleep(5000);
+
+                    int count = udpClient.Client.Available;
+
+                    byte[] msg = new byte[count];
+
+                    if (msg.Length == 0)
+                        continue;
+
+                    udpClient.Client.Receive(msg);
+
+                    string message = Encoding.Default.GetString(msg, 0, msg.Length);
+
+                    if (message.Contains("Updated"))
+                    {
+                        while (ServerConnection.Connected)
+                        {
+                            Thread.Sleep(25);
+                        }
+                        mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
+                        while (ServerConnection.Connected)
+                        {
+                            Thread.Sleep(25);
+                        }
+                        houseRules = server.GetHouseRules(student.HouseNumber);
+                        while (ServerConnection.Connected)
+                        {
+                            Thread.Sleep(25);
+                        }
+                        complaints = server.GetComplaints(student.HouseNumber);
+                        while (ServerConnection.Connected)
+                        {
+                            Thread.Sleep(25);
+                        }
+                        _messages = server.GetMessages(student.HouseNumber);
+                    };
+                }
+            });
 
             ScheduleUpdate(false);
 
@@ -50,8 +100,9 @@ namespace S_project
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
+            //udpClient.Close();
             loginForm.Show();
-            this.Hide();
+            this.Close();
         }
         
         private void PctbxBack_Click(object sender, EventArgs e)
@@ -80,7 +131,7 @@ namespace S_project
         }
 
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
+        {           
             Environment.Exit(0);
         }
         #endregion
@@ -143,6 +194,7 @@ namespace S_project
             //already approved this rule or not
             approve.Enabled = !houseRules.AllRules[Convert.ToInt32(ruleNumber.Tag) - 1].StudentsApproval[student.ID];
             disapprove.Enabled = houseRules.AllRules[Convert.ToInt32(ruleNumber.Tag) - 1].StudentsApproval[student.ID];
+
             if (!approve.Enabled)
             {
                 approve.BackColor = Color.FromArgb(210, 210, 210);
@@ -171,6 +223,10 @@ namespace S_project
                 disapprove.BackColor = Color.White;
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = true;
 
+                while (ServerConnection.Connected)
+                {
+                    Thread.Sleep(25);
+                }
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();
@@ -190,6 +246,10 @@ namespace S_project
                 if (houseRules.AllRules[index].StudentsApproval.Values.All(x => x == false))
                     houseRules.AllRules.RemoveAt(index);
 
+                while (ServerConnection.Connected)
+                {
+                    Thread.Sleep(25);
+                }
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();
@@ -255,6 +315,10 @@ namespace S_project
                 disapprove.BackColor = Color.FromArgb(210, 210, 210);
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = false;
 
+                while (ServerConnection.Connected)
+                {
+                    Thread.Sleep(25);
+                }
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();
@@ -289,6 +353,7 @@ namespace S_project
                 houseRule.RuleText = AddRuleStudent.ruleName;
                 houseRule.LastCompleted = DateTime.Now;
                 houseRule.OnlyThisWeek = false;
+                houseRule.StudentsApproval = new Dictionary<int, bool>();
 
                 for (int i = 0; i < student.TotalStudentNumber; i++)
                 {
@@ -303,6 +368,10 @@ namespace S_project
                 AddRuleStudent.ruleName = "";
                 AddRuleStudent.repeatRule = 0;
 
+                while (ServerConnection.Connected)
+                {
+                    Thread.Sleep(25);
+                }
                 server.UpdateHouseRules(houseRules);
             }
 
@@ -322,6 +391,10 @@ namespace S_project
                 AddComplainStudent.IDOfRuleBreaker = 0;
                 AddComplainStudent.IDOfComplainer = 0;
 
+                while (ServerConnection.Connected)
+                {
+                    Thread.Sleep(25);
+                }
                 server.UpdateComplaints(complaints);
             }
 
@@ -348,18 +421,17 @@ namespace S_project
         //Update the rules lists every second
         private void TimerRules_Tick(object sender, EventArgs e)
         {
-            RulesUpdateTick();
+            //RulesUpdateTick();
         }
 
         public void RulesUpdateTick(bool showUpdate = true)
-        {
+        {            
             fUpdating updateForm = new fUpdating();
 
-            MandatoryRules mr = server.GetMandatoryRules(student.HouseNumber);
-            if (mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 2 ||
-                mr.AllRules.Count != pnlMandatoryRules.Controls.Count / 2)
+            if (mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 2)
+                //|| mr.AllRules.Count != pnlMandatoryRules.Controls.Count / 2)
             {
-                mandatoryRules = mr;
+                //mandatoryRules = mr;
 
                 updateForm = new fUpdating();
 
@@ -374,9 +446,9 @@ namespace S_project
                 pnlMandatoryRules.SuspendLayout();
                 pnlMandatoryRules.Controls.Clear();
 
-                foreach (MandatoryRule rule in mr.AllRules)
+                foreach (MandatoryRule rule in mandatoryRules.AllRules)
                 {
-                    AddMandatoryRule(rule, mr.AllRules.IndexOf(rule));
+                    AddMandatoryRule(rule, mandatoryRules.AllRules.IndexOf(rule));
                 }
                 pnlMandatoryRules.ResumeLayout();
 
@@ -397,11 +469,11 @@ namespace S_project
                 }
             }
 
-            HouseRules hr = server.GetHouseRules(student.HouseNumber);
-            if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4 ||
-                hr.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4)
+            //HouseRules hr = server.GetHouseRules(student.HouseNumber);
+            if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4 )//||
+                //hr.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4)
             {
-                houseRules = hr;
+                //houseRules = hr;
 
                 updateForm = new fUpdating();
 
@@ -454,18 +526,20 @@ namespace S_project
                 }
             }
 
-            for (int i = 0; i < houseRules.AllRules.Count; i++)
+            HouseRules hr = houseRules.Clone();
+
+            for (int i = 0; i < hr.AllRules.Count; i++)
             {
                 int numberOfApprovals = 0;
 
                 for (int j = 0; j < student.TotalStudentNumber; j++)
                 {
-                    numberOfApprovals += Convert.ToInt32(houseRules.AllRules[i].StudentsApproval[j + 1]);
+                    numberOfApprovals += Convert.ToInt32(hr.AllRules[i].StudentsApproval[j + 1]);
                 }
 
                 if (numberOfApprovals > student.TotalStudentNumber / 2)
                 {
-                    if (houseRules.AllRules[i].ApprovalState == false)
+                    if (hr.AllRules[i].ApprovalState == false)
                     {
                         updateForm = new fUpdating();
 
@@ -477,7 +551,7 @@ namespace S_project
                             });
                         }
 
-                        houseRules.AllRules[i].ApprovalState = true;
+                        hr.AllRules[i].ApprovalState = true;
                         pnlNotifications.SuspendLayout();
                         pnlNotifications.Controls.Clear();
                         pnlHouseRules.SuspendLayout();
@@ -485,16 +559,16 @@ namespace S_project
 
                         int approved = 0;
                         int disapproved = 0;
-                        foreach (HouseRule rule in houseRules.AllRules)
+                        foreach (HouseRule rule in hr.AllRules)
                         {
                             if (rule.ApprovalState == false)
                             {
-                                AddNotificationsRule(rule, houseRules.AllRules.IndexOf(rule), disapproved);
+                                AddNotificationsRule(rule, hr.AllRules.IndexOf(rule), disapproved);
                                 disapproved++;
                             }
                             else
                             {
-                                AddHouseRule(rule, houseRules.AllRules.IndexOf(rule), approved);
+                                AddHouseRule(rule, hr.AllRules.IndexOf(rule), approved);
                                 approved++;
                             }
                         }
@@ -520,7 +594,7 @@ namespace S_project
                 }
                 else
                 {
-                    if (houseRules.AllRules[i].ApprovalState == true)
+                    if (hr.AllRules[i].ApprovalState == true)
                     {
                         updateForm = new fUpdating();
 
@@ -532,7 +606,7 @@ namespace S_project
                             });
                         }
 
-                        houseRules.AllRules[i].ApprovalState = false;
+                        hr.AllRules[i].ApprovalState = false;
                         pnlNotifications.SuspendLayout();
                         pnlNotifications.Controls.Clear();
                         pnlHouseRules.SuspendLayout();
@@ -540,16 +614,16 @@ namespace S_project
 
                         int approved = 0;
                         int disapproved = 0;
-                        foreach (HouseRule rule in houseRules.AllRules)
+                        foreach (HouseRule rule in hr.AllRules)
                         {
                             if (rule.ApprovalState == false)
                             {
-                                AddNotificationsRule(rule, houseRules.AllRules.IndexOf(rule), disapproved);
+                                AddNotificationsRule(rule, hr.AllRules.IndexOf(rule), disapproved);
                                 disapproved++;
                             }
                             else
                             {
-                                AddHouseRule(rule, houseRules.AllRules.IndexOf(rule), approved);
+                                AddHouseRule(rule, hr.AllRules.IndexOf(rule), approved);
                                 approved++;
                             }
                         }
@@ -575,16 +649,17 @@ namespace S_project
                 }
             }
 
-            ChatHistory ch = server.GetMessages(student.HouseNumber);
-            if (_messages.AllMessages.Count != panelChat.Controls.Count ||
-               ch.AllMessages.Count != panelChat.Controls.Count)
+            //ChatHistory ch = server.GetMessages(student.HouseNumber);
+            if (_messages.AllMessages.Count != panelChat.Controls.Count)// ||
+                //ch.AllMessages.Count != panelChat.Controls.Count)
             {
-                for (int i = panelChat.Controls.Count; i < ch.AllMessages.Count; i++)
+                for (int i = panelChat.Controls.Count; i < _messages.AllMessages.Count; i++)
                 {
-                    AddMessages(ch.AllMessages[i]);
+                    AddMessages(_messages.AllMessages[i]);
                 }
                 panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
             }
+            
         }
         #endregion
 
@@ -633,11 +708,6 @@ namespace S_project
 
             schedules.Clear();
             panel5.Controls.Clear();
-            //HouseRules houseRules = new HouseRules();
-
-            //houseRules = server.GetHouseRules(student.HouseNumber);
-
-            //houseRules = 
 
             panel5.SuspendLayout();
             for (int i = 0; i < houseRules.AllRules.Count; i++)
@@ -645,9 +715,7 @@ namespace S_project
                 Schedule currentScheduleItem = new Schedule(student, i, houseRules);
                 if (currentScheduleItem.GetID() == student.ID)
                 {
-
                     schedules.Add(currentScheduleItem);
-
                 }
                 else
                 {
@@ -718,10 +786,16 @@ namespace S_project
                 NewMsg.FiledBy = student.ID; // ???? XD
                 NewMsg.FiledDate = DateTime.Now;
                 _messages.AllMessages.Add(NewMsg);
+
+                while (ServerConnection.Connected)
+                {
+                    Thread.Sleep(25);
+                }
                 server.UpdateMessages(_messages);
 
                 textChat.Clear();
                 RulesUpdateTick();
+                UpdatesTick();
             }
             else
             {

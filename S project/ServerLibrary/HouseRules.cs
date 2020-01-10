@@ -16,11 +16,23 @@ namespace ServerLibrary
         public bool OnlyThisWeek { get; set; }
         public Dictionary<int, bool> StudentsApproval { get; set; }
         public bool ApprovalState { get; set; }
+
+        public HouseRule()
+        {
+            this.OrderOfStudents = new List<int>();
+            this.StudentsApproval = new Dictionary<int, bool>();
+        }
+
     }
 
     public class HouseRules
     {
         public int HouseNumber { get; set; }
         public List<HouseRule> AllRules { get; set; }
+
+        public HouseRules Clone()
+        {
+            return (HouseRules)this.MemberwiseClone();
+        }
     }
 }

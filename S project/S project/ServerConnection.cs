@@ -194,6 +194,8 @@ namespace S_project
         private string ReadFromServer()
         {
             List<byte> Buf = new List<byte>();
+            tcp.GetStream().ReadTimeout = 20;
+            //int count = 2;
 
             while (tcp.GetStream().DataAvailable)
             {
@@ -201,6 +203,18 @@ namespace S_project
                 int count = tcp.GetStream().Read(msg, 0, msg.Length);
                 Buf.AddRange(msg.Take(count));
             }
+
+            //byte[] msg = new byte[1000000];
+
+            //int count = 0;
+
+            //while(count > 1)
+            //{
+            //    count += tcp.GetStream().Read(msg, 0, msg.Length);
+            //}
+            //int count = tcp.GetStream().Read(msg, 0, msg.Length);
+
+            //return Encoding.Default.GetString(Buf.ToArray(), 0, Buf.Count);
 
             return Encoding.Default.GetString(Buf.ToArray(), 0, Buf.Count);
         }

@@ -58,6 +58,7 @@
             this.tbMessage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
             this.tbMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbMessage.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tbMessage.Enabled = false;
             this.tbMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbMessage.Location = new System.Drawing.Point(155, 13);
             this.tbMessage.Margin = new System.Windows.Forms.Padding(5);

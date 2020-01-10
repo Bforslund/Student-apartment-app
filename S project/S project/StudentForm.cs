@@ -187,6 +187,9 @@ namespace S_project
                 approve.BackColor = Color.White;
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = false;
 
+                if (houseRules.AllRules[index].StudentsApproval.Values.All(x => x == false))
+                    houseRules.AllRules.RemoveAt(index);
+
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();

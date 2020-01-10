@@ -151,12 +151,12 @@ namespace Server
         private void CheckExistedFiles(int houseNumber)
         {
             //Checks if directory for this house exists
-            if (!Directory.Exists(@$"data\house-{houseNumber}"))
+            if (!Directory.Exists(@$"data/house-{houseNumber}"))
                 //Creates new directory
-                Directory.CreateDirectory(@$"data\house-{houseNumber}");
+                Directory.CreateDirectory(@$"data/house-{houseNumber}");
 
             //Checks if file for house rules exists
-            if (!File.Exists(@$"data\house-{houseNumber}\house-rules.json"))
+            if (!File.Exists(@$"data/house-{houseNumber}/house-rules.json"))
             {
                 //Creates a new object with zero rules
                 HouseRules houseRules = new HouseRules
@@ -166,12 +166,12 @@ namespace Server
                 };
 
                 //Saves new file
-                File.WriteAllText(@$"data\house-{houseNumber}\house-rules.json",
+                File.WriteAllText(@$"data/house-{houseNumber}/house-rules.json",
                     JsonConvert.SerializeObject(houseRules, Formatting.Indented));
             }
 
             //Checks if file for mandatory rules exists
-            if (!File.Exists(@$"data\house-{houseNumber}\mandatory-rules.json"))
+            if (!File.Exists(@$"data/house-{houseNumber}/mandatory-rules.json"))
             {
                 //Creates a new object with zero rules
                 MandatoryRules houseRules = new MandatoryRules
@@ -181,12 +181,12 @@ namespace Server
                 };
 
                 //Saves new file
-                File.WriteAllText(@$"data\house-{houseNumber}\mandatory-rules.json",
+                File.WriteAllText(@$"data/house-{houseNumber}/mandatory-rules.json",
                     JsonConvert.SerializeObject(houseRules, Formatting.Indented));
             }
 
             //Checks if file for users exists
-            if (!File.Exists(@$"data\house-{houseNumber}\students.json"))
+            if (!File.Exists(@$"data/house-{houseNumber}/students.json"))
             {
                 //Creates a new object with zero users
                 Users users = new Users
@@ -196,12 +196,12 @@ namespace Server
                 };
 
                 //Saves new file
-                File.WriteAllText(@$"data\house-{houseNumber}\students.json",
+                File.WriteAllText(@$"data/house-{houseNumber}/students.json",
                     JsonConvert.SerializeObject(users, Formatting.Indented));
             }
 
             //Checks if file for complaints rules exists
-            if (!File.Exists(@$"data\house-{houseNumber}\complaints.json"))
+            if (!File.Exists(@$"data/house-{houseNumber}/complaints.json"))
             {
                 //Creates a new object with zero complaints
                 Complaints complaints = new Complaints
@@ -211,10 +211,10 @@ namespace Server
                 };
 
                 //Saves new file
-                File.WriteAllText(@$"data\house-{houseNumber}\complaints.json",
+                File.WriteAllText(@$"data/house-{houseNumber}/complaints.json",
                     JsonConvert.SerializeObject(complaints, Formatting.Indented));
             }
-            if (!File.Exists(@$"data\house-{houseNumber}\messages.json"))
+            if (!File.Exists(@$"data/house-{houseNumber}/messages.json"))
             {
                 //Creates a new object with zero complaints
                 ChatHistory messages = new ChatHistory
@@ -224,7 +224,7 @@ namespace Server
                 };
 
                 //Saves new file
-                File.WriteAllText(@$"data\house-{houseNumber}\messages.json",
+                File.WriteAllText(@$"data/house-{houseNumber}/messages.json",
                     JsonConvert.SerializeObject(messages, Formatting.Indented));
             }
         }
@@ -250,7 +250,7 @@ namespace Server
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.HOUSE_RULES,
-                            File.ReadAllText(@$"data\house-{package.Message}\house-rules.json"))));
+                            File.ReadAllText(@$"data/house-{package.Message}/house-rules.json"))));
                         break;
                     }
                 case PackageType.UPDATE_HOUSE_RULES:
@@ -261,7 +261,7 @@ namespace Server
                         CheckExistedFiles(Convert.ToInt32(houseRules.HouseNumber));
 
                         //Update file
-                        File.WriteAllText(@$"data\house-{houseRules.HouseNumber}\house-rules.json", package.Message);
+                        File.WriteAllText(@$"data/house-{houseRules.HouseNumber}/house-rules.json", package.Message);
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
@@ -274,7 +274,7 @@ namespace Server
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MANDATORY_RULES,
-                            File.ReadAllText(@$"data\house-{package.Message}\mandatory-rules.json"))));
+                            File.ReadAllText(@$"data/house-{package.Message}/mandatory-rules.json"))));
                         break;
                     }
                 case PackageType.UPDATE_MANDATORY_RULES:
@@ -285,7 +285,7 @@ namespace Server
                         CheckExistedFiles(Convert.ToInt32(mandatoryRules.HouseNumber));
 
                         //Update file
-                        File.WriteAllText(@$"data\house-{mandatoryRules.HouseNumber}\mandatory-rules.json", package.Message);
+                        File.WriteAllText(@$"data/house-{mandatoryRules.HouseNumber}/mandatory-rules.json", package.Message);
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
@@ -298,7 +298,7 @@ namespace Server
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.COMPLAINTS,
-                            File.ReadAllText(@$"data\house-{package.Message}\complaints.json"))));
+                            File.ReadAllText(@$"data/house-{package.Message}/complaints.json"))));
                         break;
                     }
                 case PackageType.UPDATE_COMPLAINTS:
@@ -309,7 +309,7 @@ namespace Server
                         CheckExistedFiles(Convert.ToInt32(mandatoryRules.HouseNumber));
 
                         //Update file
-                        File.WriteAllText(@$"data\house-{mandatoryRules.HouseNumber}\complaints.json", package.Message);
+                        File.WriteAllText(@$"data/house-{mandatoryRules.HouseNumber}/complaints.json", package.Message);
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
@@ -322,7 +322,7 @@ namespace Server
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MESSAGES,
-                            File.ReadAllText(@$"data\house-{package.Message}\messages.json"))));
+                            File.ReadAllText(@$"data/house-{package.Message}/messages.json"))));
                         break;
                     }
                 case PackageType.UPDATE_MESSAGES:
@@ -333,7 +333,7 @@ namespace Server
                         CheckExistedFiles(Convert.ToInt32(chathistory.HouseNumber));
 
                         //Update file
-                        File.WriteAllText(@$"data\house-{chathistory.HouseNumber}\messages.json", package.Message);
+                        File.WriteAllText(@$"data/house-{chathistory.HouseNumber}/messages.json", package.Message);
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "")));
@@ -348,7 +348,7 @@ namespace Server
             //Checks if needed files/directories exist
             CheckExistedFiles(Convert.ToInt32(userCheck.HouseNumber));
 
-            Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data\house-{userCheck.HouseNumber}\students.json"));
+            Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data/house-{userCheck.HouseNumber}/students.json"));
 
             //For each user check if given credentials corespond to anyone
             foreach (var user in users.AllUsers)
@@ -396,6 +396,8 @@ namespace Server
             byte[] Buffer;
             Buffer = Encoding.Default.GetBytes(message);
             client.GetStream().Write(Buffer, 0, Buffer.Length);
+
+            Console.WriteLine(message);
 
             //Closes connection
             client.Close();

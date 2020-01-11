@@ -97,7 +97,7 @@
             // timerRules
             // 
             this.timerRules.Enabled = true;
-            this.timerRules.Interval = 5000;
+            this.timerRules.Interval = 500;
             this.timerRules.Tick += new System.EventHandler(this.TimerRules_Tick);
             // 
             // timerUpdate

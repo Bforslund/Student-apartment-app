@@ -10,11 +10,13 @@ namespace ServerLibrary
     {
         public PackageType Type { get; set; }
         public string Message { get; set; }
+        public int UdpServerPort { get; set; }
 
-        public ServerPackage(PackageType type, string msg)
+        public ServerPackage(PackageType type, string msg, int udpServerPort)
         {
-            Type = type;
-            Message = msg;
+            this.Type = type;
+            this.Message = msg;
+            this.UdpServerPort = udpServerPort;
         }
     }
 }

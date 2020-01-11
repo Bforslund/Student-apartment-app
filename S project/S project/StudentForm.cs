@@ -44,14 +44,13 @@ namespace S_project
 
             Task.Run(() =>
             {
-                udpClient.Client.Bind(new IPEndPoint(0, 6543));
+                udpClient.Client.Bind(new IPEndPoint(0, server.GetAvailableUdpPort()));
 
                 while (true)
                 {
-                    Thread.Sleep(5000);
+                    Thread.Sleep(200);
 
                     int count = udpClient.Client.Available;
-
                     byte[] msg = new byte[count];
 
                     if (msg.Length == 0)
@@ -64,24 +63,19 @@ namespace S_project
                     if (message.Contains("Updated"))
                     {
                         while (ServerConnection.Connected)
-                        {
                             Thread.Sleep(25);
-                        }
                         mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
+
                         while (ServerConnection.Connected)
-                        {
                             Thread.Sleep(25);
-                        }
                         houseRules = server.GetHouseRules(student.HouseNumber);
+
                         while (ServerConnection.Connected)
-                        {
                             Thread.Sleep(25);
-                        }
                         complaints = server.GetComplaints(student.HouseNumber);
+
                         while (ServerConnection.Connected)
-                        {
                             Thread.Sleep(25);
-                        }
                         _messages = server.GetMessages(student.HouseNumber);
                     };
                 }
@@ -369,9 +363,7 @@ namespace S_project
                 AddRuleStudent.repeatRule = 0;
 
                 while (ServerConnection.Connected)
-                {
                     Thread.Sleep(25);
-                }
                 server.UpdateHouseRules(houseRules);
             }
 
@@ -421,7 +413,7 @@ namespace S_project
         //Update the rules lists every second
         private void TimerRules_Tick(object sender, EventArgs e)
         {
-            //RulesUpdateTick();
+            RulesUpdateTick();
         }
 
         public void RulesUpdateTick(bool showUpdate = true)
@@ -788,9 +780,7 @@ namespace S_project
                 _messages.AllMessages.Add(NewMsg);
 
                 while (ServerConnection.Connected)
-                {
                     Thread.Sleep(25);
-                }
                 server.UpdateMessages(_messages);
 
                 textChat.Clear();
@@ -799,7 +789,7 @@ namespace S_project
             }
             else
             {
-                MessageBox.Show("Please enter a valid rule");
+                MessageBox.Show("Please enter a valid message");
             }
         }
 

@@ -14,6 +14,31 @@ namespace S_project
     {
         private TcpClient tcp;
         public static bool Connected = false;
+        private int udpServerPort;
+
+        public int GetAvailableUdpPort()
+        {
+            int port = 6000;
+            UdpClient udpClient = new UdpClient();
+
+            while (true)
+            {
+                try
+                {
+                        udpClient.Client.Bind(new IPEndPoint(0, port));
+                    break;
+                }
+                catch
+                {
+                    port++;
+                    continue;
+                }
+            }
+
+            udpClient.Close();
+            this.udpServerPort = port;
+            return port;
+        }
 
         #region Getting/Updating data on the server
         //Returns user information if credentials are correct
@@ -139,7 +164,7 @@ namespace S_project
         {
             Connected = true;
 
-            ServerPackage serverPackage = new ServerPackage(sendType, data);
+            ServerPackage serverPackage = new ServerPackage(sendType, data, this.udpServerPort);
             string json = JsonConvert.SerializeObject(serverPackage, Formatting.Indented);
 
             SendToServer(json);
@@ -170,7 +195,7 @@ namespace S_project
         {
             Connected = true;
 
-            ServerPackage serverPackage = new ServerPackage(sendType, data);
+            ServerPackage serverPackage = new ServerPackage(sendType, data, this.udpServerPort);
             string json = JsonConvert.SerializeObject(serverPackage, Formatting.Indented);
 
             SendToServer(json);
@@ -208,14 +233,11 @@ namespace S_project
             {
                 byte[] msg = new byte[1024];
                 int count = 0;
-                //try
-                //{
-                    count = tcp.GetStream().Read(msg, 0, msg.Length);
-                //}
-                //catch { break; }
 
-                //Buf.AddRange(msg.Take(count));
+                count = tcp.GetStream().Read(msg, 0, msg.Length);
+
                 Buf.AddRange(msg);
+
                 if (count > 1)
                     Thread.Sleep(75);
 
@@ -224,9 +246,7 @@ namespace S_project
                 else
                 {
                     if (Buf.Count % 1460 == 0)
-                    {
                         continue;
-                    }
                     break;
                 }
             }

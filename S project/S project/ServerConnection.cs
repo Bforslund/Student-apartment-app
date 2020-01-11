@@ -16,36 +16,6 @@ namespace S_project
         public static bool Connected = false;
         private int udpServerPort = 6000;
 
-        public int GetAvailableUdpPort()
-        {
-            int port = 6000;
-            UdpClient udpClient = new UdpClient();
-
-            while (true)
-            {
-                try
-                {
-                        udpClient.Client.Bind(new IPEndPoint(0, port));
-                    break;
-                }
-                catch
-                {
-                    port++;
-                    continue;
-                }
-            }
-
-            udpClient.Close();
-            this.udpServerPort = port;
-            return port;
-        }
-
-        public void Wait(int interval)
-        {
-            while (ServerConnection.Connected)
-                Thread.Sleep(interval);
-        }
-
         #region Getting/Updating data on the server
         //Returns user information if credentials are correct
         public UserInfo CheckUser(string login, string password, int houseNumber)
@@ -64,6 +34,26 @@ namespace S_project
                     return JsonConvert.DeserializeObject<UserInfo>(package.Message);
                 default:
                     return null;
+            }
+        }
+
+        //Updates password
+        public bool UpdatePassword(int id, string newPassword, string currentPassword, int houseNumber)
+        {
+            Wait(25);
+
+            string json = JsonConvert.SerializeObject(new PasswordChange(id, newPassword, currentPassword, houseNumber));
+
+            PackageType[] receivedTypes = new PackageType[2] { PackageType.PASSWORD_CHANGED, PackageType.INVALID_DATA };
+
+            ServerPackage package = GetResponce(PackageType.UPDATE_PASSWORD, receivedTypes, json);
+
+            switch (package.Type)
+            {
+                case PackageType.PASSWORD_CHANGED:
+                    return true;
+                default:
+                    return false;
             }
         }
 
@@ -277,6 +267,38 @@ namespace S_project
 
             return Encoding.Default.GetString(Buf.ToArray(), 0, Buf.Count);
         }
-        #endregion 
+        #endregion
+
+        #region Helpers
+        public int GetAvailableUdpPort()
+        {
+            int port = 6000;
+            UdpClient udpClient = new UdpClient();
+
+            while (true)
+            {
+                try
+                {
+                    udpClient.Client.Bind(new IPEndPoint(0, port));
+                    break;
+                }
+                catch
+                {
+                    port++;
+                    continue;
+                }
+            }
+
+            udpClient.Close();
+            this.udpServerPort = port;
+            return port;
+        }
+
+        public void Wait(int interval)
+        {
+            while (ServerConnection.Connected)
+                Thread.Sleep(interval);
+        }
+        #endregion
     }
 }

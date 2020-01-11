@@ -18,6 +18,7 @@ namespace Server
         private TcpListener clientListener; //Listens for new conections
         private List<TcpClient> clients = new List<TcpClient>(); //List of all currently connected clients
         private List<int> udpServerPorts = new List<int>(); //List of all usdp server ports to which clients are connected
+
         public ServerMain()
         {
             //Listen on port 7800 for new TCP clients
@@ -75,6 +76,7 @@ namespace Server
             Console.WriteLine("Waiting for clients...\n");
         }
 
+        #region Working with clients
         //Starts server 
         public void Start()
         {
@@ -145,90 +147,9 @@ namespace Server
             clients[index].Close(); //closes client
             clients.RemoveAt(index); //remove client from global clients list
         }
+        #endregion
 
-        //Checks if needed files/directories exist
-        //Creates new files if it is needed
-        private void CheckExistedFiles(int houseNumber)
-        {
-            //Checks if directory for this house exists
-            if (!Directory.Exists(@$"data/house-{houseNumber}"))
-                //Creates new directory
-                Directory.CreateDirectory(@$"data/house-{houseNumber}");
-
-            //Checks if file for house rules exists
-            if (!File.Exists(@$"data/house-{houseNumber}/house-rules.json"))
-            {
-                //Creates a new object with zero rules
-                HouseRules houseRules = new HouseRules
-                {
-                    HouseNumber = houseNumber,
-                    AllRules = new List<HouseRule>()
-                };
-
-                //Saves new file
-                File.WriteAllText(@$"data/house-{houseNumber}/house-rules.json",
-                    JsonConvert.SerializeObject(houseRules, Formatting.Indented));
-            }
-
-            //Checks if file for mandatory rules exists
-            if (!File.Exists(@$"data/house-{houseNumber}/mandatory-rules.json"))
-            {
-                //Creates a new object with zero rules
-                MandatoryRules houseRules = new MandatoryRules
-                {
-                    HouseNumber = houseNumber,
-                    AllRules = new List<MandatoryRule>()
-                };
-
-                //Saves new file
-                File.WriteAllText(@$"data/house-{houseNumber}/mandatory-rules.json",
-                    JsonConvert.SerializeObject(houseRules, Formatting.Indented));
-            }
-
-            //Checks if file for users exists
-            if (!File.Exists(@$"data/house-{houseNumber}/students.json"))
-            {
-                //Creates a new object with zero users
-                Users users = new Users
-                {
-                    TotalStudentNumber = 0,
-                    AllUsers = new List<ServerUser>()
-                };
-
-                //Saves new file
-                File.WriteAllText(@$"data/house-{houseNumber}/students.json",
-                    JsonConvert.SerializeObject(users, Formatting.Indented));
-            }
-
-            //Checks if file for complaints rules exists
-            if (!File.Exists(@$"data/house-{houseNumber}/complaints.json"))
-            {
-                //Creates a new object with zero complaints
-                Complaints complaints = new Complaints
-                {
-                    HouseNumber = houseNumber,
-                    AllComplaints = new List<Complaint>()
-                };
-
-                //Saves new file
-                File.WriteAllText(@$"data/house-{houseNumber}/complaints.json",
-                    JsonConvert.SerializeObject(complaints, Formatting.Indented));
-            }
-            if (!File.Exists(@$"data/house-{houseNumber}/messages.json"))
-            {
-                //Creates a new object with zero complaints
-                ChatHistory messages = new ChatHistory
-                {
-                    HouseNumber = houseNumber,
-                    AllMessages = new List<ChatMessage>()
-                };
-
-                //Saves new file
-                File.WriteAllText(@$"data/house-{houseNumber}/messages.json",
-                    JsonConvert.SerializeObject(messages, Formatting.Indented));
-            }
-        }
-
+        #region Handling data
         //Handles received packages based on their types
         private void HandleDataQuery(TcpClient client, ServerPackage package)
         {
@@ -239,10 +160,45 @@ namespace Server
                     {
                         CheckUdp(package.UdpServerPort);
 
+                        UserCheck userCheck = JsonConvert.DeserializeObject<UserCheck>(package.Message);
+                        ServerUser user = CheckUserInfo(client, userCheck);
+
                         //Checks if user with given credentials exists
-                        if (!CheckUserInfo(client, JsonConvert.DeserializeObject<UserCheck>(package.Message)))
+                        if (user == null)
                             //Sends "invalid data" error if user doesn't exist
                             SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.INVALID_DATA, "", -1)));
+                        else
+                        {
+                            Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data/house-{userCheck.HouseNumber}/students.json"));
+
+                            Dictionary<int, string> usersInfo = new Dictionary<int, string>();
+
+                            //Adds all student's Name and ID in a dictionary
+                            foreach (var u in users.AllUsers)
+                            {
+                                usersInfo.Add(u.ID, u.Name);
+                            }
+
+                            List<string> s = users.AllUsers.ConvertAll(x => x.Name);
+
+                            //Generates new object with all needed info as a responce
+                            UserInfo userInfo = new UserInfo()
+                            {
+                                Type = user.Type,
+                                ID = user.ID,
+                                Name = user.Name,
+                                LastName = user.LastName,
+                                HouseNumber = user.HouseNumber,
+                                Room = user.Room,
+                                TotalStudentNumber = users.TotalStudentNumber,
+                                StudentsInfo = usersInfo
+                            };
+
+                            string json = JsonConvert.SerializeObject(userInfo);
+
+                            //Sends responce
+                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_INFO, json, -1)));
+                        }
                         break;
                     }
                 case PackageType.GET_HOUSE_RULES:
@@ -357,11 +313,130 @@ namespace Server
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "", -1)));
                         break;
                     }
+                case PackageType.UPDATE_PASSWORD:
+                    {
+                        CheckUdp(package.UdpServerPort);
+                        PasswordChange passwordChange = JsonConvert.DeserializeObject<PasswordChange>(package.Message);
+
+                        Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data/house-{passwordChange.HouseNumber}/students.json"));
+
+                        string login = users.AllUsers.Find(x => x.ID == passwordChange.ID).Login;
+
+                        UserCheck userCheck = new UserCheck(login, passwordChange.CurrentPassword, passwordChange.HouseNumber);
+                        ServerUser user = CheckUserInfo(client, userCheck);
+
+                        //Checks if user with given credentials exists
+                        if (user == null)
+                            //Sends "invalid data" error if user doesn't exist
+                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.INVALID_DATA, "", -1)));
+                        else
+                        {
+                            foreach (var u in users.AllUsers)
+                            {
+                                if (u.ID == user.ID)
+                                {
+                                    u.Password = passwordChange.NewPassword;
+                                    break;
+                                }
+                            }
+
+                            string json = JsonConvert.SerializeObject(users, Formatting.Indented);
+                            File.WriteAllText(@$"data/house-{userCheck.HouseNumber}/students.json", json);
+
+                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.PASSWORD_CHANGED, "", -1)));
+                        }
+                        break;
+                    }
+            }
+        }
+        #endregion
+
+        #region Checking Information
+        //Checks if needed files/directories exist
+        //Creates new files if it is needed
+        private void CheckExistedFiles(int houseNumber)
+        {
+            //Checks if directory for this house exists
+            if (!Directory.Exists(@$"data/house-{houseNumber}"))
+                //Creates new directory
+                Directory.CreateDirectory(@$"data/house-{houseNumber}");
+
+            //Checks if file for house rules exists
+            if (!File.Exists(@$"data/house-{houseNumber}/house-rules.json"))
+            {
+                //Creates a new object with zero rules
+                HouseRules houseRules = new HouseRules
+                {
+                    HouseNumber = houseNumber,
+                    AllRules = new List<HouseRule>()
+                };
+
+                //Saves new file
+                File.WriteAllText(@$"data/house-{houseNumber}/house-rules.json",
+                    JsonConvert.SerializeObject(houseRules, Formatting.Indented));
+            }
+
+            //Checks if file for mandatory rules exists
+            if (!File.Exists(@$"data/house-{houseNumber}/mandatory-rules.json"))
+            {
+                //Creates a new object with zero rules
+                MandatoryRules houseRules = new MandatoryRules
+                {
+                    HouseNumber = houseNumber,
+                    AllRules = new List<MandatoryRule>()
+                };
+
+                //Saves new file
+                File.WriteAllText(@$"data/house-{houseNumber}/mandatory-rules.json",
+                    JsonConvert.SerializeObject(houseRules, Formatting.Indented));
+            }
+
+            //Checks if file for users exists
+            if (!File.Exists(@$"data/house-{houseNumber}/students.json"))
+            {
+                //Creates a new object with zero users
+                Users users = new Users
+                {
+                    TotalStudentNumber = 0,
+                    AllUsers = new List<ServerUser>()
+                };
+
+                //Saves new file
+                File.WriteAllText(@$"data/house-{houseNumber}/students.json",
+                    JsonConvert.SerializeObject(users, Formatting.Indented));
+            }
+
+            //Checks if file for complaints rules exists
+            if (!File.Exists(@$"data/house-{houseNumber}/complaints.json"))
+            {
+                //Creates a new object with zero complaints
+                Complaints complaints = new Complaints
+                {
+                    HouseNumber = houseNumber,
+                    AllComplaints = new List<Complaint>()
+                };
+
+                //Saves new file
+                File.WriteAllText(@$"data/house-{houseNumber}/complaints.json",
+                    JsonConvert.SerializeObject(complaints, Formatting.Indented));
+            }
+            if (!File.Exists(@$"data/house-{houseNumber}/messages.json"))
+            {
+                //Creates a new object with zero complaints
+                ChatHistory messages = new ChatHistory
+                {
+                    HouseNumber = houseNumber,
+                    AllMessages = new List<ChatMessage>()
+                };
+
+                //Saves new file
+                File.WriteAllText(@$"data/house-{houseNumber}/messages.json",
+                    JsonConvert.SerializeObject(messages, Formatting.Indented));
             }
         }
 
         //Checks if login and password are correct
-        private bool CheckUserInfo(TcpClient client, UserCheck userCheck)
+        private ServerUser CheckUserInfo(TcpClient client, UserCheck userCheck)
         {
             //Checks if needed files/directories exist
             CheckExistedFiles(Convert.ToInt32(userCheck.HouseNumber));
@@ -371,40 +446,11 @@ namespace Server
             //For each user check if given credentials corespond to anyone
             foreach (var user in users.AllUsers)
             {
-                if (user.Login == userCheck.Login && user.Password == userCheck.Password && user.HouseNumber == userCheck.HouseNumber)
-                {
-                    Dictionary<int, string> usersInfo = new Dictionary<int, string>();
-
-                    //Adds all student's Name and ID in a dictionary
-                    foreach (var u in users.AllUsers)
-                    {
-                        usersInfo.Add(u.ID, u.Name);
-                    }
-
-                    List<string> s = users.AllUsers.ConvertAll(x => x.Name);
-
-                    //Generates new object with all needed info as a responce
-                    UserInfo userInfo = new UserInfo()
-                    {
-                        Type = user.Type,
-                        ID = user.ID,
-                        Name = user.Name,
-                        LastName = user.LastName,
-                        HouseNumber = user.HouseNumber,
-                        Room = user.Room,
-                        TotalStudentNumber = users.TotalStudentNumber,
-                        StudentsInfo = usersInfo
-                    };
-
-                    string json = JsonConvert.SerializeObject(userInfo);
-
-                    //Sends responce
-                    SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_INFO, json, -1)));
-                    return true;
-                }
+                if (user.Login == userCheck.Login && user.Password == userCheck.Password && user.HouseNumber == userCheck.HouseNumber)                    
+                    return user;
             }
 
-            return false;
+            return null;
         }
 
         private void CheckUdp(int udpServerPort)
@@ -412,7 +458,9 @@ namespace Server
             if (!udpServerPorts.Any(x => x == udpServerPort))
                 udpServerPorts.Add(udpServerPort);
         }
+        #endregion
 
+        #region Sending data
         //Informs client that something was updated
         private void SendUpdated(int udpServerPort)
         {
@@ -436,6 +484,7 @@ namespace Server
             //Closes connection
             client.Close();
         }
+        #endregion
 
         static void Main(string[] args)
         {

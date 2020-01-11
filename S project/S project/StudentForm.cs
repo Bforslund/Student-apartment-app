@@ -79,20 +79,7 @@ namespace S_project
             UpdatesTick();
         }
 
-        #region Helpers
-        private void GoBackToLogin()
-        {
-            Login loginForm = new Login();
-            //udpClient.Close();
-            loginForm.Show();
-            this.Close();
-        }
-        
-        private void PctbxBack_Click(object sender, EventArgs e)
-        {
-            GoBackToLogin();
-        }
-
+        #region Helpers      
         private void BtnComplain_Click(object sender, EventArgs e)
         {
             //If a Complaint Form does not already exist, create one
@@ -113,9 +100,27 @@ namespace S_project
             }
         }
 
+        private void GoBackToLogin()
+        {
+            Login loginForm = new Login();
+            //udpClient.Close();
+            loginForm.Show();
+            this.Close();
+        }
+
+        private void PctbxBack_Click(object sender, EventArgs e)
+        {
+            PictureBox button = (PictureBox)sender;
+            button.Enabled = false;
+
+            GoBackToLogin();
+        }
+
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
-        {           
-            Environment.Exit(0);
+        {         
+            if (pctbxBack.Enabled)
+                Environment.Exit(0);
+            pctbxBack.Enabled = true;
         }
         #endregion
 
@@ -776,15 +781,54 @@ namespace S_project
             }
         }
 
-        private void panel9_VisibleChanged(object sender, EventArgs e)
+        private void panelChat_VisibleChanged(object sender, EventArgs e)
         {
             panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
         }
         #endregion
 
-        private void panelChat_VisibleChanged(object sender, EventArgs e)
+        #region Settings
+        private void tbCurrentPassword_MouseDown(object sender, MouseEventArgs e)
         {
-            panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
+            tbCurrentPassword.PasswordChar = '\0';
         }
+
+        private void tbCurrentPassword_MouseUp(object sender, MouseEventArgs e)
+        {
+            tbCurrentPassword.PasswordChar = '*';
+        }
+
+        private void tbNewPassword_MouseDown(object sender, MouseEventArgs e)
+        {
+            tbNewPassword.PasswordChar = '\0';
+        }
+
+        private void tbNewPassword_MouseUp(object sender, MouseEventArgs e)
+        {
+            tbNewPassword.PasswordChar = '*';
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.Enabled = false;
+
+            DialogResult result = MessageBox.Show("Are you sure?", "Password change", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
+            {
+                bool changed = server.UpdatePassword(student.ID, tbNewPassword.Text, tbCurrentPassword.Text, student.HouseNumber);
+                if (!changed)
+                {
+                    MessageBox.Show("Invalid Data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Password Changed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
+            button.Enabled = true;
+        }
+        #endregion
     }
 }

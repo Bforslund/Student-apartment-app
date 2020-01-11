@@ -62,7 +62,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.pnlNotifications = new System.Windows.Forms.TableLayoutPanel();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Chat = new System.Windows.Forms.TabPage();
             this.tbChatAll = new System.Windows.Forms.TableLayoutPanel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -71,6 +71,20 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textChat = new System.Windows.Forms.TextBox();
+            this.Settings = new System.Windows.Forms.TabPage();
+            this.tbSettings = new System.Windows.Forms.TableLayoutPanel();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pnlSettings = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.bChangePassword = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbNewPassword = new System.Windows.Forms.TextBox();
+            this.bShowPass = new System.Windows.Forms.Button();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.tbCurrentPassword = new System.Windows.Forms.TextBox();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.tabCtrlAdmin.SuspendLayout();
@@ -88,10 +102,15 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.Chat.SuspendLayout();
             this.tbChatAll.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
+            this.Settings.SuspendLayout();
+            this.tbSettings.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.pnlSettings.SuspendLayout();
+            this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
             // timerRules
@@ -148,7 +167,8 @@
             this.tabCtrlAdmin.Controls.Add(this.Schedule);
             this.tabCtrlAdmin.Controls.Add(this.Rules);
             this.tabCtrlAdmin.Controls.Add(this.Notifications);
-            this.tabCtrlAdmin.Controls.Add(this.tabPage1);
+            this.tabCtrlAdmin.Controls.Add(this.Chat);
+            this.tabCtrlAdmin.Controls.Add(this.Settings);
             this.tabCtrlAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabCtrlAdmin.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.tabCtrlAdmin.Location = new System.Drawing.Point(0, 51);
@@ -450,6 +470,7 @@
             this.Notifications.Controls.Add(this.tableLayoutPanel3);
             this.Notifications.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.Notifications.Location = new System.Drawing.Point(4, 28);
+            this.Notifications.Margin = new System.Windows.Forms.Padding(0);
             this.Notifications.Name = "Notifications";
             this.Notifications.Size = new System.Drawing.Size(975, 469);
             this.Notifications.TabIndex = 2;
@@ -526,15 +547,16 @@
             this.pnlNotifications.Size = new System.Drawing.Size(973, 0);
             this.pnlNotifications.TabIndex = 8;
             // 
-            // tabPage1
+            // Chat
             // 
-            this.tabPage1.Controls.Add(this.tbChatAll);
-            this.tabPage1.Location = new System.Drawing.Point(4, 28);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(975, 469);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Chat";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.Chat.Controls.Add(this.tbChatAll);
+            this.Chat.Location = new System.Drawing.Point(4, 28);
+            this.Chat.Margin = new System.Windows.Forms.Padding(0);
+            this.Chat.Name = "Chat";
+            this.Chat.Size = new System.Drawing.Size(975, 469);
+            this.Chat.TabIndex = 3;
+            this.Chat.Text = "Chat";
+            this.Chat.UseVisualStyleBackColor = true;
             // 
             // tbChatAll
             // 
@@ -605,6 +627,7 @@
             // 
             // btnSend
             // 
+            this.btnSend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSend.Font = new System.Drawing.Font("MS Reference Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -614,7 +637,7 @@
             this.btnSend.Size = new System.Drawing.Size(77, 75);
             this.btnSend.TabIndex = 3;
             this.btnSend.Text = ">";
-            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.UseVisualStyleBackColor = false;
             this.btnSend.Click += new System.EventHandler(this.btSend_Click);
             // 
             // label3
@@ -639,6 +662,180 @@
             this.textChat.Size = new System.Drawing.Size(632, 26);
             this.textChat.TabIndex = 1;
             this.textChat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textChat_KeyPress);
+            // 
+            // Settings
+            // 
+            this.Settings.Controls.Add(this.tbSettings);
+            this.Settings.Location = new System.Drawing.Point(4, 28);
+            this.Settings.Margin = new System.Windows.Forms.Padding(0);
+            this.Settings.Name = "Settings";
+            this.Settings.Size = new System.Drawing.Size(975, 469);
+            this.Settings.TabIndex = 4;
+            this.Settings.Text = "Settings";
+            this.Settings.UseVisualStyleBackColor = true;
+            // 
+            // tbSettings
+            // 
+            this.tbSettings.ColumnCount = 1;
+            this.tbSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbSettings.Controls.Add(this.panel11, 0, 0);
+            this.tbSettings.Controls.Add(this.pnlSettings, 0, 1);
+            this.tbSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbSettings.Location = new System.Drawing.Point(0, 0);
+            this.tbSettings.Margin = new System.Windows.Forms.Padding(0);
+            this.tbSettings.Name = "tbSettings";
+            this.tbSettings.RowCount = 2;
+            this.tbSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tbSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbSettings.Size = new System.Drawing.Size(975, 469);
+            this.tbSettings.TabIndex = 2;
+            // 
+            // panel11
+            // 
+            this.panel11.AutoScroll = true;
+            this.panel11.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.panel11.Controls.Add(this.label4);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel11.Location = new System.Drawing.Point(0, 0);
+            this.panel11.Margin = new System.Windows.Forms.Padding(0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(975, 75);
+            this.panel11.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(431, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 26);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Settings";
+            // 
+            // pnlSettings
+            // 
+            this.pnlSettings.AutoScroll = true;
+            this.pnlSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
+            this.pnlSettings.Controls.Add(this.panel12);
+            this.pnlSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlSettings.Location = new System.Drawing.Point(0, 75);
+            this.pnlSettings.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlSettings.Name = "pnlSettings";
+            this.pnlSettings.Size = new System.Drawing.Size(975, 394);
+            this.pnlSettings.TabIndex = 3;
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.label6);
+            this.panel12.Controls.Add(this.bChangePassword);
+            this.panel12.Controls.Add(this.button1);
+            this.panel12.Controls.Add(this.label5);
+            this.panel12.Controls.Add(this.tbNewPassword);
+            this.panel12.Controls.Add(this.bShowPass);
+            this.panel12.Controls.Add(this.lblPassword);
+            this.panel12.Controls.Add(this.tbCurrentPassword);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel12.Location = new System.Drawing.Point(0, 0);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(517, 394);
+            this.panel12.TabIndex = 20;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label6.Location = new System.Drawing.Point(40, 41);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(203, 26);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "Password Change";
+            // 
+            // bChangePassword
+            // 
+            this.bChangePassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.bChangePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bChangePassword.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bChangePassword.Location = new System.Drawing.Point(90, 261);
+            this.bChangePassword.Name = "bChangePassword";
+            this.bChangePassword.Size = new System.Drawing.Size(125, 43);
+            this.bChangePassword.TabIndex = 26;
+            this.bChangePassword.Text = "Change";
+            this.bChangePassword.UseVisualStyleBackColor = false;
+            this.bChangePassword.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.button1.Location = new System.Drawing.Point(255, 211);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 28);
+            this.button1.TabIndex = 25;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbNewPassword_MouseDown);
+            this.button1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbNewPassword_MouseUp);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label5.Location = new System.Drawing.Point(46, 184);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(154, 22);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "New Password:";
+            // 
+            // tbNewPassword
+            // 
+            this.tbNewPassword.BackColor = System.Drawing.Color.White;
+            this.tbNewPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbNewPassword.Location = new System.Drawing.Point(45, 211);
+            this.tbNewPassword.Name = "tbNewPassword";
+            this.tbNewPassword.PasswordChar = '*';
+            this.tbNewPassword.Size = new System.Drawing.Size(204, 28);
+            this.tbNewPassword.TabIndex = 23;
+            // 
+            // bShowPass
+            // 
+            this.bShowPass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.bShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bShowPass.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bShowPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.bShowPass.Location = new System.Drawing.Point(255, 132);
+            this.bShowPass.Name = "bShowPass";
+            this.bShowPass.Size = new System.Drawing.Size(30, 28);
+            this.bShowPass.TabIndex = 22;
+            this.bShowPass.UseVisualStyleBackColor = false;
+            this.bShowPass.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbCurrentPassword_MouseDown);
+            this.bShowPass.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbCurrentPassword_MouseUp);
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.lblPassword.Location = new System.Drawing.Point(46, 105);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(186, 22);
+            this.lblPassword.TabIndex = 21;
+            this.lblPassword.Text = "Current Password:";
+            // 
+            // tbCurrentPassword
+            // 
+            this.tbCurrentPassword.BackColor = System.Drawing.Color.White;
+            this.tbCurrentPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbCurrentPassword.Location = new System.Drawing.Point(45, 132);
+            this.tbCurrentPassword.Name = "tbCurrentPassword";
+            this.tbCurrentPassword.PasswordChar = '*';
+            this.tbCurrentPassword.Size = new System.Drawing.Size(204, 28);
+            this.tbCurrentPassword.TabIndex = 20;
             // 
             // StudentForm
             // 
@@ -679,12 +876,19 @@
             this.panel4.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
+            this.Chat.ResumeLayout(false);
             this.tbChatAll.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
+            this.Settings.ResumeLayout(false);
+            this.tbSettings.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
+            this.pnlSettings.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -722,7 +926,7 @@
         private System.Windows.Forms.TableLayoutPanel pnlHouseRules;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.TableLayoutPanel pnlMandatoryRules;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage Chat;
         private System.Windows.Forms.TableLayoutPanel tbChatAll;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label label2;
@@ -731,5 +935,19 @@
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textChat;
+        private System.Windows.Forms.TabPage Settings;
+        private System.Windows.Forms.TableLayoutPanel tbSettings;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel pnlSettings;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button bChangePassword;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbNewPassword;
+        private System.Windows.Forms.Button bShowPass;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.TextBox tbCurrentPassword;
     }
 }

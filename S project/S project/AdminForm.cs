@@ -72,13 +72,24 @@ namespace S_project
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
+            //udpClient.Close();
             loginForm.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void PctbxBack_Click(object sender, EventArgs e)
         {
+            PictureBox button = (PictureBox)sender;
+            button.Enabled = false;
+
             GoBackToLogin();
+        }
+
+        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (pctbxBack.Enabled)
+                Environment.Exit(0);
+            pctbxBack.Enabled = true;
         }
 
         private void BtnAddRule_Click(object sender, EventArgs e)
@@ -335,11 +346,6 @@ namespace S_project
             }
 
             _server.UpdateComplaints(_complaints);
-        }
-
-        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Environment.Exit(0);
         }
 
         private void AddMessages(ChatMessage msg) 

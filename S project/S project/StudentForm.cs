@@ -33,15 +33,6 @@ namespace S_project
         {
             InitializeComponent();
 
-            this.student = student;
-            this.server = server;
-            lblHello.Text = "Hello, " + this.student.Name;
-
-            mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
-            houseRules = server.GetHouseRules(student.HouseNumber);
-            complaints = server.GetComplaints(student.HouseNumber);
-            _messages = server.GetMessages(student.HouseNumber);
-
             Task.Run(() =>
             {
                 udpClient.Client.Bind(new IPEndPoint(0, server.GetAvailableUdpPort()));
@@ -62,24 +53,22 @@ namespace S_project
 
                     if (message.Contains("Updated"))
                     {
-                        while (ServerConnection.Connected)
-                            Thread.Sleep(25);
                         mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
-
-                        while (ServerConnection.Connected)
-                            Thread.Sleep(25);
                         houseRules = server.GetHouseRules(student.HouseNumber);
-
-                        while (ServerConnection.Connected)
-                            Thread.Sleep(25);
                         complaints = server.GetComplaints(student.HouseNumber);
-
-                        while (ServerConnection.Connected)
-                            Thread.Sleep(25);
                         _messages = server.GetMessages(student.HouseNumber);
                     };
                 }
             });
+
+            this.student = student;
+            this.server = server;
+            lblHello.Text = "Hello, " + this.student.Name;
+
+            mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
+            houseRules = server.GetHouseRules(student.HouseNumber);
+            complaints = server.GetComplaints(student.HouseNumber);
+            _messages = server.GetMessages(student.HouseNumber);
 
             ScheduleUpdate(false);
 
@@ -217,10 +206,7 @@ namespace S_project
                 disapprove.BackColor = Color.White;
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = true;
 
-                while (ServerConnection.Connected)
-                {
-                    Thread.Sleep(25);
-                }
+                //server.Wait(25);
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();
@@ -240,10 +226,7 @@ namespace S_project
                 if (houseRules.AllRules[index].StudentsApproval.Values.All(x => x == false))
                     houseRules.AllRules.RemoveAt(index);
 
-                while (ServerConnection.Connected)
-                {
-                    Thread.Sleep(25);
-                }
+                //server.Wait(25);
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();
@@ -309,10 +292,7 @@ namespace S_project
                 disapprove.BackColor = Color.FromArgb(210, 210, 210);
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = false;
 
-                while (ServerConnection.Connected)
-                {
-                    Thread.Sleep(25);
-                }
+                //server.Wait(25);
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();
@@ -362,8 +342,7 @@ namespace S_project
                 AddRuleStudent.ruleName = "";
                 AddRuleStudent.repeatRule = 0;
 
-                while (ServerConnection.Connected)
-                    Thread.Sleep(25);
+                //server.Wait(25);
                 server.UpdateHouseRules(houseRules);
             }
 
@@ -383,10 +362,7 @@ namespace S_project
                 AddComplainStudent.IDOfRuleBreaker = 0;
                 AddComplainStudent.IDOfComplainer = 0;
 
-                while (ServerConnection.Connected)
-                {
-                    Thread.Sleep(25);
-                }
+                //server.Wait(25);
                 server.UpdateComplaints(complaints);
             }
 
@@ -779,8 +755,6 @@ namespace S_project
                 NewMsg.FiledDate = DateTime.Now;
                 _messages.AllMessages.Add(NewMsg);
 
-                while (ServerConnection.Connected)
-                    Thread.Sleep(25);
                 server.UpdateMessages(_messages);
 
                 textChat.Clear();
@@ -807,5 +781,10 @@ namespace S_project
             panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
         }
         #endregion
+
+        private void panelChat_VisibleChanged(object sender, EventArgs e)
+        {
+            panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
+        }
     }
 }

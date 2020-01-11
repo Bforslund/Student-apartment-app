@@ -236,7 +236,9 @@ namespace Server
             switch (package.Type)
             {
                 case PackageType.USER_CHECK:
-                    {          
+                    {
+                        CheckUdp(package.UdpServerPort);
+
                         //Checks if user with given credentials exists
                         if (!CheckUserInfo(client, JsonConvert.DeserializeObject<UserCheck>(package.Message)))
                             //Sends "invalid data" error if user doesn't exist
@@ -246,7 +248,8 @@ namespace Server
                 case PackageType.GET_HOUSE_RULES:
                     {
                         //Checks if needed files/directories exist
-                        CheckExistedFiles(Convert.ToInt32(package.Message)); 
+                        CheckExistedFiles(Convert.ToInt32(package.Message));
+                        CheckUdp(package.UdpServerPort);
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.HOUSE_RULES,
@@ -259,6 +262,7 @@ namespace Server
                         
                         //Checks if needed files/directories exist
                         CheckExistedFiles(Convert.ToInt32(houseRules.HouseNumber));
+                        CheckUdp(package.UdpServerPort);
 
                         //Update file
                         File.WriteAllText(@$"data/house-{houseRules.HouseNumber}/house-rules.json", package.Message);
@@ -273,6 +277,7 @@ namespace Server
                     {
                         //Checks if needed files/directories exist
                         CheckExistedFiles(Convert.ToInt32(package.Message));
+                        CheckUdp(package.UdpServerPort);
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MANDATORY_RULES,
@@ -285,6 +290,7 @@ namespace Server
 
                         //Checks if needed files/directories exist
                         CheckExistedFiles(Convert.ToInt32(mandatoryRules.HouseNumber));
+                        CheckUdp(package.UdpServerPort);
 
                         SendUpdated(package.UdpServerPort);
 
@@ -299,6 +305,7 @@ namespace Server
                     {
                         //Checks if needed files/directories exist
                         CheckExistedFiles(Convert.ToInt32(package.Message));
+                        CheckUdp(package.UdpServerPort);
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.COMPLAINTS,
@@ -311,6 +318,7 @@ namespace Server
 
                         //Checks if needed files/directories 
                         CheckExistedFiles(Convert.ToInt32(mandatoryRules.HouseNumber));
+                        CheckUdp(package.UdpServerPort);
 
                         SendUpdated(package.UdpServerPort);
 
@@ -325,6 +333,7 @@ namespace Server
                     {
                         //Checks if needed files/directories exist
                         CheckExistedFiles(Convert.ToInt32(package.Message));
+                        CheckUdp(package.UdpServerPort);
 
                         //Sends responce
                         SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MESSAGES,
@@ -337,6 +346,7 @@ namespace Server
 
                         //Checks if needed files/directories 
                         CheckExistedFiles(Convert.ToInt32(chathistory.HouseNumber));
+                        CheckUdp(package.UdpServerPort);
 
                         //Update file
                         File.WriteAllText(@$"data/house-{chathistory.HouseNumber}/messages.json", package.Message);
@@ -397,12 +407,15 @@ namespace Server
             return false;
         }
 
-        //Informs client that something was updated
-        private void SendUpdated(int udpServerPort)
+        private void CheckUdp(int udpServerPort)
         {
             if (!udpServerPorts.Any(x => x == udpServerPort))
                 udpServerPorts.Add(udpServerPort);
+        }
 
+        //Informs client that something was updated
+        private void SendUpdated(int udpServerPort)
+        {
             byte[] data = Encoding.UTF8.GetBytes("Updated");
             UdpClient udpClient = new UdpClient();
 

@@ -5,6 +5,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,10 +24,39 @@ namespace S_project
         private Complaints _complaints;
         private ChatHistory _messages;
         private UserInfo _user;
+        UdpClient udpClient = new UdpClient();
 
         public AdminForm(ServerConnection server, int houseNumber, UserInfo user)
         {
             InitializeComponent();
+
+            Task.Run(() =>
+            {
+                udpClient.Client.Bind(new IPEndPoint(0, server.GetAvailableUdpPort()));
+
+                while (true)
+                {
+                    Thread.Sleep(200);
+
+                    int count = udpClient.Client.Available;
+                    byte[] msg = new byte[count];
+
+                    if (msg.Length == 0)
+                        continue;
+
+                    udpClient.Client.Receive(msg);
+
+                    string message = Encoding.Default.GetString(msg, 0, msg.Length);
+
+                    if (message.Contains("Updated"))
+                    {
+                        _mandatoryRules = server.GetMandatoryRules(_user.HouseNumber);
+                        _houseRules = server.GetHouseRules(_user.HouseNumber);
+                        _complaints = server.GetComplaints(_user.HouseNumber);
+                        _messages = server.GetMessages(_user.HouseNumber);
+                    };
+                }
+            });
 
             _houseNumber = houseNumber;
             _server = server;
@@ -62,25 +93,19 @@ namespace S_project
 
         private void UpdateTick(bool showUpdate = true)
         {
-            MandatoryRules mr = _server.GetMandatoryRules(_houseNumber);
-            if (_mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 3 ||
-                mr.AllRules.Count != pnlMandatoryRules.Controls.Count / 3)
+            if (_mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 3)
             {
-                _mandatoryRules = mr;
-                UpdateMandatoryRulesLayout(mr, showUpdate);
+                //_mandatoryRules = mr;
+                UpdateMandatoryRulesLayout(_mandatoryRules, showUpdate);
             }
 
-
-            HouseRules hr = _server.GetHouseRules(_houseNumber);
-            if (_houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 ||
-                hr.AllRules.Count != pnlHouseRules.Controls.Count / 3)
+            if (_houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3)
             {
-                _houseRules = hr;
-                UpdateHouseRulesLayout(hr, showUpdate);
+                //_houseRules = hr;
+                UpdateHouseRulesLayout(_houseRules, showUpdate);
             }
 
-            if (_complaints.AllComplaints.Count != pnlComplaints.Controls.Count ||
-                _server.GetComplaints(_houseNumber).AllComplaints.Count != pnlComplaints.Controls.Count)
+            if (_complaints.AllComplaints.Count != pnlComplaints.Controls.Count)
             {
                 pnlComplaints.SuspendLayout();
                 pnlComplaints.Controls.Clear();
@@ -93,13 +118,11 @@ namespace S_project
                 pnlComplaints.ResumeLayout();
             }
 
-            ChatHistory ch = _server.GetMessages(_houseNumber);
-            if (_messages.AllMessages.Count != panelChat.Controls.Count || 
-               ch.AllMessages.Count != panelChat.Controls.Count)
+            if (_messages.AllMessages.Count != panelChat.Controls.Count)
             {
-                for (int i = panelChat.Controls.Count; i < ch.AllMessages.Count; i++)
+                for (int i = panelChat.Controls.Count; i < _messages.AllMessages.Count; i++)
                 {
-                    AddMessages(ch.AllMessages[i]);
+                    AddMessages(_messages.AllMessages[i]);
                 }
                 panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
             }
@@ -339,6 +362,7 @@ namespace S_project
                 NewMsg.FiledBy = _user.ID; // ???? XD
                 NewMsg.FiledDate = DateTime.Now;
                 _messages.AllMessages.Add(NewMsg);
+
                 _server.UpdateMessages(_messages);
 
                 textChat.Clear();

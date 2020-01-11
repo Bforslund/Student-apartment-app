@@ -14,7 +14,7 @@ namespace S_project
     {
         private TcpClient tcp;
         public static bool Connected = false;
-        private int udpServerPort;
+        private int udpServerPort = 6000;
 
         public int GetAvailableUdpPort()
         {
@@ -40,10 +40,18 @@ namespace S_project
             return port;
         }
 
+        public void Wait(int interval)
+        {
+            while (ServerConnection.Connected)
+                Thread.Sleep(interval);
+        }
+
         #region Getting/Updating data on the server
         //Returns user information if credentials are correct
         public UserInfo CheckUser(string login, string password, int houseNumber)
         {
+            Wait(25);
+
             string json = JsonConvert.SerializeObject(new UserCheck(login, password, houseNumber));
 
             PackageType[] receivedTypes = new PackageType[2] { PackageType.USER_INFO, PackageType.INVALID_DATA };
@@ -62,12 +70,16 @@ namespace S_project
         //Returns all house rules for this house
         public HouseRules GetHouseRules(int houseNumber)
         {
+            Wait(25);
+
             string message = GetResponce(PackageType.GET_HOUSE_RULES, PackageType.HOUSE_RULES, houseNumber.ToString());
             return JsonConvert.DeserializeObject<HouseRules>(message);
         }
 
         public bool UpdateHouseRules(HouseRules houseRules)
         {
+            Wait(25);
+
             string json = JsonConvert.SerializeObject(houseRules, Formatting.Indented);
 
             string message = GetResponce(PackageType.UPDATE_HOUSE_RULES, PackageType.RECEIVED, json);
@@ -77,12 +89,16 @@ namespace S_project
         //Returns all mandatory rules
         public MandatoryRules GetMandatoryRules(int houseNumber)
         {
+            Wait(25);
+
             string message = GetResponce(PackageType.GET_MANDATORY_RULES, PackageType.MANDATORY_RULES, houseNumber.ToString());
             return JsonConvert.DeserializeObject<MandatoryRules>(message);
         }
 
         public void UpdateMandatoryRules(MandatoryRules mandatoryRules)
         {
+            Wait(25);
+
             string json = JsonConvert.SerializeObject(mandatoryRules, Formatting.Indented);
 
             string message = GetResponce(PackageType.UPDATE_MANDATORY_RULES, PackageType.RECEIVED, json);
@@ -92,12 +108,16 @@ namespace S_project
         //Returns all complaints
         public Complaints GetComplaints(int houseNumber)
         {
+            Wait(25);
+
             string message = GetResponce(PackageType.GET_COMPLAINTS, PackageType.COMPLAINTS, houseNumber.ToString());
             return JsonConvert.DeserializeObject<Complaints>(message);
         }
 
         public bool UpdateComplaints(Complaints complaints)
         {
+            Wait(25);
+
             string json = JsonConvert.SerializeObject(complaints, Formatting.Indented);
 
             string message = GetResponce(PackageType.UPDATE_COMPLAINTS, PackageType.RECEIVED, json);
@@ -107,12 +127,16 @@ namespace S_project
         //Returns all Chat messages
         public ChatHistory GetMessages(int houseNumber)
         {
+            Wait(25);
+
             string message = GetResponce(PackageType.GET_MESSAGES, PackageType.MESSAGES, houseNumber.ToString());
             return JsonConvert.DeserializeObject<ChatHistory>(message);
         }
 
         public bool UpdateMessages(ChatHistory msg)
         {
+            Wait(25);
+
             string json = JsonConvert.SerializeObject(msg, Formatting.Indented);
 
             string message = GetResponce(PackageType.UPDATE_MESSAGES, PackageType.RECEIVED, json);

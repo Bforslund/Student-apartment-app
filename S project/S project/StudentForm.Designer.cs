@@ -588,6 +588,7 @@
             this.panelChat.Name = "panelChat";
             this.panelChat.Size = new System.Drawing.Size(975, 319);
             this.panelChat.TabIndex = 3;
+            this.panelChat.VisibleChanged += new System.EventHandler(this.panelChat_VisibleChanged);
             // 
             // panel10
             // 

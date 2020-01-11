@@ -52,7 +52,7 @@
             // 
             // tbxRuleName
             // 
-            this.tbxRuleName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
+            this.tbxRuleName.BackColor = System.Drawing.Color.White;
             this.tbxRuleName.Location = new System.Drawing.Point(12, 96);
             this.tbxRuleName.Name = "tbxRuleName";
             this.tbxRuleName.Size = new System.Drawing.Size(358, 22);
@@ -100,13 +100,13 @@
             this.lblRepeatRule.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.lblRepeatRule.Location = new System.Drawing.Point(12, 140);
             this.lblRepeatRule.Name = "lblRepeatRule";
-            this.lblRepeatRule.Size = new System.Drawing.Size(244, 19);
+            this.lblRepeatRule.Size = new System.Drawing.Size(268, 19);
             this.lblRepeatRule.TabIndex = 19;
-            this.lblRepeatRule.Text = "Repeat rule every        days";
+            this.lblRepeatRule.Text = "Repeat rule every            days";
             // 
             // numericRepeatRule
             // 
-            this.numericRepeatRule.Location = new System.Drawing.Point(170, 140);
+            this.numericRepeatRule.Location = new System.Drawing.Point(187, 140);
             this.numericRepeatRule.Name = "numericRepeatRule";
             this.numericRepeatRule.Size = new System.Drawing.Size(39, 22);
             this.numericRepeatRule.TabIndex = 20;
@@ -115,7 +115,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(382, 313);
             this.Controls.Add(this.numericRepeatRule);
             this.Controls.Add(this.lblRepeatRule);

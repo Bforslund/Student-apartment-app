@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StudentForm));
-            this.timerRules = new System.Windows.Forms.Timer(this.components);
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
             this.lblHello = new System.Windows.Forms.Label();
@@ -113,16 +112,10 @@
             this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
-            // timerRules
-            // 
-            this.timerRules.Enabled = true;
-            this.timerRules.Interval = 500;
-            this.timerRules.Tick += new System.EventHandler(this.TimerRules_Tick);
-            // 
             // timerUpdate
             // 
             this.timerUpdate.Enabled = true;
-            this.timerUpdate.Interval = 500;
+            this.timerUpdate.Interval = 5000;
             this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdates_Tick);
             // 
             // panelTop
@@ -897,7 +890,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Timer timerRules;
         private System.Windows.Forms.Timer timerUpdate;
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Label lblHello;

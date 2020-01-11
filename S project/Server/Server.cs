@@ -179,8 +179,6 @@ namespace Server
                                 usersInfo.Add(u.ID, u.Name);
                             }
 
-                            List<string> s = users.AllUsers.ConvertAll(x => x.Name);
-
                             //Generates new object with all needed info as a responce
                             UserInfo userInfo = new UserInfo()
                             {
@@ -199,6 +197,26 @@ namespace Server
                             //Sends responce
                             SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_INFO, json, -1)));
                         }
+                        break;
+                    }
+                case PackageType.GET_ALL_USERS:
+                    {
+                        CheckUdp(package.UdpServerPort);
+
+                        Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data/house-{package.Message}/students.json"));
+
+                        Dictionary<int, string> usersInfo = new Dictionary<int, string>();
+
+                        //Adds all student's Name and ID in a dictionary
+                        foreach (var u in users.AllUsers)
+                        {
+                            usersInfo.Add(u.ID, u.Name);
+                        }
+
+                        string json = JsonConvert.SerializeObject(usersInfo);
+
+                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.ALL_USERS, json, -1)));
+
                         break;
                     }
                 case PackageType.GET_HOUSE_RULES:
@@ -511,8 +529,11 @@ namespace Server
             byte[] data = Encoding.UTF8.GetBytes("Updated");
             UdpClient udpClient = new UdpClient();
 
-            foreach(int port in udpServerPorts)
-                udpClient.Send(data, data.Length, "255.255.255.255", port);
+            foreach (int port in udpServerPorts)
+            {
+                if (port != udpServerPort)
+                    udpClient.Send(data, data.Length, "255.255.255.255", port);
+            }
         }
 
         //Send message to the specified client

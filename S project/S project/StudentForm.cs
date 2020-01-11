@@ -39,10 +39,11 @@ namespace S_project
 
                 while (true)
                 {
-                    Thread.Sleep(200);
+                    Thread.Sleep(100);
 
-                    int count = udpClient.Client.Available;
-                    byte[] msg = new byte[count];
+                    //int count = udpClient.Client.Available;
+
+                    byte[] msg = new byte[udpClient.Client.Available];
 
                     if (msg.Length == 0)
                         continue;
@@ -53,10 +54,25 @@ namespace S_project
 
                     if (message.Contains("Updated"))
                     {
+                        student.StudentsInfo = server.GetUsersInfo(student.HouseNumber);
                         mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
                         houseRules = server.GetHouseRules(student.HouseNumber);
                         complaints = server.GetComplaints(student.HouseNumber);
                         _messages = server.GetMessages(student.HouseNumber);
+
+                        if (InvokeRequired)
+                        {
+                            Invoke((MethodInvoker)delegate
+                            {
+                                RulesUpdateTick();
+                                UpdatesTick();
+                            });
+                        }
+                        else
+                        {
+                            RulesUpdateTick();
+                            UpdatesTick();
+                        }
                     };
                 }
             });
@@ -72,7 +88,6 @@ namespace S_project
 
             ScheduleUpdate(false);
 
-            timerRules.Start();
             timerUpdate.Start();
 
             RulesUpdateTick(false);
@@ -389,12 +404,6 @@ namespace S_project
                     complaintForm = null;
                 }
             }
-        }
-
-        //Update the rules lists every second
-        private void TimerRules_Tick(object sender, EventArgs e)
-        {
-            RulesUpdateTick();
         }
 
         public void RulesUpdateTick(bool showUpdate = true)

@@ -56,6 +56,14 @@ namespace S_project
             }
         }
 
+        public Dictionary<int, string> GetUsersInfo(int houseNumber)
+        {
+            Wait(25);
+
+            string message = GetResponce(PackageType.GET_ALL_USERS, PackageType.ALL_USERS, houseNumber.ToString());
+            return JsonConvert.DeserializeObject<Dictionary<int, string>>(message);
+        }
+
         //Updates password
         public bool UpdatePassword(int id, string newPassword, string currentPassword, int houseNumber)
         {
@@ -272,7 +280,7 @@ namespace S_project
                 Buf.AddRange(msg);
 
                 if (count > 1)
-                    Thread.Sleep(75);
+                    Thread.Sleep(25);
 
                 if (count == 1024)
                     continue;

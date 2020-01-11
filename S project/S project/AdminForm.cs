@@ -50,6 +50,7 @@ namespace S_project
 
                     if (message.Contains("Updated"))
                     {
+                        _user.StudentsInfo = server.GetUsersInfo(_user.HouseNumber);
                         _mandatoryRules = server.GetMandatoryRules(_user.HouseNumber);
                         _houseRules = server.GetHouseRules(_user.HouseNumber);
                         _complaints = server.GetComplaints(_user.HouseNumber);

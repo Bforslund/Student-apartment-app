@@ -18,14 +18,15 @@ namespace S_project
         public static int IDOfComplainer = 0;
         HouseRules houseRules;
         MandatoryRules mandatoryRules;
-        UserInfo users;
+        UserInfo user;
         List<int> IDs = new List<int>();
-        public AddComplainStudent(HouseRules houseRules, MandatoryRules mandatoryRules, UserInfo users)
+
+        public AddComplainStudent(HouseRules houseRules, MandatoryRules mandatoryRules, UserInfo user)
         {
             InitializeComponent();
             this.houseRules = houseRules;
             this.mandatoryRules = mandatoryRules;
-            this.users = users;
+            this.user = user;
             cbAnon.Checked = false;
         }
 
@@ -41,7 +42,7 @@ namespace S_project
 
                     if (cbAnon.Checked == false)
                     {
-                        IDOfComplainer = users.ID;
+                        IDOfComplainer = user.ID;
                     }
                     else
                     {
@@ -87,16 +88,19 @@ namespace S_project
                 }
             }
 
-            if (cbxName.Items.Count != this.users.StudentsInfo.Count - 1)
+            if (cbxName.Items.Count != this.user.StudentsInfo.Count - 1)
             {
-                foreach (var student in this.users.StudentsInfo)
+                cbxName.Items.Clear();
+
+                foreach (var student in this.user.StudentsInfo)            
                 {
-                    if (users.Name != student.Value)
+                    if (user.ID > 0 && user.ID != student.Key)
                     {
                         cbxName.Items.Add(student.Value);
                         IDs.Add(student.Key);
                     }
                 }
+
                 cbxName.Items[0] = "Unkown";
                 IDs[0] = -1;
             }

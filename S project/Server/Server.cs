@@ -347,6 +347,50 @@ namespace Server
                         }
                         break;
                     }
+                case PackageType.CREATE_NEW_USER:
+                    {     
+                        CheckUdp(package.UdpServerPort);
+                        ServerUser newUser = JsonConvert.DeserializeObject<ServerUser>(package.Message);
+
+                        Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data/house-{newUser.HouseNumber}/students.json"));
+                        int lastId = users.AllUsers.Max(x => x.ID);
+                        lastId++;
+
+                        newUser.ID = lastId;
+
+                        if (users.AllUsers.Any(x => x.Login == newUser.Login))
+                        {
+                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_EXISTS, "", -1)));
+                        }
+                        else
+                        {
+                            users.AllUsers.Add(newUser);
+
+                            string json = JsonConvert.SerializeObject(users, Formatting.Indented);
+                            File.WriteAllText(@$"data/house-{newUser.HouseNumber}/students.json", json);
+
+                            HouseRules houseRules = JsonConvert.DeserializeObject<HouseRules>(
+                                File.ReadAllText(@$"data/house-{newUser.HouseNumber}/house-rules.json"));
+
+                            foreach(var rule in houseRules.AllRules)
+                            {
+                                if (rule.ApprovalState)
+                                    rule.StudentsApproval.Add(newUser.ID, true);
+                                else
+                                    rule.StudentsApproval.Add(newUser.ID, false);
+
+                                rule.OrderOfStudents.Add(newUser.ID);
+                            }
+
+                            json = JsonConvert.SerializeObject(houseRules, Formatting.Indented);
+                            File.WriteAllText(@$"data/house-{newUser.HouseNumber}/house-rules.json", json);
+
+                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_CREATED, "", -1)));
+                        }
+
+                        SendUpdated(package.UdpServerPort);
+                        break;
+                    }
             }
         }
         #endregion

@@ -57,16 +57,35 @@
             this.btnAddRule = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.pnlHouseRules = new System.Windows.Forms.TableLayoutPanel();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.textChat = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnSend = new System.Windows.Forms.Button();
-            this.panelChat = new System.Windows.Forms.Panel();
+            this.Chat = new System.Windows.Forms.TabPage();
+            this.tbChatAll = new System.Windows.Forms.TableLayoutPanel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.tbChatAll = new System.Windows.Forms.TableLayoutPanel();
+            this.panelChat = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textChat = new System.Windows.Forms.TextBox();
+            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
+            this.Settings = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.bCreateUser = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.tbLogin = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbLastName = new System.Windows.Forms.TextBox();
+            this.nudRoom = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.Complaints.SuspendLayout();
@@ -82,10 +101,16 @@
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.panel8.SuspendLayout();
+            this.Chat.SuspendLayout();
             this.tbChatAll.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.Settings.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRoom)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -253,7 +278,8 @@
             // 
             this.tabCtrlAdmin.Controls.Add(this.Rules);
             this.tabCtrlAdmin.Controls.Add(this.Complaints);
-            this.tabCtrlAdmin.Controls.Add(this.tabPage1);
+            this.tabCtrlAdmin.Controls.Add(this.Chat);
+            this.tabCtrlAdmin.Controls.Add(this.Settings);
             this.tabCtrlAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabCtrlAdmin.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.tabCtrlAdmin.Location = new System.Drawing.Point(0, 52);
@@ -451,83 +477,34 @@
             this.pnlHouseRules.Size = new System.Drawing.Size(485, 0);
             this.pnlHouseRules.TabIndex = 1;
             // 
-            // tabPage1
+            // Chat
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
-            this.tabPage1.Controls.Add(this.tbChatAll);
-            this.tabPage1.Location = new System.Drawing.Point(4, 32);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(974, 465);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Chat";
+            this.Chat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
+            this.Chat.Controls.Add(this.tbChatAll);
+            this.Chat.Location = new System.Drawing.Point(4, 32);
+            this.Chat.Margin = new System.Windows.Forms.Padding(0);
+            this.Chat.Name = "Chat";
+            this.Chat.Size = new System.Drawing.Size(974, 465);
+            this.Chat.TabIndex = 0;
+            this.Chat.Text = "Chat";
             // 
-            // timerUpdate
+            // tbChatAll
             // 
-            this.timerUpdate.Enabled = true;
-            this.timerUpdate.Interval = 5000;
-            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
-            // 
-            // panel10
-            // 
-            this.panel10.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel10.Controls.Add(this.btnSend);
-            this.panel10.Controls.Add(this.label3);
-            this.panel10.Controls.Add(this.textChat);
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(0, 390);
-            this.panel10.Margin = new System.Windows.Forms.Padding(0);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(974, 75);
-            this.panel10.TabIndex = 4;
-            // 
-            // textChat
-            // 
-            this.textChat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.textChat.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textChat.Location = new System.Drawing.Point(224, 27);
-            this.textChat.Name = "textChat";
-            this.textChat.Size = new System.Drawing.Size(632, 26);
-            this.textChat.TabIndex = 1;
-            this.textChat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textChat_KeyPress);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(8, 24);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(177, 26);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Send Message:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnSend
-            // 
-            this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSend.Font = new System.Drawing.Font("MS Reference Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSend.Location = new System.Drawing.Point(897, 0);
-            this.btnSend.Margin = new System.Windows.Forms.Padding(0);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(77, 75);
-            this.btnSend.TabIndex = 3;
-            this.btnSend.Text = ">";
-            this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btSend_Click);
-            // 
-            // panelChat
-            // 
-            this.panelChat.AutoScroll = true;
-            this.panelChat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelChat.Location = new System.Drawing.Point(0, 75);
-            this.panelChat.Margin = new System.Windows.Forms.Padding(0);
-            this.panelChat.Name = "panelChat";
-            this.panelChat.Size = new System.Drawing.Size(974, 315);
-            this.panelChat.TabIndex = 3;
-            this.panelChat.VisibleChanged += new System.EventHandler(this.panel9_VisibleChanged);
+            this.tbChatAll.ColumnCount = 1;
+            this.tbChatAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbChatAll.Controls.Add(this.panel8, 0, 0);
+            this.tbChatAll.Controls.Add(this.panelChat, 0, 1);
+            this.tbChatAll.Controls.Add(this.panel10, 0, 2);
+            this.tbChatAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbChatAll.Location = new System.Drawing.Point(0, 0);
+            this.tbChatAll.Margin = new System.Windows.Forms.Padding(0);
+            this.tbChatAll.Name = "tbChatAll";
+            this.tbChatAll.RowCount = 3;
+            this.tbChatAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tbChatAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbChatAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tbChatAll.Size = new System.Drawing.Size(974, 465);
+            this.tbChatAll.TabIndex = 0;
             // 
             // panel8
             // 
@@ -553,23 +530,294 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Chat";
             // 
-            // tbChatAll
+            // panelChat
             // 
-            this.tbChatAll.ColumnCount = 1;
-            this.tbChatAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbChatAll.Controls.Add(this.panel8, 0, 0);
-            this.tbChatAll.Controls.Add(this.panelChat, 0, 1);
-            this.tbChatAll.Controls.Add(this.panel10, 0, 2);
-            this.tbChatAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbChatAll.Location = new System.Drawing.Point(0, 0);
-            this.tbChatAll.Margin = new System.Windows.Forms.Padding(0);
-            this.tbChatAll.Name = "tbChatAll";
-            this.tbChatAll.RowCount = 3;
-            this.tbChatAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tbChatAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbChatAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tbChatAll.Size = new System.Drawing.Size(974, 465);
-            this.tbChatAll.TabIndex = 0;
+            this.panelChat.AutoScroll = true;
+            this.panelChat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelChat.Location = new System.Drawing.Point(0, 75);
+            this.panelChat.Margin = new System.Windows.Forms.Padding(0);
+            this.panelChat.Name = "panelChat";
+            this.panelChat.Size = new System.Drawing.Size(974, 315);
+            this.panelChat.TabIndex = 3;
+            this.panelChat.VisibleChanged += new System.EventHandler(this.panel9_VisibleChanged);
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel10.Controls.Add(this.btnSend);
+            this.panel10.Controls.Add(this.label3);
+            this.panel10.Controls.Add(this.textChat);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.Location = new System.Drawing.Point(0, 390);
+            this.panel10.Margin = new System.Windows.Forms.Padding(0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(974, 75);
+            this.panel10.TabIndex = 4;
+            // 
+            // btnSend
+            // 
+            this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSend.Font = new System.Drawing.Font("MS Reference Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSend.Location = new System.Drawing.Point(897, 0);
+            this.btnSend.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(77, 75);
+            this.btnSend.TabIndex = 3;
+            this.btnSend.Text = ">";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btSend_Click);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(8, 24);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(177, 26);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Send Message:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textChat
+            // 
+            this.textChat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.textChat.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textChat.Location = new System.Drawing.Point(224, 27);
+            this.textChat.Name = "textChat";
+            this.textChat.Size = new System.Drawing.Size(632, 26);
+            this.textChat.TabIndex = 1;
+            this.textChat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textChat_KeyPress);
+            // 
+            // timerUpdate
+            // 
+            this.timerUpdate.Enabled = true;
+            this.timerUpdate.Interval = 5000;
+            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
+            // 
+            // Settings
+            // 
+            this.Settings.Controls.Add(this.tableLayoutPanel2);
+            this.Settings.Location = new System.Drawing.Point(4, 32);
+            this.Settings.Name = "Settings";
+            this.Settings.Size = new System.Drawing.Size(974, 465);
+            this.Settings.TabIndex = 2;
+            this.Settings.Text = "Settings";
+            this.Settings.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.panel9, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel11, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(974, 465);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // panel9
+            // 
+            this.panel9.AutoScroll = true;
+            this.panel9.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.panel9.Controls.Add(this.label4);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(0, 0);
+            this.panel9.Margin = new System.Windows.Forms.Padding(0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(974, 75);
+            this.panel9.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(431, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 26);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Settings";
+            // 
+            // panel11
+            // 
+            this.panel11.AutoScroll = true;
+            this.panel11.Controls.Add(this.panel12);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel11.Location = new System.Drawing.Point(0, 75);
+            this.panel11.Margin = new System.Windows.Forms.Padding(0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(974, 390);
+            this.panel11.TabIndex = 3;
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.nudRoom);
+            this.panel12.Controls.Add(this.label9);
+            this.panel12.Controls.Add(this.label8);
+            this.panel12.Controls.Add(this.tbLastName);
+            this.panel12.Controls.Add(this.label7);
+            this.panel12.Controls.Add(this.tbName);
+            this.panel12.Controls.Add(this.label6);
+            this.panel12.Controls.Add(this.bCreateUser);
+            this.panel12.Controls.Add(this.button1);
+            this.panel12.Controls.Add(this.label5);
+            this.panel12.Controls.Add(this.tbPassword);
+            this.panel12.Controls.Add(this.lblPassword);
+            this.panel12.Controls.Add(this.tbLogin);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel12.Location = new System.Drawing.Point(0, 0);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(534, 390);
+            this.panel12.TabIndex = 21;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label6.Location = new System.Drawing.Point(40, 41);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(197, 26);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "Create New User";
+            // 
+            // bCreateUser
+            // 
+            this.bCreateUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(177)))), ((int)(((byte)(241)))));
+            this.bCreateUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bCreateUser.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bCreateUser.Location = new System.Drawing.Point(167, 315);
+            this.bCreateUser.Name = "bCreateUser";
+            this.bCreateUser.Size = new System.Drawing.Size(125, 43);
+            this.bCreateUser.TabIndex = 26;
+            this.bCreateUser.Text = "Create";
+            this.bCreateUser.UseVisualStyleBackColor = false;
+            this.bCreateUser.Click += new System.EventHandler(this.bCreateUser_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.button1.Location = new System.Drawing.Point(253, 267);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 28);
+            this.button1.TabIndex = 25;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbNewPassword_MouseDown);
+            this.button1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbNewPassword_MouseUp);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label5.Location = new System.Drawing.Point(44, 240);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(107, 22);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Password:";
+            // 
+            // tbPassword
+            // 
+            this.tbPassword.BackColor = System.Drawing.Color.White;
+            this.tbPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbPassword.Location = new System.Drawing.Point(43, 267);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.PasswordChar = '*';
+            this.tbPassword.Size = new System.Drawing.Size(204, 28);
+            this.tbPassword.TabIndex = 23;
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.lblPassword.Location = new System.Drawing.Point(44, 161);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(70, 22);
+            this.lblPassword.TabIndex = 21;
+            this.lblPassword.Text = "Login:";
+            // 
+            // tbLogin
+            // 
+            this.tbLogin.BackColor = System.Drawing.Color.White;
+            this.tbLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbLogin.Location = new System.Drawing.Point(43, 188);
+            this.tbLogin.Name = "tbLogin";
+            this.tbLogin.Size = new System.Drawing.Size(204, 28);
+            this.tbLogin.TabIndex = 20;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label7.Location = new System.Drawing.Point(44, 88);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(73, 22);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "Name:";
+            // 
+            // tbName
+            // 
+            this.tbName.BackColor = System.Drawing.Color.White;
+            this.tbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbName.Location = new System.Drawing.Point(43, 115);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(204, 28);
+            this.tbName.TabIndex = 28;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label8.Location = new System.Drawing.Point(292, 88);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(119, 22);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Last Name:";
+            // 
+            // tbLastName
+            // 
+            this.tbLastName.BackColor = System.Drawing.Color.White;
+            this.tbLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbLastName.Location = new System.Drawing.Point(291, 115);
+            this.tbLastName.Name = "tbLastName";
+            this.tbLastName.Size = new System.Drawing.Size(204, 28);
+            this.tbLastName.TabIndex = 30;
+            // 
+            // nudRoom
+            // 
+            this.nudRoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nudRoom.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nudRoom.Location = new System.Drawing.Point(296, 189);
+            this.nudRoom.Name = "nudRoom";
+            this.nudRoom.Size = new System.Drawing.Size(199, 28);
+            this.nudRoom.TabIndex = 34;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label9.Location = new System.Drawing.Point(292, 161);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(72, 22);
+            this.label9.TabIndex = 33;
+            this.label9.Text = "Room:";
             // 
             // AdminForm
             // 
@@ -606,12 +854,20 @@
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
+            this.Chat.ResumeLayout(false);
+            this.tbChatAll.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
-            this.tbChatAll.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.Settings.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRoom)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -647,7 +903,7 @@
         private System.Windows.Forms.Button btnAddRule;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.TableLayoutPanel pnlHouseRules;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage Chat;
         private System.Windows.Forms.TableLayoutPanel tbChatAll;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label2;
@@ -656,5 +912,24 @@
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textChat;
+        private System.Windows.Forms.TabPage Settings;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button bCreateUser;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.TextBox tbLogin;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tbLastName;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.NumericUpDown nudRoom;
+        private System.Windows.Forms.Label label9;
     }
 }

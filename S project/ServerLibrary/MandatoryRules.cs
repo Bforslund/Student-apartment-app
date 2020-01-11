@@ -15,5 +15,10 @@ namespace ServerLibrary
     {
         public int HouseNumber { get; set; }
         public List<MandatoryRule> AllRules { get; set; }
+
+        public MandatoryRules Clone()
+        {
+            return (MandatoryRules)this.MemberwiseClone();
+        }
     }
 }

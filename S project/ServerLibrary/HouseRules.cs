@@ -22,7 +22,6 @@ namespace ServerLibrary
             this.OrderOfStudents = new List<int>();
             this.StudentsApproval = new Dictionary<int, bool>();
         }
-
     }
 
     public class HouseRules

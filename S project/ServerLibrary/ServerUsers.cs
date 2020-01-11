@@ -16,6 +16,18 @@ namespace ServerLibrary
         public string LastName { get; set; }
         public int HouseNumber { get; set; }
         public int Room { get; set; }
+
+        public ServerUser(UserType type, string login, string password, string name, string lastName, int houseNumber, int room)
+        {
+            this.Type = type;
+            this.ID = -1;
+            this.Login = login;
+            this.Password = password;
+            this.Name = name;
+            this.LastName = lastName;
+            this.HouseNumber = houseNumber;
+            this.Room = room;
+        }
     }
 
     public class Users

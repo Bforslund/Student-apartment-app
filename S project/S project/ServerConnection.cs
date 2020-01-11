@@ -37,6 +37,25 @@ namespace S_project
             }
         }
 
+        public bool CreateNewUser(ServerUser newUser)
+        {
+            Wait(25);
+
+            string json = JsonConvert.SerializeObject(newUser);
+
+            PackageType[] receivedTypes = new PackageType[2] { PackageType.USER_EXISTS, PackageType.USER_CREATED };
+
+            ServerPackage package = GetResponce(PackageType.CREATE_NEW_USER, receivedTypes, json);
+
+            switch (package.Type)
+            {
+                case PackageType.USER_CREATED:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         //Updates password
         public bool UpdatePassword(int id, string newPassword, string currentPassword, int houseNumber)
         {

@@ -393,5 +393,33 @@ namespace S_project
         {
             panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
         }
+
+        private void tbNewPassword_MouseDown(object sender, MouseEventArgs e)
+        {
+            tbPassword.PasswordChar = '\0';
+        }
+
+        private void tbNewPassword_MouseUp(object sender, MouseEventArgs e)
+        {
+            tbPassword.PasswordChar = '*';
+        }
+
+        private void bCreateUser_Click(object sender, EventArgs e)
+        {
+            string login = tbLogin.Text;
+            string password = tbPassword.Text;
+            string name = tbName.Text;
+            string lastName = tbLastName.Text;
+            int room = (int)nudRoom.Value;
+
+            ServerUser newUser = new ServerUser(UserType.TENANT, login, password, name, lastName, _houseNumber, room);
+
+            bool created = _server.CreateNewUser(newUser);
+
+            if (created)
+                MessageBox.Show("New user created successfully", "User created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("User with this login already exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

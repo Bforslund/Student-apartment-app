@@ -142,16 +142,6 @@ namespace S_project
 
         private void UpdateMandatoryRulesLayout(MandatoryRules mr, bool showUpdate)
         {
-            fUpdating updateForm = new fUpdating();
-
-            if (showUpdate)
-            {
-                Task.Run(() =>
-                {
-                    updateForm.ShowDialog();
-                });
-            }
-
             pnlMandatoryRules.SuspendLayout();
             pnlMandatoryRules.Controls.Clear();
 
@@ -161,35 +151,10 @@ namespace S_project
             }
 
             pnlMandatoryRules.ResumeLayout();
-            if (showUpdate)
-            {
-                Invoke((MethodInvoker)delegate
-                {
-                    while (true)
-                    {
-                        try
-                        {
-                            updateForm.Close();
-                            break;
-                        }
-                        catch { continue; }
-                    }
-                });
-            }
         }
 
         private void UpdateHouseRulesLayout(HouseRules hr, bool showUpdate)
         {
-            fUpdating updateForm = new fUpdating();
-
-            if (showUpdate)
-            {
-                Task.Run(() =>
-                {
-                    updateForm.ShowDialog();
-                });
-            }
-
             pnlHouseRules.SuspendLayout();
             pnlHouseRules.Controls.Clear();
 
@@ -199,22 +164,6 @@ namespace S_project
             }
 
             pnlHouseRules.ResumeLayout();
-
-            if (showUpdate)
-            {
-                Invoke((MethodInvoker)delegate
-                {
-                    while (true)
-                    {
-                        try
-                        {
-                            updateForm.Close();
-                            break;
-                        }
-                        catch { continue; }
-                    }
-                });
-            }
         }
 
         private void AddHouseRule(HouseRule rule, int index) {

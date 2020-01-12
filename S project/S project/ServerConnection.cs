@@ -203,96 +203,149 @@ namespace S_project
         //Packs everything so that server can understand
         private string GetResponce(PackageType sendType, PackageType receivedType, string data)
         {
-            Connected = true;
-
-            ServerPackage serverPackage = new ServerPackage(sendType, data, this.udpServerPort);
-            string json = JsonConvert.SerializeObject(serverPackage, Formatting.Indented);
-
-            SendToServer(json);
-
-            string message = "";
-
             while (true)
             {
-                message = ReadFromServer();
-                message = message.Replace("\0", "");
+                Connected = true;
 
-                if (message.Length > 1)
-                {                   
-                    ServerPackage package = JsonConvert.DeserializeObject<ServerPackage>(message);
+                ServerPackage serverPackage = new ServerPackage(sendType, data, this.udpServerPort);
+                string json = JsonConvert.SerializeObject(serverPackage, Formatting.Indented);
 
-                    if (package.Type == receivedType)
+                SendToServer(json);
+
+                string message = "";
+                int attempts = 0;
+
+                while (true)
+                {
+                    message += ReadFromServer();
+                    message = message.Replace("\0", "");
+                    
+                    if (attempts < 15)
                     {
-                        tcp.Close();
-                        Connected = false;
-                        return package.Message;
+                        attempts++;
                     }
-                    else { continue; }
+                    else
+                    {
+                        break;
+                    }                
+
+                    if (message.Length > 1)
+                    {
+                        ServerPackage package = JsonConvert.DeserializeObject<ServerPackage>(message);
+
+                        if (package.Type == receivedType)
+                        {
+                            tcp.Close();
+                            Connected = false;
+
+                            return package.Message;
+                        }
+                        else { continue; }
+                    }
                 }
             }
         }
 
         private ServerPackage GetResponce(PackageType sendType, PackageType[] receivedTypes, string data)
         {
-            Connected = true;
-
-            ServerPackage serverPackage = new ServerPackage(sendType, data, this.udpServerPort);
-            string json = JsonConvert.SerializeObject(serverPackage, Formatting.Indented);
-
-            SendToServer(json);
-
-            string message = "";
-
             while (true)
             {
-                message = ReadFromServer();
-                message = message.Replace("\0", "");
+                Connected = true;
 
-                if (message.Length > 1)
+                ServerPackage serverPackage = new ServerPackage(sendType, data, this.udpServerPort);
+                string json = JsonConvert.SerializeObject(serverPackage, Formatting.Indented);
+
+                SendToServer(json);
+
+                string message = "";
+                int attempts = 0;
+
+                while (true)
                 {
-                    ServerPackage package = JsonConvert.DeserializeObject<ServerPackage>(message);
+                    message += ReadFromServer();
+                    message = message.Replace("\0", "").Trim();
 
-                    if (receivedTypes.Contains(package.Type))
+                    if (attempts < 15)
                     {
-                        tcp.Close();
-                        Connected = false;
-                        return package;
+                        attempts++;
                     }
-                    else { continue; }
+                    else
+                    {
+                        break;
+                    }
+
+                    if (message.Length > 1)
+                    {
+                        ServerPackage package = JsonConvert.DeserializeObject<ServerPackage>(message);
+
+                        if (receivedTypes.Contains(package.Type))
+                        {
+                            tcp.Close();
+                            Connected = false;
+                            return package;
+                        }
+                        else { continue; }
+                    }
                 }
             }
         }
-
+        
         //Reads server responce
         private string ReadFromServer()
         {
-            List<byte> Buf = new List<byte>();
-            List<byte> Num = new List<byte>();
-            //tcp.GetStream().ReadTimeout = 20;
-            
+            //Third attempt
+            string answer = "";
+            int dataLength;
+            int bytesRead = 0;
+            int count = 0;
+            bool end = false;
+            byte[] msg;
+
+            byte[] border = new byte[1];
+            tcp.GetStream().Read(border, 0, 1);
+
+            if (border[0] != 12) // 12 - indicates that it is a start of the message
+                return "";
+
+            byte[] numOfBytes = new byte[4];
+            tcp.GetStream().Read(numOfBytes, 0, 4);
+            dataLength = BitConverter.ToInt32(numOfBytes, 0);
+
             while (true)
             {
-                byte[] msg = new byte[1024];
-                int count = 0;
+                Thread.Sleep(25);
 
-                count = tcp.GetStream().Read(msg, 0, msg.Length);
+                msg = new byte[dataLength];
+                bytesRead = tcp.GetStream().Read(msg, 0, msg.Length);
 
-                Buf.AddRange(msg);
-
-                if (count > 1)
-                    Thread.Sleep(25);
-
-                if (count == 1024)
-                    continue;
-                else
+                if (msg[bytesRead - 1] == 13)
                 {
-                    if (Buf.Count % 1460 == 0)
-                        continue;
+                    msg[bytesRead - 1] = 0;
+                    end = true;
+                }
+
+                answer += Encoding.Default.GetString(msg, 0, msg.Length);
+                answer = answer.Replace("\0", "");
+
+                count += bytesRead;
+                if (count == dataLength)
+                {
+                    tcp.GetStream().Read(border, 0, 1);
+
+                    if (border[0] != 13) // 13 - indicates that it is the end of the message
+                    {
+                        if (msg.Last() != 13)
+                            continue;
+                    }
+                    break;
+                }
+                else if(count > dataLength && end)
+                {
                     break;
                 }
             }
 
-            return Encoding.Default.GetString(Buf.ToArray(), 0, Buf.Count);
+            return answer;
         }
         #endregion
 

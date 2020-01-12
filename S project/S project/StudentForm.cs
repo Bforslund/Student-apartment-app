@@ -86,7 +86,7 @@ namespace S_project
             complaints = server.GetComplaints(student.HouseNumber);
             _messages = server.GetMessages(student.HouseNumber);
 
-            ScheduleUpdate(false);
+            ScheduleUpdate();
 
             timerUpdate.Start();
 
@@ -408,23 +408,8 @@ namespace S_project
 
         public void RulesUpdateTick(bool showUpdate = true)
         {            
-            fUpdating updateForm = new fUpdating();
-
             if (mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 2)
-                //|| mr.AllRules.Count != pnlMandatoryRules.Controls.Count / 2)
             {
-                //mandatoryRules = mr;
-
-                updateForm = new fUpdating();
-
-                if (showUpdate)
-                {
-                    Task.Run(() =>
-                    {
-                        updateForm.ShowDialog();
-                    });
-                }
-
                 pnlMandatoryRules.SuspendLayout();
                 pnlMandatoryRules.Controls.Clear();
 
@@ -433,40 +418,11 @@ namespace S_project
                     AddMandatoryRule(rule, mandatoryRules.AllRules.IndexOf(rule));
                 }
                 pnlMandatoryRules.ResumeLayout();
-
-                if (showUpdate)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        while (true)
-                        {
-                            try
-                            {
-                                updateForm.Close();
-                                break;
-                            }
-                            catch { continue; }
-                        }
-                    });
-                }
             }
 
             //HouseRules hr = server.GetHouseRules(student.HouseNumber);
-            if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4 )//||
-                //hr.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4)
+            if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4 )
             {
-                //houseRules = hr;
-
-                updateForm = new fUpdating();
-
-                if (showUpdate)
-                {
-                    Task.Run(() =>
-                    {
-                        updateForm.ShowDialog();
-                    });
-                }
-
                 pnlNotifications.Controls.Clear();
                 pnlNotifications.SuspendLayout();
 
@@ -490,22 +446,6 @@ namespace S_project
                 }
                 pnlNotifications.ResumeLayout();
                 pnlHouseRules.ResumeLayout();
-
-                if (showUpdate)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        while (true)
-                        {
-                            try
-                            {
-                                updateForm.Close();
-                                break;
-                            }
-                            catch { continue; }
-                        }
-                    });
-                }
             }
 
             HouseRules hr = houseRules.Clone();
@@ -523,16 +463,6 @@ namespace S_project
                 {
                     if (hr.AllRules[i].ApprovalState == false)
                     {
-                        updateForm = new fUpdating();
-
-                        if (showUpdate)
-                        {
-                            Task.Run(() =>
-                            {
-                                updateForm.ShowDialog();
-                            });
-                        }
-
                         hr.AllRules[i].ApprovalState = true;
                         pnlNotifications.SuspendLayout();
                         pnlNotifications.Controls.Clear();
@@ -556,38 +486,12 @@ namespace S_project
                         }
                         pnlNotifications.ResumeLayout();
                         pnlHouseRules.ResumeLayout();
-
-                        if (showUpdate)
-                        {
-                            Invoke((MethodInvoker)delegate
-                            {
-                                while (true)
-                                {
-                                    try
-                                    {
-                                        updateForm.Close();
-                                        break;
-                                    }
-                                    catch { continue; }
-                                }
-                            });
-                        }
                     }
                 }
                 else
                 {
                     if (hr.AllRules[i].ApprovalState == true)
                     {
-                        updateForm = new fUpdating();
-
-                        if (showUpdate)
-                        {
-                            Task.Run(() =>
-                            {
-                                updateForm.ShowDialog();
-                            });
-                        }
-
                         hr.AllRules[i].ApprovalState = false;
                         pnlNotifications.SuspendLayout();
                         pnlNotifications.Controls.Clear();
@@ -611,22 +515,6 @@ namespace S_project
                         }
                         pnlNotifications.ResumeLayout();
                         pnlHouseRules.ResumeLayout();
-
-                        if (showUpdate)
-                        {
-                            Invoke((MethodInvoker)delegate
-                            {
-                                while (true)
-                                {
-                                    try
-                                    {
-                                        updateForm.Close();
-                                        break;
-                                    }
-                                    catch { continue; }
-                                }
-                            });
-                        }
                     }
                 }
             }
@@ -672,22 +560,8 @@ namespace S_project
                 ScheduleUpdate();
         }
 
-        private void ScheduleUpdate(bool showUpdate = true)
-        {            
-            fUpdating updateForm = new fUpdating();
-
-            if (showUpdate)
-            {
-                Task.Run(() =>
-                {
-                    try
-                    {
-                        updateForm.ShowDialog();
-                    }
-                    catch { }
-                });
-            }
-
+        private void ScheduleUpdate()
+        {
             schedules.Clear();
             panel5.Controls.Clear();
 
@@ -722,25 +596,6 @@ namespace S_project
             panel5.ResumeLayout();
             /*Thread.Sleep(500);
             */
-
-            if (showUpdate)
-            {
-                Invoke((MethodInvoker)delegate
-                {
-                    while (true)
-                    {
-                        try
-                        {
-                            updateForm.Close();
-                            break;
-                        }
-                        catch
-                        {
-                        //Thread.Sleep(100);
-                    }
-                    }
-                });
-            }
         }   
         
         #endregion

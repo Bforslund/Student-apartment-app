@@ -95,9 +95,8 @@ namespace Server
                         //Tryes to send an one-byte message to check if client is connected from both sides
                         try
                         {
-                            byte[] mssg = new byte[1];
+                            byte[] mssg = new byte[1] { 3 };
                             client.GetStream().Write(mssg, 0, mssg.Length);
-
                         }
                         //If is not able to send message disconnect client
                         catch { CloseTcpConection(index); }
@@ -166,7 +165,7 @@ namespace Server
                         //Checks if user with given credentials exists
                         if (user == null)
                             //Sends "invalid data" error if user doesn't exist
-                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.INVALID_DATA, "", -1)));
+                            SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.INVALID_DATA, "", -1)));
                         else
                         {
                             Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data/house-{userCheck.HouseNumber}/students.json"));
@@ -195,7 +194,7 @@ namespace Server
                             string json = JsonConvert.SerializeObject(userInfo);
 
                             //Sends responce
-                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_INFO, json, -1)));
+                            SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_INFO, json, -1)));
                         }
                         break;
                     }
@@ -215,7 +214,7 @@ namespace Server
 
                         string json = JsonConvert.SerializeObject(usersInfo);
 
-                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.ALL_USERS, json, -1)));
+                        SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.ALL_USERS, json, -1)));
 
                         break;
                     }
@@ -226,7 +225,7 @@ namespace Server
                         CheckUdp(package.UdpServerPort);
 
                         //Sends responce
-                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.HOUSE_RULES,
+                        SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.HOUSE_RULES,
                             File.ReadAllText(@$"data/house-{package.Message}/house-rules.json"), -1)));
                         break;
                     }
@@ -244,7 +243,7 @@ namespace Server
                         SendUpdated(package.UdpServerPort);
 
                         //Sends responce
-                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "", -1)));
+                        SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "", -1)));
                         break;
                     }
                 case PackageType.GET_MANDATORY_RULES:
@@ -254,7 +253,7 @@ namespace Server
                         CheckUdp(package.UdpServerPort);
 
                         //Sends responce
-                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MANDATORY_RULES,
+                        SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MANDATORY_RULES,
                             File.ReadAllText(@$"data/house-{package.Message}/mandatory-rules.json"), -1)));
                         break;
                     }
@@ -272,7 +271,7 @@ namespace Server
                         File.WriteAllText(@$"data/house-{mandatoryRules.HouseNumber}/mandatory-rules.json", package.Message);
 
                         //Sends responce
-                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "", -1)));
+                        SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "", -1)));
                         break;
                     }
                 case PackageType.GET_COMPLAINTS:
@@ -282,7 +281,7 @@ namespace Server
                         CheckUdp(package.UdpServerPort);
 
                         //Sends responce
-                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.COMPLAINTS,
+                        SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.COMPLAINTS,
                             File.ReadAllText(@$"data/house-{package.Message}/complaints.json"), -1)));
                         break;
                     }
@@ -300,7 +299,7 @@ namespace Server
                         File.WriteAllText(@$"data/house-{mandatoryRules.HouseNumber}/complaints.json", package.Message);
 
                         //Sends responce
-                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "", -1)));
+                        SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "", -1)));
                         break;
                     }
                 case PackageType.GET_MESSAGES:
@@ -310,7 +309,7 @@ namespace Server
                         CheckUdp(package.UdpServerPort);
 
                         //Sends responce
-                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MESSAGES,
+                        SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.MESSAGES,
                             File.ReadAllText(@$"data/house-{package.Message}/messages.json"), -1)));
                         break;
                     }
@@ -328,7 +327,7 @@ namespace Server
                         SendUpdated(package.UdpServerPort);
 
                         //Sends responce
-                        SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "", -1)));
+                        SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.RECEIVED, "", -1)));
                         break;
                     }
                 case PackageType.UPDATE_PASSWORD:
@@ -346,7 +345,7 @@ namespace Server
                         //Checks if user with given credentials exists
                         if (user == null)
                             //Sends "invalid data" error if user doesn't exist
-                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.INVALID_DATA, "", -1)));
+                            SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.INVALID_DATA, "", -1)));
                         else
                         {
                             foreach (var u in users.AllUsers)
@@ -361,7 +360,7 @@ namespace Server
                             string json = JsonConvert.SerializeObject(users, Formatting.Indented);
                             File.WriteAllText(@$"data/house-{userCheck.HouseNumber}/students.json", json);
 
-                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.PASSWORD_CHANGED, "", -1)));
+                            SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.PASSWORD_CHANGED, "", -1)));
                         }
                         break;
                     }
@@ -378,7 +377,7 @@ namespace Server
 
                         if (users.AllUsers.Any(x => x.Login == newUser.Login))
                         {
-                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_EXISTS, "", -1)));
+                            SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_EXISTS, "", -1)));
                         }
                         else
                         {
@@ -403,7 +402,7 @@ namespace Server
                             json = JsonConvert.SerializeObject(houseRules, Formatting.Indented);
                             File.WriteAllText(@$"data/house-{newUser.HouseNumber}/house-rules.json", json);
 
-                            SendMessage(client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_CREATED, "", -1)));
+                            SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_CREATED, "", -1)));
                         }
 
                         SendUpdated(package.UdpServerPort);
@@ -537,15 +536,22 @@ namespace Server
         }
 
         //Send message to the specified client
-        private void SendMessage(TcpClient client, string message)
+        private void SendMessage(PackageType type, TcpClient client, string message)
         {
+            byte[] border = new byte[1] { 12 };
+            client.GetStream().Write(border, 0, 1);
+
+            byte[] dataLength = BitConverter.GetBytes((Int32)message.Length);
+            client.GetStream().Write(dataLength, 0, 4);
+
             //Encodes and sends message
-            byte[] Buffer;
-            Buffer = Encoding.Default.GetBytes(message);
+            byte[] Buffer = Encoding.Default.GetBytes(message);
             client.GetStream().Write(Buffer, 0, Buffer.Length);
 
-            Console.WriteLine(message);
+            Console.WriteLine($"Responce({message.Length})  was sent with type: {type}");
 
+            border = new byte[1] { 13 };
+            client.GetStream().Write(border, 0, 1);
             //Closes connection
             client.Close();
         }

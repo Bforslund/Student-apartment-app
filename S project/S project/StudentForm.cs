@@ -11,6 +11,7 @@ using ServerLibrary;
 using System.Threading;
 using System.Net.Sockets;
 using System.Net;
+using System.Globalization;
 
 namespace S_project
 {
@@ -32,6 +33,10 @@ namespace S_project
         public StudentForm(ServerConnection server, UserInfo student)
         {
             InitializeComponent();
+
+            ThreadStart threadStart = new ThreadStart(updateTemperature);
+            Thread t1 = new Thread(threadStart);
+            t1.Start();
 
             Task.Run(() =>
             {
@@ -692,6 +697,19 @@ namespace S_project
             }
 
             button.Enabled = true;
+        }
+        #endregion
+
+        #region Temperature
+        private void updateTemperature()
+        {
+            Port1.Open();
+            while (true)
+            {
+                string temperature;
+                temperature = Port1.ReadLine();
+                temperatureBox.Invoke(new Action(() => temperatureBox.Text = $"The tempeature is: {temperature} ℃"));
+            }
         }
         #endregion
     }

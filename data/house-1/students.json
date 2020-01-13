@@ -2,34 +2,34 @@
   "TotalStudentNumber": 2,
   "AllUsers": [
     {
-      "Type": 1,
-	  "ID": 0,
       "Login": "admin",
-      "Password": "admin",
+      "Password": "uthVLUZ3LPs5XCwSxBRQ1kgWDl7OimZJeeBK6OO/678uuC9+CQ2y15fc+lxjzHo99Pye5UrEgmR0BwSTJge0DukNU8NdxiXXsIJ2ws4vfBH0mbIDY2+FA23vVObUxjPf",
+      "Type": 1,
+      "ID": 0,
       "Name": "admin",
-	  "LastName": "adminL",
+      "LastName": "adminL",
       "HouseNumber": 1,
-	  "Room": -1
-    },
-	{
-	  "Type": 0,
-	  "ID": 1,
-      "Login": "Dima1234",
-      "Password": "1234",
-      "Name": "Dima",
-	  "LastName": "LastNameD",
-      "HouseNumber": 1,
-	  "Room": 1
+      "Room": -1
     },
     {
+      "Login": "Dima1234",
+      "Password": "f1DDDWRyUBR3z92u7cUk75LcbB/i0R+W2vtWNTdiu9sZUtG+knT6x4bTtxwcMWYYeSzYCyZ15txy3+dS+lKRIaztGjOpN0xf7cpa9ONmqXbCftfk9nHhwDxE8N7hzd4m",
       "Type": 0,
-	  "ID": 2,
-      "Login": "Bob4321",
-      "Password": "4321",
-      "Name": "Bob",
-	  "LastName": "LastNameB",
+      "ID": 1,
+      "Name": "Dima",
+      "LastName": "LastNameD",
       "HouseNumber": 1,
-	  "Room": 2
+      "Room": 1
+    },
+    {
+      "Login": "Bob4321",
+      "Password": "yB8bMYpEmiayM7jAIw5l0okVrJPW4DLcIt1L961fb7gsPeDGioMoBO5seoLfJDMdCmAkqULl5h/ZNufkpIoNtHfC5cFdbkNP2fKssG7LxlFDYI4u12ERtjZwTSOZ7UkG",
+      "Type": 0,
+      "ID": 2,
+      "Name": "Bob",
+      "LastName": "LastNameB",
+      "HouseNumber": 1,
+      "Room": 2
     }
   ]
 }

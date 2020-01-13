@@ -84,6 +84,8 @@
             this.bShowPass = new System.Windows.Forms.Button();
             this.lblPassword = new System.Windows.Forms.Label();
             this.tbCurrentPassword = new System.Windows.Forms.TextBox();
+            this.Port1 = new System.IO.Ports.SerialPort(this.components);
+            this.temperatureBox = new System.Windows.Forms.TextBox();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.tabCtrlAdmin.SuspendLayout();
@@ -120,6 +122,7 @@
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.temperatureBox);
             this.panelTop.Controls.Add(this.lblHello);
             this.panelTop.Controls.Add(this.pctbxBack);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -833,6 +836,14 @@
             this.tbCurrentPassword.Size = new System.Drawing.Size(204, 28);
             this.tbCurrentPassword.TabIndex = 20;
             // 
+            // temperatureBox
+            // 
+            this.temperatureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.temperatureBox.Location = new System.Drawing.Point(677, 18);
+            this.temperatureBox.Name = "temperatureBox";
+            this.temperatureBox.Size = new System.Drawing.Size(100, 22);
+            this.temperatureBox.TabIndex = 19;
+            // 
             // StudentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -944,5 +955,7 @@
         private System.Windows.Forms.Button bShowPass;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbCurrentPassword;
+        private System.IO.Ports.SerialPort Port1;
+        private System.Windows.Forms.TextBox temperatureBox;
     }
 }

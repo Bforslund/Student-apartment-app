@@ -21,6 +21,7 @@ namespace S_project
         private MandatoryRules mandatoryRules;
         private ServerConnection server;
         private ChatHistory _messages;
+        private Encrypter encrypter = new Encrypter();
 
         //Initialize forms for Complaints and Rules
         AddComplainStudent complaintForm = null;
@@ -685,7 +686,10 @@ namespace S_project
             DialogResult result = MessageBox.Show("Are you sure?", "Password change", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
-                bool changed = server.UpdatePassword(student.ID, tbNewPassword.Text, tbCurrentPassword.Text, student.HouseNumber);
+                string newPasswordText = encrypter.Encrypt(tbNewPassword.Text, "passPhrase");
+                string oldPasswordText = tbCurrentPassword.Text;
+                
+                bool changed = server.UpdatePassword(student.ID, newPasswordText, oldPasswordText, student.HouseNumber);
                 if (!changed)
                 {
                     MessageBox.Show("Invalid Data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -703,13 +707,17 @@ namespace S_project
         #region Temperature
         private void updateTemperature()
         {
-            Port1.Open();
-            while (true)
+            try
             {
-                string temperature;
-                temperature = Port1.ReadLine();
-                temperatureBox.Invoke(new Action(() => temperatureBox.Text = $"The tempeature is: {temperature} ℃"));
+                Port1.Open();
+                while (true)
+                {
+                    string temperature;
+                    temperature = Port1.ReadLine();
+                    temperatureBox.Invoke(new Action(() => temperatureBox.Text = $"The tempeature is: {temperature} ℃"));
+                }
             }
+            catch { }
         }
         #endregion
     }

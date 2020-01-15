@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StudentForm));
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
+            this.temperatureBox = new System.Windows.Forms.Label();
             this.lblHello = new System.Windows.Forms.Label();
             this.pctbxBack = new System.Windows.Forms.PictureBox();
             this.tabCtrlAdmin = new System.Windows.Forms.TabControl();
@@ -85,7 +86,6 @@
             this.lblPassword = new System.Windows.Forms.Label();
             this.tbCurrentPassword = new System.Windows.Forms.TextBox();
             this.Port1 = new System.IO.Ports.SerialPort(this.components);
-            this.temperatureBox = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.tabCtrlAdmin.SuspendLayout();
@@ -130,6 +130,17 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(983, 51);
             this.panelTop.TabIndex = 13;
+            // 
+            // temperatureBox
+            // 
+            this.temperatureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.temperatureBox.AutoSize = true;
+            this.temperatureBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.temperatureBox.Location = new System.Drawing.Point(499, 14);
+            this.temperatureBox.MinimumSize = new System.Drawing.Size(300, 0);
+            this.temperatureBox.Name = "temperatureBox";
+            this.temperatureBox.Size = new System.Drawing.Size(300, 20);
+            this.temperatureBox.TabIndex = 20;
             // 
             // lblHello
             // 
@@ -639,7 +650,7 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -836,17 +847,6 @@
             this.tbCurrentPassword.Size = new System.Drawing.Size(204, 28);
             this.tbCurrentPassword.TabIndex = 20;
             // 
-            // temperatureBox
-            // 
-            this.temperatureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.temperatureBox.AutoSize = true;
-            this.temperatureBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.temperatureBox.Location = new System.Drawing.Point(499, 14);
-            this.temperatureBox.MinimumSize = new System.Drawing.Size(300, 0);
-            this.temperatureBox.Name = "temperatureBox";
-            this.temperatureBox.Size = new System.Drawing.Size(300, 20);
-            this.temperatureBox.TabIndex = 20;
-            // 
             // StudentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -858,7 +858,7 @@
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Name = "StudentForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "5";
+            this.Text = "BRiCkeD Tenant";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminForm_FormClosed);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();

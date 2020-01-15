@@ -106,7 +106,7 @@
             // 
             // numericRepeatRule
             // 
-            this.numericRepeatRule.Location = new System.Drawing.Point(187, 140);
+            this.numericRepeatRule.Location = new System.Drawing.Point(203, 140);
             this.numericRepeatRule.Name = "numericRepeatRule";
             this.numericRepeatRule.Size = new System.Drawing.Size(39, 22);
             this.numericRepeatRule.TabIndex = 20;

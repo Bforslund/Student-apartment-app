@@ -14,10 +14,12 @@ namespace S_project
     public partial class Schedule : UserControl
     {
         private ScheduleItem scheduleItem;
-        
+        private StudentForm parent;
+
         // Constructor To Bind the backend part to the UserControl
-        public Schedule(UserInfo user, int index, HouseRules houseRules)
+        public Schedule(UserInfo user, int index, HouseRules houseRules, Form parent)
         {
+            this.parent = (StudentForm)parent;
             scheduleItem = new ScheduleItem(user, index, houseRules);
             InitializeComponent();
 
@@ -51,17 +53,19 @@ namespace S_project
             {
                 scheduleItem.SetDone();
                 this.BackColor = Color.LightGreen;
-
-            } else
+            } 
+            else
             {
                 scheduleItem.SetUnDone();
                 this.BackColor = Color.LightGray;
             }
+
+            parent.ScheduleUpdate();
         }
 
         public void DisableDoneBox()
         {
-            DoneBox.Visible = false;
+            DoneBox.Enabled = false;
         }
     }
 }

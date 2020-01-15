@@ -167,7 +167,7 @@
             this.Name = "Login";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login";
+            this.Text = "BRiCkeD Login";
             this.ResumeLayout(false);
             this.PerformLayout();
 

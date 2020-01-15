@@ -66,13 +66,18 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textChat = new System.Windows.Forms.TextBox();
-            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.Settings = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.nudRoom = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbLastName = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.bCreateUser = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -80,12 +85,7 @@
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.tbLogin = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tbName = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.tbLastName = new System.Windows.Forms.TextBox();
-            this.nudRoom = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
+            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.Complaints.SuspendLayout();
@@ -591,12 +591,6 @@
             this.textChat.TabIndex = 1;
             this.textChat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textChat_KeyPress);
             // 
-            // timerUpdate
-            // 
-            this.timerUpdate.Enabled = true;
-            this.timerUpdate.Interval = 5000;
-            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
-            // 
             // Settings
             // 
             this.Settings.Controls.Add(this.tableLayoutPanel2);
@@ -680,6 +674,66 @@
             this.panel12.Size = new System.Drawing.Size(534, 390);
             this.panel12.TabIndex = 21;
             // 
+            // nudRoom
+            // 
+            this.nudRoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nudRoom.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nudRoom.Location = new System.Drawing.Point(296, 189);
+            this.nudRoom.Name = "nudRoom";
+            this.nudRoom.Size = new System.Drawing.Size(199, 28);
+            this.nudRoom.TabIndex = 34;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label9.Location = new System.Drawing.Point(292, 161);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(72, 22);
+            this.label9.TabIndex = 33;
+            this.label9.Text = "Room:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label8.Location = new System.Drawing.Point(292, 88);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(119, 22);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Last Name:";
+            // 
+            // tbLastName
+            // 
+            this.tbLastName.BackColor = System.Drawing.Color.White;
+            this.tbLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbLastName.Location = new System.Drawing.Point(291, 115);
+            this.tbLastName.Name = "tbLastName";
+            this.tbLastName.Size = new System.Drawing.Size(204, 28);
+            this.tbLastName.TabIndex = 30;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.label7.Location = new System.Drawing.Point(44, 88);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(73, 22);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "Name:";
+            // 
+            // tbName
+            // 
+            this.tbName.BackColor = System.Drawing.Color.White;
+            this.tbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbName.Location = new System.Drawing.Point(43, 115);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(204, 28);
+            this.tbName.TabIndex = 28;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -759,65 +813,11 @@
             this.tbLogin.Size = new System.Drawing.Size(204, 28);
             this.tbLogin.TabIndex = 20;
             // 
-            // label7
+            // timerUpdate
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.label7.Location = new System.Drawing.Point(44, 88);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(73, 22);
-            this.label7.TabIndex = 29;
-            this.label7.Text = "Name:";
-            // 
-            // tbName
-            // 
-            this.tbName.BackColor = System.Drawing.Color.White;
-            this.tbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbName.Location = new System.Drawing.Point(43, 115);
-            this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(204, 28);
-            this.tbName.TabIndex = 28;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.label8.Location = new System.Drawing.Point(292, 88);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(119, 22);
-            this.label8.TabIndex = 31;
-            this.label8.Text = "Last Name:";
-            // 
-            // tbLastName
-            // 
-            this.tbLastName.BackColor = System.Drawing.Color.White;
-            this.tbLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbLastName.Location = new System.Drawing.Point(291, 115);
-            this.tbLastName.Name = "tbLastName";
-            this.tbLastName.Size = new System.Drawing.Size(204, 28);
-            this.tbLastName.TabIndex = 30;
-            // 
-            // nudRoom
-            // 
-            this.nudRoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.nudRoom.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nudRoom.Location = new System.Drawing.Point(296, 189);
-            this.nudRoom.Name = "nudRoom";
-            this.nudRoom.Size = new System.Drawing.Size(199, 28);
-            this.nudRoom.TabIndex = 34;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("MS Reference Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.label9.Location = new System.Drawing.Point(292, 161);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(72, 22);
-            this.label9.TabIndex = 33;
-            this.label9.Text = "Room:";
+            this.timerUpdate.Enabled = true;
+            this.timerUpdate.Interval = 5000;
+            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
             // 
             // AdminForm
             // 
@@ -831,7 +831,7 @@
             this.MinimumSize = new System.Drawing.Size(1000, 600);
             this.Name = "AdminForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Admin";
+            this.Text = "BRiCkeD Admin";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminForm_FormClosed);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).EndInit();

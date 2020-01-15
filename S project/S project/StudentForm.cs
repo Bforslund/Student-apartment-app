@@ -363,12 +363,15 @@ namespace S_project
                     //The order of students is kept sorted by their ID
                     houseRule.OrderOfStudents.Add(i + 1);
                 }
+                houseRule.OrderOfStudents.OrderBy(x => new Random().Next());
 
+                houseRule.CurrentStudent = houseRule.OrderOfStudents[0];
                 houseRule.StudentsApproval[student.ID] = true;
                 houseRules.AllRules.Add(houseRule);
                 AddRuleStudent.ruleName = "";
                 AddRuleStudent.repeatRule = 0;
 
+                RulesUpdateTick();
                 //server.Wait(25);
                 server.UpdateHouseRules(houseRules);
             }
@@ -389,6 +392,7 @@ namespace S_project
                 AddComplainStudent.IDOfRuleBreaker = 0;
                 AddComplainStudent.IDOfComplainer = 0;
 
+                RulesUpdateTick();
                 //server.Wait(25);
                 server.UpdateComplaints(complaints);
             }
@@ -407,7 +411,6 @@ namespace S_project
             {
                 if (complaintForm.IsDisposed == true)
                 {
-
                     complaintForm = null;
                 }
             }
@@ -567,7 +570,7 @@ namespace S_project
                 ScheduleUpdate();
         }
 
-        private void ScheduleUpdate()
+        public void ScheduleUpdate()
         {
             schedules.Clear();
             panel5.Controls.Clear();
@@ -575,13 +578,12 @@ namespace S_project
             panel5.SuspendLayout();
             for (int i = 0; i < houseRules.AllRules.Count; i++)
             {
-                Schedule currentScheduleItem = new Schedule(student, i, houseRules);
-                if (currentScheduleItem.GetID() == student.ID)
-                {
-                    schedules.Add(currentScheduleItem);
-                }
-                else
-                {
+                Schedule currentScheduleItem = new Schedule(student, i, houseRules, this);
+
+                schedules.Add(currentScheduleItem);
+
+                if (currentScheduleItem.GetID() != student.ID)
+                {                    
                     currentScheduleItem.DisableDoneBox();
                 }
             }

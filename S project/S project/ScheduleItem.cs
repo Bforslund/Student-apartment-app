@@ -27,7 +27,7 @@ namespace S_project
             for( int i = 1; i <= houseRules.AllRules[index].OrderOfStudents.Count; i++ )
             {
                 int p = houseRules.AllRules[index].CurrentStudent;
-                if (user.ID == houseRules.AllRules[p].CurrentStudent)
+                if (user.ID == houseRules.AllRules[index].CurrentStudent)
                 {
                     timesUntilNextAppointment = i;
                     break;
@@ -85,6 +85,7 @@ namespace S_project
             {
                 houseRules.AllRules[index].CurrentStudent = 0;
             }
+
             
             serverConnection.UpdateHouseRules(houseRules);
         }

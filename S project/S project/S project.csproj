@@ -76,7 +76,6 @@
     <Compile Include="ChatMessage.Designer.cs">
       <DependentUpon>ChatMessage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Encrypter.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

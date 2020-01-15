@@ -133,8 +133,9 @@ namespace Server
                         }
                     }
                 }
-                catch 
-                { 
+                catch (Exception e)
+                {
+                    var a = e;
                     Console.Write($"Clients Connected (catch) - {clients.Count} \n");
                 }
             }
@@ -499,15 +500,22 @@ namespace Server
         //Checks if login and password are correct
         private ServerUser CheckUserInfo(TcpClient client, UserCheck userCheck)
         {
+            string passPhrase = "passPhrase";
+            Encrypter encrypter = new Encrypter();
             //Checks if needed files/directories exist
             CheckExistedFiles(Convert.ToInt32(userCheck.HouseNumber));
 
             Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data/house-{userCheck.HouseNumber}/students.json"));
 
+            //string pass = encrypter.Decrypt(userCheck.Password, "passPhrase");
+
+            //string pass1 = encrypter.Encrypt(userCheck.Password, "passPhrase");
+
             //For each user check if given credentials corespond to anyone
             foreach (var user in users.AllUsers)
             {
-                if (user.Login == userCheck.Login && user.Password == userCheck.Password && user.HouseNumber == userCheck.HouseNumber)                    
+                if (user.Login == userCheck.Login && user.HouseNumber == userCheck.HouseNumber
+                    && encrypter.Decrypt(user.Password, passPhrase) == encrypter.Decrypt(userCheck.Password, passPhrase))                    
                     return user;
             }
 

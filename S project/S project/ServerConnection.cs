@@ -15,12 +15,20 @@ namespace S_project
         private TcpClient tcp;
         public static bool Connected = false;
         private int udpServerPort = 6000;
+        private Encrypter encrypter;
+
+        public ServerConnection()
+        {
+            this.udpServerPort = 6000;
+            this.encrypter = new Encrypter();
+        }
 
         #region Getting/Updating data on the server
         //Returns user information if credentials are correct
         public UserInfo CheckUser(string login, string password, int houseNumber)
         {
             Wait(25);
+            password = encrypter.Encrypt(password, "passPhrase");
 
             string json = JsonConvert.SerializeObject(new UserCheck(login, password, houseNumber));
 
@@ -40,6 +48,7 @@ namespace S_project
         public bool CreateNewUser(ServerUser newUser)
         {
             Wait(25);
+            newUser.Password = encrypter.Encrypt(newUser.Password, "passPhrase");
 
             string json = JsonConvert.SerializeObject(newUser);
 
@@ -68,6 +77,9 @@ namespace S_project
         public bool UpdatePassword(int id, string newPassword, string currentPassword, int houseNumber)
         {
             Wait(25);
+
+            newPassword = encrypter.Encrypt(newPassword, "passPhrase");
+            currentPassword = encrypter.Encrypt(currentPassword, "passPhrase");
 
             string json = JsonConvert.SerializeObject(new PasswordChange(id, newPassword, currentPassword, houseNumber));
 

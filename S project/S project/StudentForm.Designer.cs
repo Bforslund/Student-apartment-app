@@ -85,7 +85,7 @@
             this.lblPassword = new System.Windows.Forms.Label();
             this.tbCurrentPassword = new System.Windows.Forms.TextBox();
             this.Port1 = new System.IO.Ports.SerialPort(this.components);
-            this.temperatureBox = new System.Windows.Forms.TextBox();
+            this.temperatureBox = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctbxBack)).BeginInit();
             this.tabCtrlAdmin.SuspendLayout();
@@ -639,7 +639,7 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -838,11 +838,14 @@
             // 
             // temperatureBox
             // 
-            this.temperatureBox.BackColor = System.Drawing.SystemColors.Window;
-            this.temperatureBox.Location = new System.Drawing.Point(677, 18);
+            this.temperatureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.temperatureBox.AutoSize = true;
+            this.temperatureBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.temperatureBox.Location = new System.Drawing.Point(499, 14);
+            this.temperatureBox.MinimumSize = new System.Drawing.Size(300, 0);
             this.temperatureBox.Name = "temperatureBox";
-            this.temperatureBox.Size = new System.Drawing.Size(100, 22);
-            this.temperatureBox.TabIndex = 19;
+            this.temperatureBox.Size = new System.Drawing.Size(300, 20);
+            this.temperatureBox.TabIndex = 20;
             // 
             // StudentForm
             // 
@@ -956,6 +959,6 @@
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbCurrentPassword;
         private System.IO.Ports.SerialPort Port1;
-        private System.Windows.Forms.TextBox temperatureBox;
+        private System.Windows.Forms.Label temperatureBox;
     }
 }

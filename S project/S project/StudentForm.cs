@@ -12,6 +12,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.Net;
 using System.Globalization;
+using System.IO.Ports;
 
 namespace S_project
 {
@@ -21,7 +22,6 @@ namespace S_project
         private MandatoryRules mandatoryRules;
         private ServerConnection server;
         private ChatHistory _messages;
-        private Encrypter encrypter = new Encrypter();
 
         //Initialize forms for Complaints and Rules
         AddComplainStudent complaintForm = null;
@@ -126,6 +126,7 @@ namespace S_project
             Login loginForm = new Login();
             //udpClient.Close();
             loginForm.Show();
+            Port1.Close();
             this.Close();
         }
 
@@ -138,7 +139,7 @@ namespace S_project
         }
 
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
-        {         
+        {
             if (pctbxBack.Enabled)
                 Environment.Exit(0);
             pctbxBack.Enabled = true;
@@ -158,7 +159,7 @@ namespace S_project
 
             AddMandatoryRuleRow(ruleNumber, ruleLabel);
         }
-        
+
         public void AddMandatoryRuleRow(Label ruleNumber, Label ruleLabel)
         {
             int newRow = pnlMandatoryRules.RowCount + 1;
@@ -173,7 +174,7 @@ namespace S_project
         #endregion
 
         #region Working with Notifications
-        private void AddNotificationsRule(HouseRule rule, int index , int textIndex)
+        private void AddNotificationsRule(HouseRule rule, int index, int textIndex)
         {
             // creates labels and buttons to display
             Label ruleLabel = new Label();
@@ -413,7 +414,7 @@ namespace S_project
         }
 
         public void RulesUpdateTick(bool showUpdate = true)
-        {            
+        {
             if (mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 2)
             {
                 pnlMandatoryRules.SuspendLayout();
@@ -427,7 +428,7 @@ namespace S_project
             }
 
             //HouseRules hr = server.GetHouseRules(student.HouseNumber);
-            if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4 )
+            if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4)
             {
                 pnlNotifications.Controls.Clear();
                 pnlNotifications.SuspendLayout();
@@ -527,7 +528,7 @@ namespace S_project
 
             //ChatHistory ch = server.GetMessages(student.HouseNumber);
             if (_messages.AllMessages.Count != panelChat.Controls.Count)// ||
-                //ch.AllMessages.Count != panelChat.Controls.Count)
+                                                                        //ch.AllMessages.Count != panelChat.Controls.Count)
             {
                 for (int i = panelChat.Controls.Count; i < _messages.AllMessages.Count; i++)
                 {
@@ -535,7 +536,7 @@ namespace S_project
                 }
                 panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
             }
-            
+
         }
         #endregion
 
@@ -602,8 +603,8 @@ namespace S_project
             panel5.ResumeLayout();
             /*Thread.Sleep(500);
             */
-        }   
-        
+        }
+
         #endregion
 
         #region Chat
@@ -686,10 +687,7 @@ namespace S_project
             DialogResult result = MessageBox.Show("Are you sure?", "Password change", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
-                string newPasswordText = encrypter.Encrypt(tbNewPassword.Text, "passPhrase");
-                string oldPasswordText = tbCurrentPassword.Text;
-                
-                bool changed = server.UpdatePassword(student.ID, newPasswordText, oldPasswordText, student.HouseNumber);
+                bool changed = server.UpdatePassword(student.ID, tbNewPassword.Text, tbCurrentPassword.Text, student.HouseNumber);
                 if (!changed)
                 {
                     MessageBox.Show("Invalid Data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -707,17 +705,41 @@ namespace S_project
         #region Temperature
         private void updateTemperature()
         {
-            try
+            Task.Run(() =>
             {
-                Port1.Open();
                 while (true)
                 {
-                    string temperature;
-                    temperature = Port1.ReadLine();
-                    temperatureBox.Invoke(new Action(() => temperatureBox.Text = $"The tempeature is: {temperature} ℃"));
+                    Thread.Sleep(10000);
+
+                    foreach (string port in SerialPort.GetPortNames())
+                    {
+                        try
+                        {
+                            Port1.PortName = port;
+                            Port1.Open();
+                            Port1.ReadTimeout = 100;
+                            Port1.ReadLine();
+                            break;
+                        }
+                        catch { Port1.Close(); }
+                    }
+
+                    if (!Port1.IsOpen)
+                        continue;
+
+                    try
+                    {
+                        //Port1.Open();
+                        while (true)
+                        {
+                            string temperature;
+                            temperature = Port1.ReadLine();
+                            temperatureBox.Invoke(new Action(() => temperatureBox.Text = $"The tempeature is: {temperature.Replace("\r", "")} ℃"));
+                        }
+                    }
+                    catch { continue; }
                 }
-            }
-            catch { }
+            });
         }
         #endregion
     }

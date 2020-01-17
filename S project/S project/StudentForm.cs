@@ -31,6 +31,9 @@ namespace S_project
         Complaints complaints = new Complaints();
         UdpClient udpClient = new UdpClient();
 
+
+        // Constructor to make the student form connect to the server
+        // Sees if the server sends "updated", if so: updates
         public StudentForm(ServerConnection server, UserInfo student)
         {
             InitializeComponent();
@@ -131,6 +134,7 @@ namespace S_project
             }
         }
 
+        //Logout method
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
@@ -138,7 +142,8 @@ namespace S_project
             Port1.Close();
             this.Close();
         }
-
+        
+        //Click on the logout button
         private void PctbxBack_Click(object sender, EventArgs e)
         {
             PictureBox button = (PictureBox)sender;
@@ -146,7 +151,8 @@ namespace S_project
 
             GoBackToLogin();
         }
-
+        
+        //If you close form it will close the whole application
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (pctbxBack.Enabled)
@@ -156,6 +162,7 @@ namespace S_project
         #endregion
 
         #region Working with Mandatory Rules
+        //Adds new mandatory rule
         private void AddMandatoryRule(MandatoryRule rule, int index)
         {
             // creates new labels
@@ -168,7 +175,8 @@ namespace S_project
 
             AddMandatoryRuleRow(ruleNumber, ruleLabel);
         }
-
+        
+        //Adds new mandatory rule row in coresponding table layout
         public void AddMandatoryRuleRow(Label ruleNumber, Label ruleLabel)
         {
             int newRow = pnlMandatoryRules.RowCount + 1;
@@ -181,6 +189,7 @@ namespace S_project
         #endregion
 
         #region Working with Notifications
+        //Adds notification that a new rule is proposed
         private void AddNotificationsRule(HouseRule rule, int index, int textIndex)
         {
             // creates labels and buttons to display
@@ -203,6 +212,7 @@ namespace S_project
             AddNotificationsRuleRow(ruleNumber, ruleLabel, approve, disapprove);
         }
 
+        //Adds new notification row in coresponding table layout
         public void AddNotificationsRuleRow(Label ruleNumber, Label ruleLabel, Button approve, Button disapprove)
         {
             int newRow = pnlNotifications.RowCount + 1;
@@ -275,6 +285,7 @@ namespace S_project
         #endregion
 
         #region Working with House Rules
+        //Adds notification that a new rule is proposed
         private void AddHouseRule(HouseRule rule, int index, int textIndex)
         {
             // creates new labels and button
@@ -299,7 +310,8 @@ namespace S_project
 
             AddHouseRuleRow(ruleNumber, ruleLabel, disapprove);
         }
-
+        
+        //Adds new house rule row in coresponding table layout
         public void AddHouseRuleRow(Label ruleNumber, Label ruleLabel, Button disapprove)
         {
             int newRow = pnlHouseRules.RowCount + 1;
@@ -342,7 +354,8 @@ namespace S_project
         {
             UpdatesTick();
         }
-
+        
+        //Checks if any complaints or rules where added
         private void UpdatesTick()
         {
             //If a rule has been added to the textbox in the Rule Form and 
@@ -417,9 +430,11 @@ namespace S_project
                 }
             }
         }
-
+        
+        //Updates information about all rules in the form
         public void RulesUpdateTick(bool showUpdate = true)
         {
+            //Chacks mandatory rules
             if (mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 2)
             {
                 pnlMandatoryRules.SuspendLayout();
@@ -432,6 +447,7 @@ namespace S_project
                 pnlMandatoryRules.ResumeLayout();
             }
 
+            //Checks house rules
             if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4)
             {
                 pnlNotifications.Controls.Clear();
@@ -460,7 +476,7 @@ namespace S_project
             }
 
             HouseRules hr = houseRules.Clone();
-
+            
             for (int i = 0; i < hr.AllRules.Count; i++)
             {
                 int numberOfApprovals = 0;
@@ -562,13 +578,15 @@ namespace S_project
                 }
             }
         }
-
+        
+        //Updates schedule if it is selected
         private void tabCtrlAdmin_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabCtrlAdmin.SelectedIndex == 0)
                 ScheduleUpdate();
         }
-
+        
+        //Update schedule with new data
         public void ScheduleUpdate()
         {
             schedules.Clear();
@@ -585,7 +603,7 @@ namespace S_project
                     schedules.Add(currentScheduleItem);
                 }
             }
-
+            
             SortArray();
 
             for (int i = 0; i < schedules.Count; i++)
@@ -604,6 +622,7 @@ namespace S_project
         #endregion
 
         #region Chat
+        //Adds new message to the chat
         private void AddMessages(ChatMessage msg)
         {
             ucChatMessage chatMessage = new ucChatMessage(msg.MessageText, $"{msg.FiledDate}", student.StudentsInfo[msg.FiledBy]);
@@ -615,7 +634,8 @@ namespace S_project
             panelChat.Controls.Add(chatMessage);
             panelChat.Controls.SetChildIndex(chatMessage, 0);
         }
-
+        
+        //Sends new message
         private void btSend_Click(object sender, EventArgs e)
         {
             if (textChat.Text != "")
@@ -638,7 +658,8 @@ namespace S_project
                 MessageBox.Show("Please enter a valid message");
             }
         }
-
+        
+        //If "Enter" is pressed message will be sent
         private void textChat_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)13)
@@ -674,7 +695,8 @@ namespace S_project
         {
             tbNewPassword.PasswordChar = '*';
         }
-
+        
+        //Sends new password to the server
         private void button2_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
@@ -699,6 +721,7 @@ namespace S_project
         #endregion
 
         #region Temperature
+        //Runs in the background and updates temperature, if Arduino is available
         private void updateTemperature()
         {
             Task.Run(() =>
@@ -706,7 +729,8 @@ namespace S_project
                 while (true)
                 {
                     Thread.Sleep(10000);
-
+                    
+                    //Gets all available ports on the computer and tries to connect to it
                     foreach (string port in SerialPort.GetPortNames())
                     {
                         try

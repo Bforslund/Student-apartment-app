@@ -32,7 +32,9 @@ namespace S_project
             this.user = user;
             cbAnon.Checked = false;
         }
-
+        
+        
+        //Adds a complaint and sends it to the server
         private void BtnAddComplaint_Click(object sender, EventArgs e)
         {
             if(cbxRuleBroken.SelectedItem != null)

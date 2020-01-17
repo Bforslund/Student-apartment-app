@@ -134,7 +134,6 @@ namespace S_project
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
-            //udpClient.Close();
             loginForm.Show();
             Port1.Close();
             this.Close();
@@ -178,8 +177,6 @@ namespace S_project
             pnlMandatoryRules.RowCount = newRow;
             pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow);
             pnlMandatoryRules.Controls.Add(ruleLabel, 1, newRow);
-
-            //pnlMandatoryRules.Update(); // update the screen, method already exists
         }
         #endregion
 
@@ -243,11 +240,11 @@ namespace S_project
                 disapprove.BackColor = Color.White;
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = true;
 
-                //server.Wait(25);
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();
             });
+
             //clicking the disapprove button disables it and changing the approval of the 
             //current student
             disapprove.Click += new EventHandler((s, ea) =>
@@ -263,7 +260,6 @@ namespace S_project
                 if (houseRules.AllRules[index].StudentsApproval.Values.All(x => x == false))
                     houseRules.AllRules.RemoveAt(index);
 
-                //server.Wait(25);
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();
@@ -275,8 +271,6 @@ namespace S_project
             pnlNotifications.Controls.Add(ruleLabel, 1, newRow);
             pnlNotifications.Controls.Add(approve, 2, newRow);
             pnlNotifications.Controls.Add(disapprove, 3, newRow);
-
-            //pnlNotifications.Update(); // update the screen, method already exists
         }
         #endregion
 
@@ -319,6 +313,7 @@ namespace S_project
             {
                 disapprove.BackColor = Color.White;
             }
+
             //clicking the disapprove button disables it and changing the approval of the 
             //current student
             disapprove.Click += new EventHandler((s, ea) =>
@@ -329,7 +324,6 @@ namespace S_project
                 disapprove.BackColor = Color.FromArgb(210, 210, 210);
                 houseRules.AllRules[index].StudentsApproval[this.student.ID] = false;
 
-                //server.Wait(25);
                 server.UpdateHouseRules(houseRules);
                 RulesUpdateTick();
                 UpdatesTick();
@@ -340,8 +334,6 @@ namespace S_project
             pnlHouseRules.Controls.Add(ruleNumber, 0, newRow);
             pnlHouseRules.Controls.Add(ruleLabel, 1, newRow);
             pnlHouseRules.Controls.Add(disapprove, 3, newRow);
-
-            //pnlHouseRules.Update(); // update the screen, method already exists
         }
         #endregion
 
@@ -440,7 +432,6 @@ namespace S_project
                 pnlMandatoryRules.ResumeLayout();
             }
 
-            //HouseRules hr = server.GetHouseRules(student.HouseNumber);
             if (houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3 + pnlNotifications.Controls.Count / 4)
             {
                 pnlNotifications.Controls.Clear();
@@ -539,9 +530,7 @@ namespace S_project
                 }
             }
 
-            //ChatHistory ch = server.GetMessages(student.HouseNumber);
-            if (_messages.AllMessages.Count != panelChat.Controls.Count)// ||
-                                                                        //ch.AllMessages.Count != panelChat.Controls.Count)
+            if (_messages.AllMessages.Count != panelChat.Controls.Count)
             {
                 for (int i = panelChat.Controls.Count; i < _messages.AllMessages.Count; i++)
                 {
@@ -610,8 +599,6 @@ namespace S_project
             }
 
             panel5.ResumeLayout();
-            /*Thread.Sleep(500);
-            */
         }
 
         #endregion
@@ -636,7 +623,7 @@ namespace S_project
                 ChatMessage NewMsg = new ChatMessage();
 
                 NewMsg.MessageText = textChat.Text;
-                NewMsg.FiledBy = student.ID; // ???? XD
+                NewMsg.FiledBy = student.ID;
                 NewMsg.FiledDate = DateTime.Now;
                 _messages.AllMessages.Add(NewMsg);
 
@@ -738,7 +725,6 @@ namespace S_project
 
                     try
                     {
-                        //Port1.Open();
                         while (true)
                         {
                             string temperature;

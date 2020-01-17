@@ -34,6 +34,8 @@ namespace S_project
             {
                 udpClient.Client.Bind(new IPEndPoint(0, server.GetAvailableUdpPort()));
 
+                int attempts = 0;
+                string message = "";
                 while (true)
                 {
                     Thread.Sleep(200);
@@ -41,14 +43,19 @@ namespace S_project
                     int count = udpClient.Client.Available;
                     byte[] msg = new byte[count];
 
-                    if (msg.Length == 0)
+                    if(msg.Length == 0 && attempts < 100)
+                        continue;
+                    else if (attempts >= 100) { }
+                    else if (msg.Length == 0)
                         continue;
 
-                    udpClient.Client.Receive(msg);
+                    if (attempts < 100)
+                    {
+                        udpClient.Client.Receive(msg);
+                        message = Encoding.Default.GetString(msg, 0, msg.Length);
+                    }
 
-                    string message = Encoding.Default.GetString(msg, 0, msg.Length);
-
-                    if (message.Contains("Updated"))
+                    if (message.Contains("Updated") || attempts >= 100)
                     {
                         _user.StudentsInfo = server.GetUsersInfo(_user.HouseNumber);
                         _mandatoryRules = server.GetMandatoryRules(_user.HouseNumber);
@@ -56,6 +63,8 @@ namespace S_project
                         _complaints = server.GetComplaints(_user.HouseNumber);
                         _messages = server.GetMessages(_user.HouseNumber);
                     };
+
+                    attempts = 0;
                 }
             });
 
@@ -73,7 +82,6 @@ namespace S_project
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
-            //udpClient.Close();
             loginForm.Show();
             this.Close();
         }
@@ -107,13 +115,11 @@ namespace S_project
         {
             if (_mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 3)
             {
-                //_mandatoryRules = mr;
                 UpdateMandatoryRulesLayout(_mandatoryRules, showUpdate);
             }
 
             if (_houseRules.AllRules.Count != pnlHouseRules.Controls.Count / 3)
             {
-                //_houseRules = hr;
                 UpdateHouseRulesLayout(_houseRules, showUpdate);
             }
 
@@ -228,9 +234,6 @@ namespace S_project
             pnlMandatoryRules.Controls.Add(ruleNumber, 0, newRow); // Add the rulenumber label to coloum 0, and on the new row
             pnlMandatoryRules.Controls.Add(ruleLabel, 1, newRow);
             pnlMandatoryRules.Controls.Add(removeRuleButton, 2, newRow);
-
-            //#####  Commented line below to speed up updating and remove flickering 
-            //pnlMandatoryRules.Update(); // update the screen, method already exists
         }
 
         private void RemoveMandatoryRuleButton_Click(object sender, EventArgs e)
@@ -261,13 +264,11 @@ namespace S_project
             box.Size = new Size(30, 30);
             box.Dock = DockStyle.Top;
             int newRow = tbComplaints.RowCount + 1;
-            //tbComplaints.Controls.Add(box, 1, newRow);
             pnlComplaints.Controls.Add(box);
         }       
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
         {
-            //tbComplaints.Controls.Clear();
             pnlComplaints.Controls.Clear();
             _complaints.AllComplaints.Clear();
 
@@ -278,19 +279,8 @@ namespace S_project
         {
             List<CheckBox> boxes = pnlComplaints.Controls.OfType<CheckBox>().ToList(); // it finds all the controls that are checkbox, 
            
-            /*the results are put in the list. So the list for sure only contains checkboxes (we dont know since controls could be anything)
-            for (int i = 0; i < boxes.Count; i++)
-            {
-                if (boxes[i].Checked)
-                {
-                    boxes[i].Dispose();
-                    _complaints.AllComplaints.RemoveAt(i);
-                }
-            }*/
-
             foreach (var box in boxes.FindAll(x => x.Checked))
             {
-                //boxes[boxes.IndexOf(box)].Dispose();
                 _complaints.AllComplaints.RemoveAt(boxes.IndexOf(box));
                 boxes.Remove(box);
             }
@@ -315,7 +305,7 @@ namespace S_project
                 ChatMessage NewMsg = new ChatMessage(); 
 
                 NewMsg.MessageText = textChat.Text;
-                NewMsg.FiledBy = _user.ID; // ???? XD
+                NewMsg.FiledBy = _user.ID;
                 NewMsg.FiledDate = DateTime.Now;
                 _messages.AllMessages.Add(NewMsg);
 

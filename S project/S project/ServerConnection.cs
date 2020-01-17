@@ -315,7 +315,6 @@ namespace S_project
         //Reads server responce
         private string ReadFromServer()
         {
-            //Third attempt
             string answer = "";
             int dataLength;
             int bytesRead = 0;

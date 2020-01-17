@@ -508,10 +508,6 @@ namespace Server
 
             Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data/house-{userCheck.HouseNumber}/students.json"));
 
-            //string pass = encrypter.Decrypt(userCheck.Password, "passPhrase");
-
-            //string pass1 = encrypter.Encrypt(userCheck.Password, "passPhrase");
-
             //For each user check if given credentials corespond to anyone
             foreach (var user in users.AllUsers)
             {

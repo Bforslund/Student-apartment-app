@@ -106,7 +106,7 @@ namespace S_project
                     }
                 }
 
-                cbxName.Items[0] = "Unkown";
+                cbxName.Items[0] = "Unknown";
                 IDs[0] = -1;
             }
         }

@@ -28,6 +28,7 @@ namespace S_project
         
         
         // Constructor to make the adminform connect to the server
+        // Sees if the server sends "updated", if so: updates
         public AdminForm(ServerConnection server, int houseNumber, UserInfo user)
         {
             InitializeComponent();

@@ -16,6 +16,8 @@ namespace S_project
         private ServerConnection _server;
         private int _houseNumber;
         private MandatoryRules _rules;
+        
+        // Adds a rule to the mandatory rules (upload to the server)
 
         public AddRuleAdmin(ServerConnection server, int housenumber, MandatoryRules rules)
         {
@@ -24,7 +26,8 @@ namespace S_project
             _rules = rules;
             InitializeComponent();
         }
-
+        
+        // Adds a rule to the mandatory rules
         private void BtnAddRule_Click(object sender, EventArgs e)
         {
             if(tbxRuleName.Text != "")

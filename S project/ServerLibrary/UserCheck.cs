@@ -4,6 +4,7 @@ using System.Text;
 
 namespace ServerLibrary
 {
+    //Class used in checking users on the server side
     public class UserCheck
     {
         public string Login { get; set; }

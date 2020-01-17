@@ -16,14 +16,17 @@ namespace S_project
         public static string ruleBroken = "";
         public static int IDOfRuleBreaker = 0;
         public static int IDOfComplainer = 0;
-        HouseRules houseRules;
-        MandatoryRules mandatoryRules;
-        UserInfo user;
-        List<int> IDs = new List<int>();
+        private StudentForm parent;
+        private HouseRules houseRules;
+        private MandatoryRules mandatoryRules;
+        private UserInfo user;
+        private List<int> IDs = new List<int>();
 
-        public AddComplainStudent(HouseRules houseRules, MandatoryRules mandatoryRules, UserInfo user)
+        public AddComplainStudent(HouseRules houseRules, MandatoryRules mandatoryRules, UserInfo user, Form form)
         {
             InitializeComponent();
+
+            this.parent = (StudentForm)form;
             this.houseRules = houseRules;
             this.mandatoryRules = mandatoryRules;
             this.user = user;
@@ -65,7 +68,7 @@ namespace S_project
         {
             int approvedRules = 0;
 
-            foreach (var rule in this.houseRules.AllRules)
+            foreach (var rule in parent.houseRules.AllRules)
             {
                 if (rule.ApprovalState == true)
                 {
@@ -73,15 +76,15 @@ namespace S_project
                 }
             }
 
-            if (cbxRuleBroken.Items.Count != this.mandatoryRules.AllRules.Count + approvedRules)
+            if (cbxRuleBroken.Items.Count != parent.mandatoryRules.AllRules.Count + approvedRules)
             {
                 cbxRuleBroken.Items.Clear();
 
-                foreach (var rule in this.mandatoryRules.AllRules)
+                foreach (var rule in parent.mandatoryRules.AllRules)
                 {
                     cbxRuleBroken.Items.Add(rule.RuleText);
                 }
-                foreach (var rule in this.houseRules.AllRules)
+                foreach (var rule in parent.houseRules.AllRules)
                 {
                     if (rule.ApprovalState == true)
                     {

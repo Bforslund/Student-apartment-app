@@ -360,16 +360,24 @@ namespace S_project
             string password = tbPassword.Text;
             string name = tbName.Text;
             string lastName = tbLastName.Text;
-            int room = (int)nudRoom.Value;
+            int room = (int)nudRoom.Value;            
 
             ServerUser newUser = new ServerUser(UserType.TENANT, login, password, name, lastName, _houseNumber, room);
 
             bool created = _server.CreateNewUser(newUser);
 
             if (created)
+            {
                 MessageBox.Show("New user created successfully", "User created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                tbLogin.Text = "";
+                tbPassword.Text = "";
+                tbName.Text = "";
+                tbLastName.Text = "";
+                nudRoom.Value = 0;
+            }
             else
-                MessageBox.Show("User with this login already exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("User with this login already exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);            
         }
     }
 }

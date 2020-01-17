@@ -19,7 +19,8 @@ namespace S_project
     public partial class StudentForm : Form
     {
         private UserInfo student;
-        private MandatoryRules mandatoryRules;
+        public MandatoryRules mandatoryRules;
+        public HouseRules houseRules = new HouseRules();
         private ServerConnection server;
         private ChatHistory _messages;
 
@@ -27,7 +28,6 @@ namespace S_project
         AddComplainStudent complaintForm = null;
         AddRuleStudent ruleForm = null;
         List<Schedule> schedules = new List<Schedule>();
-        public HouseRules houseRules = new HouseRules();
         Complaints complaints = new Complaints();
         UdpClient udpClient = new UdpClient();
 
@@ -43,22 +43,28 @@ namespace S_project
             {
                 udpClient.Client.Bind(new IPEndPoint(0, server.GetAvailableUdpPort()));
 
+                int attempts = 0;
+                string message = "";
                 while (true)
                 {
                     Thread.Sleep(100);
-
-                    //int count = udpClient.Client.Available;
+                    attempts++;
 
                     byte[] msg = new byte[udpClient.Client.Available];
 
-                    if (msg.Length == 0)
+                    if (msg.Length == 0 && attempts < 100)
+                        continue;
+                    else if (attempts >= 100) { }
+                    else if (msg.Length == 0)
                         continue;
 
-                    udpClient.Client.Receive(msg);
+                    if (attempts < 100)
+                    {
+                        udpClient.Client.Receive(msg);
+                        message = Encoding.Default.GetString(msg, 0, msg.Length);
+                    }
 
-                    string message = Encoding.Default.GetString(msg, 0, msg.Length);
-
-                    if (message.Contains("Updated"))
+                    if (message.Contains("Updated") || attempts >= 100)
                     {
                         student.StudentsInfo = server.GetUsersInfo(student.HouseNumber);
                         mandatoryRules = server.GetMandatoryRules(student.HouseNumber);
@@ -82,6 +88,8 @@ namespace S_project
                             ScheduleUpdate();
                         }
                     };
+
+                    attempts = 0;
                 }
             });
 
@@ -108,7 +116,7 @@ namespace S_project
             //If a Complaint Form does not already exist, create one
             if (complaintForm == null)
             {
-                complaintForm = new AddComplainStudent(houseRules, mandatoryRules, student);
+                complaintForm = new AddComplainStudent(houseRules, mandatoryRules, student, this);
                 complaintForm.Show();
             }
         }
@@ -581,14 +589,12 @@ namespace S_project
 
             for (int i = 0; i < houseRules.AllRules.Count; i++)
             {
-                Schedule currentScheduleItem = new Schedule(student, i, houseRules, this);
+                if (houseRules.AllRules[i].ApprovalState)
+                {
+                    Schedule currentScheduleItem = new Schedule(student, i, houseRules, this);
 
-                schedules.Add(currentScheduleItem);
-
-                //if (currentScheduleItem.GetID() != student.ID)
-                //{                    
-                //    currentScheduleItem.DisableDoneBox();
-                //}
+                    schedules.Add(currentScheduleItem);
+                }
             }
 
             SortArray();

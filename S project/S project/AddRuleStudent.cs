@@ -30,8 +30,7 @@ namespace S_project
                     tbxRuleName.Clear();
                     repeatRule = Convert.ToInt32(numericRepeatRule.Value);
                     // send rule to house rules on admin form.
-                    Dispose();
-                   
+                    Dispose();                   
                 }
                 else
                 {

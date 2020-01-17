@@ -10,7 +10,7 @@ namespace ServerLibrary
         public int ID { get; set; }
         public string RuleText { get; set; }
         public List<int> OrderOfStudents { get; set; }
-        public int CurrentStudent { get; set; }
+        public int CurrentStudentId { get; set; }
         public DateTime LastCompleted { get; set; }
         public int Interval { get; set; }
         public bool OnlyThisWeek { get; set; }

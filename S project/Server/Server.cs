@@ -383,6 +383,7 @@ namespace Server
                         else
                         {
                             users.AllUsers.Add(newUser);
+                            users.TotalStudentNumber++;
 
                             string json = JsonConvert.SerializeObject(users, Formatting.Indented);
                             File.WriteAllText(@$"data/house-{newUser.HouseNumber}/students.json", json);

@@ -27,7 +27,7 @@ namespace S_project
         AddComplainStudent complaintForm = null;
         AddRuleStudent ruleForm = null;
         List<Schedule> schedules = new List<Schedule>();
-        HouseRules houseRules = new HouseRules();
+        public HouseRules houseRules = new HouseRules();
         Complaints complaints = new Complaints();
         UdpClient udpClient = new UdpClient();
 
@@ -72,12 +72,14 @@ namespace S_project
                             {
                                 RulesUpdateTick();
                                 UpdatesTick();
+                                ScheduleUpdate();
                             });
                         }
                         else
                         {
                             RulesUpdateTick();
                             UpdatesTick();
+                            ScheduleUpdate();
                         }
                     };
                 }
@@ -363,16 +365,16 @@ namespace S_project
                     //The order of students is kept sorted by their ID
                     houseRule.OrderOfStudents.Add(i + 1);
                 }
-                houseRule.OrderOfStudents.OrderBy(x => new Random().Next());
 
-                houseRule.CurrentStudent = houseRule.OrderOfStudents[0];
+                houseRule.CurrentStudentId = houseRule.OrderOfStudents[0];
                 houseRule.StudentsApproval[student.ID] = true;
+
                 houseRules.AllRules.Add(houseRule);
+
                 AddRuleStudent.ruleName = "";
                 AddRuleStudent.repeatRule = 0;
 
                 RulesUpdateTick();
-                //server.Wait(25);
                 server.UpdateHouseRules(houseRules);
             }
 
@@ -392,8 +394,8 @@ namespace S_project
                 AddComplainStudent.IDOfRuleBreaker = 0;
                 AddComplainStudent.IDOfComplainer = 0;
 
+                //Updates form
                 RulesUpdateTick();
-                //server.Wait(25);
                 server.UpdateComplaints(complaints);
             }
 
@@ -550,15 +552,15 @@ namespace S_project
         {
             Schedule temp;
 
-            for (int j = 0; j <= schedules.Count - 2; j++)
+            for (int i = 0; i < schedules.Count - 1; i++)
             {
-                for (int i = 0; i <= schedules.Count - 2; i++)
+                for (int j = 0; j < schedules.Count - i - 1; j++)
                 {
-                    if (schedules[i].GetDays() > schedules[i + 1].GetDays())
+                    if (schedules[j].GetDays() < schedules[j + 1].GetDays())
                     {
-                        temp = schedules[i + 1];
-                        schedules[i + 1] = schedules[i];
-                        schedules[i] = temp;
+                        temp = schedules[j];
+                        schedules[j] = schedules[j + 1];
+                        schedules[j + 1] = temp;
                     }
                 }
             }
@@ -576,16 +578,17 @@ namespace S_project
             panel5.Controls.Clear();
 
             panel5.SuspendLayout();
+
             for (int i = 0; i < houseRules.AllRules.Count; i++)
             {
                 Schedule currentScheduleItem = new Schedule(student, i, houseRules, this);
 
                 schedules.Add(currentScheduleItem);
 
-                if (currentScheduleItem.GetID() != student.ID)
-                {                    
-                    currentScheduleItem.DisableDoneBox();
-                }
+                //if (currentScheduleItem.GetID() != student.ID)
+                //{                    
+                //    currentScheduleItem.DisableDoneBox();
+                //}
             }
 
             SortArray();
@@ -593,8 +596,6 @@ namespace S_project
             for (int i = 0; i < schedules.Count; i++)
             {
                 schedules[i].Name = "Task";
-                //                    schedules[i].Size = new System.Drawing.Size(panel5.Width - 10, 20);
-                //                    schedules[i].Location = new System.Drawing.Point(10, panel5.Top - schedules.Count * schedules[0].);
                 schedules[i].TabIndex = 0;
                 schedules[i].Dock = DockStyle.Top;
                 schedules[i].PerformAutoScale();

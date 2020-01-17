@@ -10,42 +10,53 @@ namespace S_project
     class ScheduleItem
     {
         private DateTime dateTimeBuffer;
-        private String name;
+        private string name;
         private int ID;
         private int index;
-        TimeSpan span;
+        private TimeSpan span;
 
-        HouseRules houseRules;
-        ServerConnection serverConnection = new ServerConnection();
+        private HouseRules houseRules;
+        private HouseRule houseRule;
+        private ServerConnection serverConnection = new ServerConnection();
 
         // Constructor that sets some info on the object correct in the instance variables
         public ScheduleItem(UserInfo user, int index, HouseRules houseRules)
         {
             this.houseRules = houseRules;
+            this.houseRule = houseRules.AllRules[index];
+            this.dateTimeBuffer = this.houseRule.LastCompleted;
+
             this.index = index;
-            int timesUntilNextAppointment = 0;
-            for( int i = 1; i <= houseRules.AllRules[index].OrderOfStudents.Count; i++ )
+            int timesUntilNextAppointment;
+
+            if (houseRules.AllRules[index].LastCompleted == DateTime.Today && user.ID != houseRules.AllRules[index].CurrentStudentId)
             {
-                int p = houseRules.AllRules[index].CurrentStudent;
-                if (user.ID == houseRules.AllRules[index].CurrentStudent)
-                {
-                    timesUntilNextAppointment = i;
-                    break;
-                }
-                p++;
-                if (p == houseRules.AllRules[index].OrderOfStudents.Count)
-                {
-                    p = 0;
-                }
+                timesUntilNextAppointment = 0;
             }
-            this.ID = houseRules.AllRules[this.index].OrderOfStudents[houseRules.AllRules[this.index].CurrentStudent];
-            span = DateTime.Today.Subtract(houseRules.AllRules[index].LastCompleted.AddDays(timesUntilNextAppointment*houseRules.AllRules[index].Interval));
+            else if (user.ID == houseRules.AllRules[index].CurrentStudentId)
+            {
+                timesUntilNextAppointment = 1;
+            }
+            else
+            {
+                int current = houseRule.CurrentStudentId;
+
+                timesUntilNextAppointment = Math.Abs(user.ID - current);
+
+                if (timesUntilNextAppointment < 0)
+                    timesUntilNextAppointment += houseRule.OrderOfStudents.Count;
+
+                timesUntilNextAppointment += 1;
+            }
+
+            this.ID = houseRule.CurrentStudentId;
+            span = houseRule.LastCompleted.AddDays(timesUntilNextAppointment * houseRule.Interval).Subtract(DateTime.Today);
         }
         
         // Gets the Schedule Item info
-        public String GetRuleInfo()
+        public string GetRuleInfo()
         {
-            return houseRules.AllRules[index].RuleText;
+            return houseRule.RuleText;
         }
         
         // Gets the amount of days still left until the task needs to be done
@@ -63,7 +74,6 @@ namespace S_project
         // Checks if the task is done today
         public bool GetDone()
         {
-
             if (span.Days < 1)
             {
                 return true;
@@ -72,35 +82,37 @@ namespace S_project
             {
                 return false;
             }
-
         }
 
         // Sets the task as being done
-        public void SetDone()
+        public void SetDone(HouseRules hr)
         {           
-            dateTimeBuffer = houseRules.AllRules[index].LastCompleted;
-            houseRules.AllRules[index].LastCompleted = DateTime.Today;
-            houseRules.AllRules[index].CurrentStudent += 1;
-            if ( houseRules.AllRules[index].CurrentStudent == houseRules.AllRules[index].OrderOfStudents.Count())
+            dateTimeBuffer = houseRule.LastCompleted;
+            houseRule.LastCompleted = DateTime.Today;
+            houseRule.CurrentStudentId += 1;
+
+            if ( houseRule.CurrentStudentId > houseRule.OrderOfStudents.Count())
             {
-                houseRules.AllRules[index].CurrentStudent = 0;
+                houseRule.CurrentStudentId = houseRule.OrderOfStudents[0];
             }
 
-            
-            serverConnection.UpdateHouseRules(houseRules);
+            hr.AllRules[index] = this.houseRule;
+            serverConnection.UpdateHouseRules(hr);
         }
 
         // Sets the task as being undone (for mistake purposes)
-        public void SetUnDone()
+        public void SetUnDone(HouseRules hr)
         {
-            houseRules.AllRules[index].LastCompleted = dateTimeBuffer;
-            houseRules.AllRules[index].CurrentStudent -= 1;
-            if (houseRules.AllRules[index].CurrentStudent < 0)
+            houseRule.LastCompleted = dateTimeBuffer.Subtract(TimeSpan.FromDays(houseRule.Interval));
+            houseRule.CurrentStudentId -= 1;
+
+            if (houseRule.CurrentStudentId < 1)
             {
-                houseRules.AllRules[index].CurrentStudent = houseRules.AllRules[index].OrderOfStudents.Count() - 1;
+                houseRule.CurrentStudentId = houseRule.OrderOfStudents.Count() - 1;
             }
-            //houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent] = houseRules.AllRules[index].OrderOfStudents[houseRules.AllRules[index].CurrentStudent - 1];
-            serverConnection.UpdateHouseRules(houseRules);
+
+            hr.AllRules[index] = this.houseRule;
+            serverConnection.UpdateHouseRules(hr);
         }
     }
 }

@@ -75,6 +75,8 @@ namespace S_project
 
             if (cbxRuleBroken.Items.Count != this.mandatoryRules.AllRules.Count + approvedRules)
             {
+                cbxRuleBroken.Items.Clear();
+
                 foreach (var rule in this.mandatoryRules.AllRules)
                 {
                     cbxRuleBroken.Items.Add(rule.RuleText);

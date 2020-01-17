@@ -15,15 +15,37 @@ namespace S_project
     {
         private ScheduleItem scheduleItem;
         private StudentForm parent;
-
+        private bool change = false;
         // Constructor To Bind the backend part to the UserControl
         public Schedule(UserInfo user, int index, HouseRules houseRules, Form parent)
         {
-            this.parent = (StudentForm)parent;
-            scheduleItem = new ScheduleItem(user, index, houseRules);
             InitializeComponent();
 
-            this.BackColor = Color.LightBlue;
+            this.parent = (StudentForm)parent;
+            scheduleItem = new ScheduleItem(user, index, houseRules);
+
+            change = false;
+
+            if (houseRules.AllRules[index].LastCompleted == DateTime.Today && user.ID != houseRules.AllRules[index].CurrentStudentId)
+            {
+                DoneBox.Enabled = true;
+                DoneBox.Checked = true;
+                this.BackColor = Color.LightGreen;
+            }
+            else if (GetDays() == 0)
+            {
+                DoneBox.Enabled = true;
+                DoneBox.Checked = false;
+                this.BackColor = Color.LightBlue;
+            }
+            else
+            {
+                DoneBox.Enabled = false;
+                DoneBox.Checked = false;
+                this.BackColor = Color.LightGray;
+            }
+
+            change = true;
         }
         
         // Gets the days
@@ -42,25 +64,40 @@ namespace S_project
         private void Schedule_Load(object sender, EventArgs e)
         {
             this.Width = this.Parent.Width;
-            label1.Text = "In " + scheduleItem.GetDays().ToString("D") + " Days";
+            int waitDays = scheduleItem.GetDays();
+
+            switch (waitDays)
+            {
+                case 0:
+                    label1.Text = "Today";
+                    break;
+                case 1:
+                    label1.Text = "Tomorrow";
+                    break;
+                default:
+                    label1.Text = $"In {waitDays} Days";
+                    break;
+            }
+
             label2.Text = scheduleItem.GetRuleInfo();
         }
 
         // Changes if the task is done or not
         private void DoneBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (DoneBox.Checked)
+            if (change)
             {
-                scheduleItem.SetDone();
-                this.BackColor = Color.LightGreen;
-            } 
-            else
-            {
-                scheduleItem.SetUnDone();
-                this.BackColor = Color.LightGray;
+                if (DoneBox.Checked)
+                {
+                    scheduleItem.SetDone(parent.houseRules);
+                    this.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    scheduleItem.SetUnDone(parent.houseRules);
+                    this.BackColor = Color.LightBlue;
+                }
             }
-
-            parent.ScheduleUpdate();
         }
 
         public void DisableDoneBox()

@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using ServerLibrary;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace S_project
 {
@@ -204,7 +205,16 @@ namespace S_project
 
             //Connects to TCP server using acquired IP
             tcp = new TcpClient();
-            tcp.Connect(remoteIp.Address, 7800);
+
+            try
+            {
+                tcp.Connect(remoteIp.Address, 7800);
+            }
+            catch
+            {
+                MessageBox.Show("Connection timeout", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             //Sends package to the server
             byte[] Buffer;

@@ -12,6 +12,7 @@ namespace S_project
 {
     public partial class ucChatMessage : UserControl
     {
+        //Constructor fills in received information in the user control
         public ucChatMessage(string message, string time, string name)
         {
             InitializeComponent();
@@ -23,6 +24,7 @@ namespace S_project
             tbMessage.SelectionColor = Color.Black;
         }
 
+        //Resizes user control so that it could fit all the text
         private void rchContents_ContentsResized(object sender,
         ContentsResizedEventArgs e)
         {

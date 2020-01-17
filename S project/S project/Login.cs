@@ -19,11 +19,13 @@ namespace S_project
 
         private void bShowPass_MouseDown(object sender, MouseEventArgs e)
         {
+            //When is pressed show the password
             tbPassword.PasswordChar = '\0';
         }
 
         private void bShowPass_MouseUp(object sender, MouseEventArgs e)
         {
+            //When is released password is hidden one more time
             tbPassword.PasswordChar = '*';
         }
 
@@ -36,12 +38,15 @@ namespace S_project
 
         private void CheckUser()
         {
+            //Reads the credentials
             string login = tbLogin.Text;
             string password = tbPassword.Text;
             int houseNumber = Convert.ToInt32(cbHouseNumber.Text);
 
+            //Sends data to the server
             UserInfo u = serverConnection.CheckUser(login, password, houseNumber);
 
+            //Handles received answer from the server 
             if (u == null)
             {
                 MessageBox.Show("Invalid Data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

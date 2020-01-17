@@ -25,7 +25,9 @@ namespace S_project
         private ChatHistory _messages;
         private UserInfo _user;
         UdpClient udpClient = new UdpClient();
-
+        
+        
+        // Constructor to make the adminform connect to the server
         public AdminForm(ServerConnection server, int houseNumber, UserInfo user)
         {
             InitializeComponent();
@@ -80,13 +82,16 @@ namespace S_project
         }
 
         #region Helpers
+        
+        // Log out
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
             loginForm.Show();
             this.Close();
         }
-
+        
+        // Log out (onclick)
         private void PctbxBack_Click(object sender, EventArgs e)
         {
             PictureBox button = (PictureBox)sender;
@@ -94,14 +99,16 @@ namespace S_project
 
             GoBackToLogin();
         }
-
+        
+        // Closes the form
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (pctbxBack.Enabled)
                 Environment.Exit(0);
             pctbxBack.Enabled = true;
         }
-
+        
+        // Adds a rule to the mandatory rules
         private void BtnAddRule_Click(object sender, EventArgs e)
         {
             new AddRuleAdmin(_server, _houseNumber, _mandatoryRules).Show();
@@ -109,11 +116,14 @@ namespace S_project
         #endregion
 
         #region Timer ticks
+        
+        // Updates the online services
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
             UpdateTick();
         }
-
+        
+        // Updates the online services
         private void UpdateTick(bool showUpdate = true)
         {
             if (_mandatoryRules.AllRules.Count != pnlMandatoryRules.Controls.Count / 3)
@@ -151,6 +161,8 @@ namespace S_project
         #endregion
 
         #region Working with rules
+        
+        // Updates the MandatoryRules
         private void UpdateMandatoryRulesLayout(MandatoryRules mr, bool showUpdate)
         {
             pnlMandatoryRules.SuspendLayout();
@@ -163,7 +175,8 @@ namespace S_project
 
             pnlMandatoryRules.ResumeLayout();
         }
-
+        
+        // Updates the HouseRules
         private void UpdateHouseRulesLayout(HouseRules hr, bool showUpdate)
         {
             pnlHouseRules.SuspendLayout();
@@ -176,7 +189,8 @@ namespace S_project
 
             pnlHouseRules.ResumeLayout();
         }
-
+        
+        // Adds a House Rule
         private void AddHouseRule(HouseRule rule, int index) 
         {           
             Button removeRuleButton = new Button();
@@ -191,6 +205,7 @@ namespace S_project
             AddHouseRuleRow(ruleNumber, ruleLabel, removeRuleButton);
         }
         
+        // Adds a new Rule row in HouseRules (for adding new rules)
         public void AddHouseRuleRow(Label ruleNumber, Label ruleLabel, Button removeRuleButton) { 
             int newRow = pnlHouseRules.RowCount + 1;
 
@@ -202,7 +217,8 @@ namespace S_project
             pnlHouseRules.Controls.Add(ruleLabel, 1, newRow);
             pnlHouseRules.Controls.Add(removeRuleButton, 2, newRow);
         }
-
+        
+        // Removes a HouseRule
         private void RemoveHouseRuleButton_Click(object sender, EventArgs e)
         {           
             int index = Convert.ToInt32(((Button)sender).Tag) - 1;
@@ -211,7 +227,8 @@ namespace S_project
             UpdateHouseRulesLayout(_houseRules, true);
             _server.UpdateHouseRules(_houseRules);
         }
-
+        
+        // Adds a Mandatory Rule
         private void AddMandatoryRule(MandatoryRule rule, int index)
         {
             // creating new labels and buttons
@@ -227,7 +244,8 @@ namespace S_project
 
             AddMandatoryRuleRow(ruleNumber, ruleLabel, removeRuleButton);
         }
-
+        
+        // Adds a Row for mandatory Rules (for adding a rule)
         public void AddMandatoryRuleRow(Label ruleNumber, Label ruleLabel, Button removeRuleButton)
         {
             int newRow = pnlMandatoryRules.RowCount + 1;
@@ -240,7 +258,8 @@ namespace S_project
             pnlMandatoryRules.Controls.Add(ruleLabel, 1, newRow);
             pnlMandatoryRules.Controls.Add(removeRuleButton, 2, newRow);
         }
-
+        
+        // Remove Mandatory Rule
         private void RemoveMandatoryRuleButton_Click(object sender, EventArgs e)
         {
             int index = Convert.ToInt32(((Button)sender).Tag) - 1;
@@ -252,6 +271,8 @@ namespace S_project
         #endregion
 
         #region Working with complaints
+        
+        // Adds a complaint
         private void AddComplaint(Complaint complaint)
         {  
             CheckBox box = new CheckBox();
@@ -284,7 +305,8 @@ namespace S_project
             int newRow = tbComplaints.RowCount + 1;
             pnlComplaints.Controls.Add(box);
         }       
-
+        
+        // Removes all complaints
         private void btnRemoveAll_Click(object sender, EventArgs e)
         {
             pnlComplaints.Controls.Clear();
@@ -292,7 +314,8 @@ namespace S_project
 
             _server.UpdateComplaints(_complaints);
         }
-
+        
+        // Removes selected complaints
         private void btnRemoveSelected_Click(object sender, EventArgs e)
         {
             List<CheckBox> boxes = pnlComplaints.Controls.OfType<CheckBox>().ToList(); // it finds all the controls that are checkbox, 
@@ -308,6 +331,8 @@ namespace S_project
         #endregion
 
         #region Chat
+        
+        // Adds a message to the chat (visual)
         private void AddMessages(ChatMessage msg) 
         {
             ucChatMessage chatMessage = new ucChatMessage(msg.MessageText, $"{msg.FiledDate}", _user.StudentsInfo[msg.FiledBy]);
@@ -317,7 +342,8 @@ namespace S_project
             panelChat.Controls.Add(chatMessage);
             panelChat.Controls.SetChildIndex(chatMessage, 0);
         }
-
+        
+        // Sends a message to the chat (server)
         private void btSend_Click(object sender, EventArgs e)
         {
             if (textChat.Text != "")
@@ -340,6 +366,7 @@ namespace S_project
             }
         }
         
+        // Sends on enter press
         private void textChat_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)13)
@@ -348,24 +375,29 @@ namespace S_project
                 textChat.Text = "";
             }
         }
-
+        
+        // Scrolls when showing chat
         private void panel9_VisibleChanged(object sender, EventArgs e)
         {
             panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
         }
         #endregion
 
-        #region New user cretion
+        #region New user creation
+        
+        // Shows currently typed in new password
         private void tbNewPassword_MouseDown(object sender, MouseEventArgs e)
         {
             tbPassword.PasswordChar = '\0';
         }
-
+        
+        // Hides currently typed in new password
         private void tbNewPassword_MouseUp(object sender, MouseEventArgs e)
         {
             tbPassword.PasswordChar = '*';
         }
-
+        
+        // Creates a user
         private void bCreateUser_Click(object sender, EventArgs e)
         {
             string login = tbLogin.Text;

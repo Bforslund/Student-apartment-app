@@ -46,6 +46,7 @@ namespace S_project
             }
         }
 
+        //Asks server to create new user
         public bool CreateNewUser(ServerUser newUser)
         {
             Wait(25);
@@ -66,6 +67,7 @@ namespace S_project
             }
         }
 
+        //Gets all the users from the server
         public Dictionary<int, string> GetUsersInfo(int houseNumber)
         {
             Wait(25);
@@ -321,17 +323,20 @@ namespace S_project
             int count = 0;
             bool end = false;
             byte[] msg;
-
+            
+            //Reads byte which indicates the start of the message
             byte[] border = new byte[1];
             tcp.GetStream().Read(border, 0, 1);
 
             if (border[0] != 12) // 12 - indicates that it is a start of the message
                 return "";
 
+            //Reads number of bytes sent from the server 
             byte[] numOfBytes = new byte[4];
             tcp.GetStream().Read(numOfBytes, 0, 4);
             dataLength = BitConverter.ToInt32(numOfBytes, 0);
 
+            //In loop reads needed amount of bytes
             while (true)
             {
                 Thread.Sleep(25);
@@ -339,12 +344,14 @@ namespace S_project
                 msg = new byte[dataLength];
                 bytesRead = tcp.GetStream().Read(msg, 0, msg.Length);
 
+                //If sequence of bytes contains end indicator - leave loop
                 if (msg[bytesRead - 1] == 13)
                 {
                     msg[bytesRead - 1] = 0;
                     end = true;
                 }
-
+                
+                //Converts received bytes
                 answer += Encoding.Default.GetString(msg, 0, msg.Length);
                 answer = answer.Replace("\0", "");
 
@@ -371,6 +378,8 @@ namespace S_project
         #endregion
 
         #region Helpers
+        
+        //Returns available udp port
         public int GetAvailableUdpPort()
         {
             int port = 6000;
@@ -395,6 +404,7 @@ namespace S_project
             return port;
         }
 
+        //Waits while there is a connection
         public void Wait(int interval)
         {
             while (ServerConnection.Connected)

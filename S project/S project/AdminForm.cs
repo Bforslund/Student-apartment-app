@@ -79,6 +79,7 @@ namespace S_project
             UpdateTick(false);
         }
 
+        #region Helpers
         private void GoBackToLogin()
         {
             Login loginForm = new Login();
@@ -105,7 +106,9 @@ namespace S_project
         {
             new AddRuleAdmin(_server, _houseNumber, _mandatoryRules).Show();
         }
+        #endregion
 
+        #region Timer ticks
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
             UpdateTick();
@@ -145,7 +148,9 @@ namespace S_project
                 panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
             }
         }
+        #endregion
 
+        #region Working with rules
         private void UpdateMandatoryRulesLayout(MandatoryRules mr, bool showUpdate)
         {
             pnlMandatoryRules.SuspendLayout();
@@ -172,8 +177,8 @@ namespace S_project
             pnlHouseRules.ResumeLayout();
         }
 
-        private void AddHouseRule(HouseRule rule, int index) {
-           
+        private void AddHouseRule(HouseRule rule, int index) 
+        {           
             Button removeRuleButton = new Button();
             Label ruleLabel = new Label();
             Label ruleNumber = new Label();
@@ -244,11 +249,15 @@ namespace S_project
             UpdateMandatoryRulesLayout(_mandatoryRules, true);
             _server.UpdateMandatoryRules(_mandatoryRules);
         }
+        #endregion
 
+        #region Working with complaints
         private void AddComplaint(Complaint complaint)
         {  
             CheckBox box = new CheckBox();
             string complaintFiler;
+            string complaintBrokenBy;
+
             if(complaint.FiledBy == -1)
             {
                 complaintFiler = "Anonymous";
@@ -258,7 +267,16 @@ namespace S_project
                 complaintFiler = _user.StudentsInfo[complaint.FiledBy];
             }
 
-            box.Text = $"Filed by: {complaintFiler}; Complaint: {complaint.ComplaintText}";
+            if(complaint.BrokenBy == -1)
+            {
+                complaintBrokenBy = "Unknown";
+            }
+            else
+            {
+                complaintBrokenBy = _user.StudentsInfo[complaint.BrokenBy];
+            }
+
+            box.Text = $"Filed by: {complaintFiler}; Complaint: {complaint.ComplaintText} broken by {complaintBrokenBy}";
 
             box.Padding = new Padding(10, 0, 0, 0);
             box.Size = new Size(30, 30);
@@ -287,7 +305,9 @@ namespace S_project
 
             _server.UpdateComplaints(_complaints);
         }
+        #endregion
 
+        #region Chat
         private void AddMessages(ChatMessage msg) 
         {
             ucChatMessage chatMessage = new ucChatMessage(msg.MessageText, $"{msg.FiledDate}", _user.StudentsInfo[msg.FiledBy]);
@@ -333,7 +353,9 @@ namespace S_project
         {
             panelChat.VerticalScroll.Value = panelChat.VerticalScroll.Maximum;
         }
+        #endregion
 
+        #region New user cretion
         private void tbNewPassword_MouseDown(object sender, MouseEventArgs e)
         {
             tbPassword.PasswordChar = '\0';
@@ -369,5 +391,6 @@ namespace S_project
             else
                 MessageBox.Show("User with this login already exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);            
         }
+        #endregion
     }
 }

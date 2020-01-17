@@ -338,6 +338,7 @@ namespace Server
 
                         Users users = JsonConvert.DeserializeObject<Users>(File.ReadAllText(@$"data/house-{passwordChange.HouseNumber}/students.json"));
 
+                        //Searches for login of the user based on his ID
                         string login = users.AllUsers.Find(x => x.ID == passwordChange.ID).Login;
 
                         UserCheck userCheck = new UserCheck(login, passwordChange.CurrentPassword, passwordChange.HouseNumber);
@@ -351,6 +352,7 @@ namespace Server
                         {
                             foreach (var u in users.AllUsers)
                             {
+                                //Searches needed user and changes his password
                                 if (u.ID == user.ID)
                                 {
                                     u.Password = passwordChange.NewPassword;
@@ -376,6 +378,7 @@ namespace Server
 
                         newUser.ID = lastId;
 
+                        //If there are no users with the same login - proceed
                         if (users.AllUsers.Any(x => x.Login == newUser.Login))
                         {
                             SendMessage(package.Type, client, JsonConvert.SerializeObject(new ServerPackage(PackageType.USER_EXISTS, "", -1)));

@@ -1,4 +1,4 @@
-const int TempPort A1;
+const int TempPort = A1;
 const int NTC_R25 = 10000; // the resistance of the NTC at 25'C is 10k ohm
 const int NTC_MATERIAL_CONSTANT = 3950; // value provided by manufacturer
 
@@ -6,7 +6,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   
-  pinMode(A1, INPUT);
+  pinMode(TempPort, INPUT);
 }
 
 void loop() {
@@ -20,7 +20,7 @@ float get_temperature()
 {
   float temperature, resistance;
   int value;
-  value = analogRead(NTC);
+  value = analogRead(TempPort);
   resistance   = (float)value * NTC_R25 / (1024 - value); // Calculate resistance
   /* Calculate the temperature according to the following formula. */
   temperature  = 1 / (log(resistance / NTC_R25) / NTC_MATERIAL_CONSTANT + 1 / 298.15) - 273.15;

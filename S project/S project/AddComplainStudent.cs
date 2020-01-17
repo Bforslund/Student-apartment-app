@@ -65,7 +65,8 @@ namespace S_project
                 MessageBox.Show("Please select the broken rule");
             }
         }
-
+        
+        //Each set amount of time checks if there are new house rules or students
         private void timerUpdate_Tick(object sender, EventArgs e)
         {
             int approvedRules = 0;
